@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PlayerState, PlayerStateService } from '../player-state.service';
 
 @Component({
   selector: 'app-audio-player',
@@ -7,7 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AudioPlayerComponent implements OnInit {
 
-  constructor() { }
+  audioPlayer;
+  playerState: PlayerState;
+
+  constructor(playerState: PlayerStateService) {
+    this.audioPlayer = new Audio('');
+    this.playerState = playerState._playerState$.value;
+  }
+
+  play() {
+    this.audioPlayer.play();
+  }
+
+  pause() {
+    this.audioPlayer.pause();
+  }
+
+  next() {
+    console.log('Next called...');
+  }
+
+  prev() {
+    console.log('Prev called...');
+  }
 
   ngOnInit() {
   }
