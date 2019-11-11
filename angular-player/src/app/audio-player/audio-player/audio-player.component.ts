@@ -12,8 +12,9 @@ export class AudioPlayerComponent implements OnInit {
   playerState: PlayerState;
 
   constructor(playerState: PlayerStateService) {
-    this.audioPlayer = new Audio('');
     this.playerState = playerState._playerState$.value;
+    let currentAudio = playerState._playerState$.value.currentAudio;
+    this.audioPlayer = new Audio(playerState._playerState$.value.playList[currentAudio].sourceURL);
   }
 
   play() {

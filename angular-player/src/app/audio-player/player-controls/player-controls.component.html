@@ -1,1 +1,6 @@
-<p>player-controls works!</p>
+<button
+  [ngClass]="{'playing': !playerState.isPlaying}"
+  (click)="_handleClicControls()">
+  <i [ngClass]="['fas', 'fa-' + control]" ></i>
+  {{ control }}
+</button>

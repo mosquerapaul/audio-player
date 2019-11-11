@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { AudioPlayerModule } from './audio-player.module';
 
 
 export interface AudioElement {
@@ -10,6 +11,7 @@ export interface AudioElement {
 
 export interface PlayerState {
   playList: AudioElement[];
+  controlList: string[];
   currentAudio: number;
   currentTime: number;
   audioTitle: string;
@@ -28,6 +30,14 @@ export class PlayerStateService {
   constructor() {
     this._playerState$ = new BehaviorSubject ({
       playList: [],
+      controlList: [
+        'step-backward',
+        'backward',
+        'play',
+        'pause',
+        'forward',
+        'step-forward'
+      ],
       currentAudio: 0,
       currentTime: 0,
       audioTitle: '... Nothing is playing right now ...',

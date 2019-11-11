@@ -17,7 +17,7 @@ export class PlayListComponent implements OnInit {
 
   constructor(playerState: PlayerStateService) {
     this.playerState = playerState.playerState;
-    this.playList = playerState.getPlayList();
+    this.playList = playerState._playerState$.value.playList;
     console.log(this.playerState, '\n', this.playList);
   }
 

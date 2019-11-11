@@ -1,5 +1,25 @@
 
 <div id="skin">
   <app-play-list></app-play-list>
-  <app-player-controls></app-player-controls>
+
+  <article id="playing-info" class="container">
+    <p class="trackinfo">
+      <span id="audio-name">{{ playerState.audioTitle }}</span>
+      <span id="audio-duration">{{ audioPlayer.currentTime | async }} / {{ audioPlayer.duration | async }}</span>
+
+    </p>
+
+    <div id="progress-bar-background">
+      <div id="progress-bar"><i class="fas fa-compact-disc"></i></div>
+
+    </div>
+  </article>
+
+    <article>
+      <ul class="controls">
+        <app-player-controls
+          *ngFor="let control of playerState.controlList" [control]="control">
+        </app-player-controls>
+      </ul>
+    </article>
 </div>
