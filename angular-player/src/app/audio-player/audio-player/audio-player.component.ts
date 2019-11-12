@@ -78,7 +78,6 @@ export class AudioPlayerComponent implements OnInit {
         if (!this.playerState.isPlaying){
           this.playerStart(this.playerState.currentAudio);
         }
-        console.log('playing');
         break;
       case 'pause':
         this.playerPause();
