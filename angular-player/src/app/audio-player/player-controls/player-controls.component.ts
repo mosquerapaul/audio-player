@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PlayerStateService, PlayerState } from '../player-state.service';
+import { PlayerStateService, PlayerState } from '../services/player-state.service';
 
 @Component({
   selector: 'app-player-controls',
@@ -12,7 +12,7 @@ export class PlayerControlsComponent implements OnInit {
   @Input() control: string;
 
   constructor(playerState: PlayerStateService) {
-    this.playerState = playerState._playerState$.value;
+    this.playerState = playerState.playerState;
   }
 
   _handleClicControls() {

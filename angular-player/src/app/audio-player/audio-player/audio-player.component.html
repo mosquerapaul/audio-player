@@ -4,9 +4,8 @@
 
   <article id="playing-info" class="container">
     <p class="trackinfo">
-      <span id="audio-name">{{ playerState.audioTitle }}</span>
-      <span id="audio-duration">{{ audioPlayer.currentTime | async }} / {{ audioPlayer.duration | async }}</span>
-
+      <span id="audio-name">{{ (stateService.playerState$ | async).audioTitle }}</span>
+      <span id="audio-duration">{{ (stateService.playerState$ | async).currentTime }} / {{ (stateService.playerState$ | async).duration }}</span>
     </p>
 
     <div id="progress-bar-background">
@@ -15,11 +14,13 @@
     </div>
   </article>
 
-    <article>
-      <ul class="controls">
-        <app-player-controls
-          *ngFor="let control of playerState.controlList" [control]="control">
-        </app-player-controls>
-      </ul>
-    </article>
+  <article>
+    <ul class="controls">
+      <app-player-controls
+        *ngFor="let control of playerState.controlList"
+        [control]="control"
+        (click)="handleClickControl(control)">
+      </app-player-controls>
+    </ul>
+  </article>
 </div>

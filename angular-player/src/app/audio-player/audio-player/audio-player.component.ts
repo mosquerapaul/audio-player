@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { PlayerState, PlayerStateService } from '../player-state.service';
+import { Component, OnInit, Directive, HostListener } from '@angular/core';
+import { PlayerState, PlayerStateService, AudioElement } from '../services/player-state.service';
+
+
 
 @Component({
   selector: 'app-audio-player',
@@ -8,29 +10,92 @@ import { PlayerState, PlayerStateService } from '../player-state.service';
 })
 export class AudioPlayerComponent implements OnInit {
 
-  audioPlayer;
+  private audioPlayer;
   playerState: PlayerState;
+  stateService: PlayerStateService;
 
-  constructor(playerState: PlayerStateService) {
-    this.playerState = playerState._playerState$.value;
-    let currentAudio = playerState._playerState$.value.currentAudio;
-    this.audioPlayer = new Audio(playerState._playerState$.value.playList[currentAudio].sourceURL);
+  constructor(playerStateService: PlayerStateService) {
+    this.stateService = playerStateService;
+    this.playerState = playerStateService.playerState;
+    let currentAudio = playerStateService.playerState.currentAudio;
+    this.audioPlayer = new Audio(playerStateService.playerState.playList[currentAudio].sourceURL);
+    this.audioPlayer.addEventListener('timeupdate', (e) => {
+      console.log(e.path["0"].currentTime, );
+      this.stateService.updateCurrentTime(this.audioPlayer.currenTime);
+     });
   }
 
-  play() {
+
+
+  playerStart(index: number) {
+    if (!index) {
+      index = 0;
+    }
+    this.playerState.audioTitle = this.playerState.playList[index].audioTitle;
+    this.stateService.playerState.currentAudio = index;
+    this.audioPlayer.src = this.stateService.playerState$.value.playList[index].sourceURL;
+    //Needs to update playing info
     this.audioPlayer.play();
+    this.playerState.isPlaying = true;
+    console.log(this.playerState.audioTitle);
   }
 
-  pause() {
+  playerPause() {
     this.audioPlayer.pause();
+    this.playerState.isPlaying = false;
   }
 
-  next() {
+  fforware() {
+    console.log('Forware called...');
+  }
+
+  fbackward() {
+    console.log('Backware called...');
+  }
+
+  stepNext() {
+    //this.stateService.stateNextAudio();
+    console.log(this.playerState.currentAudio);
+
+
+    this.playerStart(this.stateService.playerState$.value.currentAudio);
     console.log('Next called...');
+    console.log(this.playerState.currentAudio, this.playerState.audioTitle);
   }
 
-  prev() {
+  stepPrev() {
     console.log('Prev called...');
+  }
+
+  timeUpdate() {
+    console.log(this.playerState.currentTime, this.audioPlayer);
+    this.stateService.updateCurrentTime(this.audioPlayer.currenTime);
+  }
+
+  handleClickControl(control: string) {
+    switch (control) {
+      case 'play':
+        if (!this.playerState.isPlaying){
+          this.playerStart(this.playerState.currentAudio);
+        }
+        console.log('playing');
+        break;
+      case 'pause':
+        this.playerPause();
+        break;
+      case 'step-forward':
+        this.stepNext();
+        break;
+      case 'step-backward':
+        this.stepPrev();
+        break;
+      case 'backward':
+        this.fbackward();
+        break;
+      case 'forward':
+        this.fforware();
+        break;
+    }
   }
 
   ngOnInit() {

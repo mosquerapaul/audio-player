@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AudioElement, PlayerStateService, PlayerState } from './../player-state.service';
+import { AudioElement, PlayerStateService, PlayerState } from '../services/player-state.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-play-list',
@@ -11,17 +12,22 @@ import { AudioElement, PlayerStateService, PlayerState } from './../player-state
 
 export class PlayListComponent implements OnInit {
 
-  playList: AudioElement[];
-
+  stateService: PlayerStateService;
+  playerState$: Observable<PlayerState>;
   playerState: PlayerState;
 
-  constructor(playerState: PlayerStateService) {
-    this.playerState = playerState.playerState;
-    this.playList = playerState._playerState$.value.playList;
-    console.log(this.playerState, '\n', this.playList);
+  playList: AudioElement[];
+
+  constructor(stateService: PlayerStateService) {
+    this.stateService = stateService;
   }
 
   ngOnInit() {
+    this.playerState$ = this.stateService.getState();
+    this.playerState$.subscribe(state => {
+      this.playerState = state;
+      this.playList = this.playerState.playList;
+    });
   }
 
 }

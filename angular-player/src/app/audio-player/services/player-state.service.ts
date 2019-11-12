@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { AudioPlayerModule } from './audio-player.module';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { AudioPlayerModule } from '../audio-player.module';
 
 
 export interface AudioElement {
@@ -17,6 +17,19 @@ export interface PlayerState {
   audioTitle: string;
   isPlaying: boolean;
 }
+
+const staticPlayList: AudioElement[] = [
+  {
+    sourceURL: './assets/02 Shoot to Thrill.mp3',
+    duration: 156,
+    audioTitle: 'Shoot to Thrill'
+  },
+  {
+    sourceURL: './assets/03 Back in Black.mp3',
+    duration: 230,
+    audioTitle: 'Back in Black'
+  }
+];
 
 
 @Injectable({
@@ -43,7 +56,7 @@ export class PlayerStateService {
       audioTitle: '... Nothing is playing right now ...',
       isPlaying: false
     });
-    this._playerState$.value.playList = this.getPlayList();
+    this.updatePlayList(staticPlayList);
   }
 
   get playerState$(): BehaviorSubject<PlayerState> {
@@ -59,23 +72,15 @@ export class PlayerStateService {
   }
 
   updateCurrentTime(newTime: number) {
-    this.playerState.currentTime = newTime;
+    this._playerState$.value.currentTime = newTime;
   }
 
-  getPlayList() {
-    console.log('Returning an static list for develop purposes...');
-    return [
-      {
-        sourceURL: './assets/mp3.mp3',
-        duration: 156,
-        audioTitle: 'Waiting for the sun'
-      },
-      {
-        sourceURL: './assets/mp3.mp3',
-        duration: 230,
-        audioTitle: 'audio'
-      }
-    ];
+  updatePlayList(newPlayList: AudioElement[]) {
+    this._playerState$.value.playList = newPlayList;
+  }
+
+  getState(): Observable<PlayerState> {
+    return this._playerState$.asObservable();
   }
 
   playAudio(index: number) {
