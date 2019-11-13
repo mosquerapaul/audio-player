@@ -10,27 +10,12 @@ export interface AudioElement {
 }
 
 export interface PlayerState {
-  playList: AudioElement[];
   controlList: string[];
   currentAudio: number;
   currentTime: number;
   audioTitle: string;
   isPlaying: boolean;
 }
-
-const staticPlayList: AudioElement[] = [
-  {
-    sourceURL: './assets/02 Shoot to Thrill.mp3',
-    duration: 156,
-    audioTitle: 'Shoot to Thrill'
-  },
-  {
-    sourceURL: './assets/03 Back in Black.mp3',
-    duration: 230,
-    audioTitle: 'Back in Black'
-  }
-];
-
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +27,6 @@ export class PlayerStateService {
 
   constructor() {
     this._playerState$ = new BehaviorSubject ({
-      playList: [],
       controlList: [
         'step-backward',
         'backward',
@@ -56,7 +40,6 @@ export class PlayerStateService {
       audioTitle: '... Nothing is playing right now ...',
       isPlaying: false
     });
-    this.updatePlayList(staticPlayList);
   }
 
   get playerState$(): BehaviorSubject<PlayerState> {
@@ -75,39 +58,35 @@ export class PlayerStateService {
     this._playerState$.value.currentTime = newTime;
   }
 
-  updatePlayList(newPlayList: AudioElement[]) {
-    this._playerState$.value.playList = newPlayList;
+  getCurrentAudio(): number {
+    return this._playerState$.value.currentAudio;
+  }
+
+  updateCurrentAudio(audio: AudioElement, currentAudio) {
+    this._playerState$.value.currentAudio = currentAudio;
+    this._playerState$.value.audioTitle = audio.audioTitle;
+    this._playerState$.value.currentTime = 0;
   }
 
   getState(): Observable<PlayerState> {
     return this._playerState$.asObservable();
   }
 
-  playAudio(index: number) {
+  playAudio(index: number, title: string) {
     if (!index) {
       index = 0;
     }
     this.playerState.currentAudio = index;
     this.playerState.currentTime = 0;
-    this.playerState.audioTitle = this.playerState.playList[index].audioTitle;
+    this.playerState.audioTitle = title;
   }
 
-  nextAudio() {
-    if (this.playerState.currentAudio === this.playerState.playList.length - 1) {
-      alert('Playlist end!!! Player stop');
-      this.playerState.isPlaying = false;
-    } else {
-      this.playAudio(this.playerState.currentAudio + 1);
-    }
+  nextAudio(title: string) {
+    this.playAudio(this.playerState.currentAudio + 1, title);
   }
 
-  prevAudio() {
-    if (this.playerState.currentAudio === 0) {
-      alert('Playlist end!!! Player stop');
-      this.playerState.isPlaying = false;
-    } else {
-      this.playAudio(this.playerState.currentAudio - 1);
-    }
+  prevAudio(title: string) {
+    this.playAudio(this.playerState.currentAudio - 1, title);
   }
 
 }

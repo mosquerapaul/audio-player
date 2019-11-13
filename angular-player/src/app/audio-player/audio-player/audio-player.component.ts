@@ -1,5 +1,7 @@
-import { Component, OnInit, Directive, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PlayerState, PlayerStateService, AudioElement } from '../services/player-state.service';
+import { PlayListService } from '../services/play-list.service';
+import { Observable, Subscription } from 'rxjs';
 
 
 
@@ -8,21 +10,24 @@ import { PlayerState, PlayerStateService, AudioElement } from '../services/playe
   templateUrl: './audio-player.component.html',
   styleUrls: ['./audio-player.component.scss']
 })
-export class AudioPlayerComponent implements OnInit {
+export class AudioPlayerComponent implements OnInit, OnDestroy {
 
-  private audioPlayer;
-  playerState: PlayerState;
+  private audioPlayer = new Audio();
+
   stateService: PlayerStateService;
+  playerState$: Observable<PlayerState>;
+  playerState: PlayerState;
 
-  constructor(playerStateService: PlayerStateService) {
+  playListService: PlayListService;
+  playList: AudioElement[] = [];
+  playList$: Observable<AudioElement[]>;
+
+  playListSubscription: Subscription;
+  playerStateSubscription: Subscription;
+
+  constructor(playerStateService: PlayerStateService, playListService: PlayListService) {
     this.stateService = playerStateService;
-    this.playerState = playerStateService.playerState;
-    let currentAudio = playerStateService.playerState.currentAudio;
-    this.audioPlayer = new Audio(playerStateService.playerState.playList[currentAudio].sourceURL);
-    this.audioPlayer.addEventListener('timeupdate', (e) => {
-      console.log(e.path["0"].currentTime, );
-      this.stateService.updateCurrentTime(this.audioPlayer.currenTime);
-     });
+    this.playListService = playListService;
   }
 
 
@@ -31,13 +36,13 @@ export class AudioPlayerComponent implements OnInit {
     if (!index) {
       index = 0;
     }
-    this.playerState.audioTitle = this.playerState.playList[index].audioTitle;
+    this.playerState.audioTitle = this.playList[index].audioTitle;
     this.stateService.playerState.currentAudio = index;
-    this.audioPlayer.src = this.stateService.playerState$.value.playList[index].sourceURL;
-    //Needs to update playing info
+    this.audioPlayer.src = this.playList[index].sourceURL;
+    // Needs to update playing info
     this.audioPlayer.play();
     this.playerState.isPlaying = true;
-    console.log(this.playerState.audioTitle);
+    console.log('PLaying now: ', this.playerState.audioTitle);
   }
 
   playerPause() {
@@ -54,7 +59,7 @@ export class AudioPlayerComponent implements OnInit {
   }
 
   stepNext() {
-    //this.stateService.stateNextAudio();
+    // this.stateService.stateNextAudio();
     console.log(this.playerState.currentAudio);
 
 
@@ -69,13 +74,13 @@ export class AudioPlayerComponent implements OnInit {
 
   timeUpdate() {
     console.log(this.playerState.currentTime, this.audioPlayer);
-    this.stateService.updateCurrentTime(this.audioPlayer.currenTime);
+    this.stateService.updateCurrentTime(this.audioPlayer.currentTime);
   }
 
   handleClickControl(control: string) {
     switch (control) {
       case 'play':
-        if (!this.playerState.isPlaying){
+        if (!this.playerState.isPlaying) {
           this.playerStart(this.playerState.currentAudio);
         }
         break;
@@ -98,6 +103,20 @@ export class AudioPlayerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.playerState$ = this.stateService.getState();
+    this.playerStateSubscription = this.playerState$.subscribe(state => {
+      this.playerState = state;
+    });
+
+    this.playList$ = this.playListService.getPlayList$();
+    this.playListSubscription = this.playList$.subscribe(list => {
+      this.playList = list;
+    });
+  }
+
+  ngOnDestroy() {
+    this.playListSubscription.unsubscribe();
+    this.playerStateSubscription.unsubscribe();
   }
 
 }

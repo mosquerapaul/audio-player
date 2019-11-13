@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 export interface AudioElement {
   sourceURL: string;
@@ -27,14 +27,14 @@ const staticPlayList: AudioElement[] = [
 export class PlayListService {
 
   playList: AudioElement[];
-  playList$: Subject<AudioElement[]>;
+  playList$: BehaviorSubject<AudioElement[]>;
 
   constructor() {
-    this.playList$ = new Subject<AudioElement[]>();
+    this.playList$ = new BehaviorSubject<AudioElement[]>([]);
     this.updatePlayList(staticPlayList);
   }
 
-  getPlayList(): Observable<AudioElement[]> {
+  getPlayList$(): Observable<AudioElement[]> {
     return this.playList$.asObservable();
   }
 
@@ -46,6 +46,10 @@ export class PlayListService {
   addAudio(audio: AudioElement) {
     this.playList.push(audio);
     this.playList$.next(this.playList);
+  }
+
+  getAudio(index: number) {
+    return this.playList$[index];
   }
 
 }
