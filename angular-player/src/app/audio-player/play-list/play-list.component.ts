@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PlayerStateService, PlayerState } from '../services/player-state.service';
 import { Observable } from 'rxjs';
-import { AudioElement, PlayListServiceService } from '../services/play-list-service.service';
+import { AudioElement, PlayListService } from '../services/play-list.service';
 
 @Component({
   selector: 'app-play-list',
@@ -17,11 +17,11 @@ export class PlayListComponent implements OnInit {
   playerState$: Observable<PlayerState>;
   playerState: PlayerState;
 
-  playListService: PlayListServiceService;
+  playListService: PlayListService;
   playList: AudioElement[] = [];
   playList$: Observable<AudioElement[]>;
 
-  constructor(stateService: PlayerStateService, playListService: PlayListServiceService) {
+  constructor(stateService: PlayerStateService, playListService: PlayListService) {
     this.stateService = stateService;
     this.playListService = playListService;
   }

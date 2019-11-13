@@ -24,7 +24,7 @@ const staticPlayList: AudioElement[] = [
 @Injectable({
   providedIn: 'root'
 })
-export class PlayListServiceService {
+export class PlayListService {
 
   playList: AudioElement[];
   playList$: Subject<AudioElement[]>;
