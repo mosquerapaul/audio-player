@@ -8,15 +8,11 @@ import { PlayerStateService, PlayerState } from '../services/player-state.servic
 })
 export class PlayerControlsComponent implements OnInit {
 
-  playerState: PlayerState;
+  stateService: PlayerState;
   @Input() control: string;
 
-  constructor(playerState: PlayerStateService) {
-    this.playerState = playerState.playerState;
-  }
-
-  _handleClicControls() {
-    console.log(this.control);
+  constructor(stateService: PlayerStateService) {
+    this.stateService = stateService.playerState;
   }
 
   ngOnInit() {
