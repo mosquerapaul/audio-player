@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PlayerStateService, PlayerState } from '../services/player-state.service';
+import { PlayerStateService, PlayerState, Control } from '../services/player-state.service';
 
 @Component({
   selector: 'app-player-controls',
@@ -9,7 +9,7 @@ import { PlayerStateService, PlayerState } from '../services/player-state.servic
 export class PlayerControlsComponent implements OnInit {
 
   stateService: PlayerState;
-  @Input() control: string;
+  @Input() control: Control;
 
   constructor(stateService: PlayerStateService) {
     this.stateService = stateService.playerState;

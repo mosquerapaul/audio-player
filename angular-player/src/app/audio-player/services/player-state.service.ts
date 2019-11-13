@@ -10,12 +10,24 @@ export interface AudioElement {
 }
 
 export interface PlayerState {
-  controlList: string[];
+  controlList: Control[];
   currentAudio: number;
   currentTime: number;
   audioTitle: string;
   isPlaying: boolean;
 }
+
+export interface Control {
+  name: string;
+  materialIcon: string;
+}
+
+const staticControls: Control[] = [
+  {name: 'step-backward', materialIcon: 'skip_previous'},
+  {name: 'play', materialIcon: 'play_circle_outline'},
+  {name: 'pause', materialIcon: 'pause_circle_outline'},
+  {name: 'step-forward', materialIcon: 'skip_next'}
+];
 
 @Injectable({
   providedIn: 'root'
@@ -27,12 +39,7 @@ export class PlayerStateService {
 
   constructor() {
     this._playerState$ = new BehaviorSubject ({
-      controlList: [
-        'step-backward',
-        'play',
-        'pause',
-        'step-forward'
-      ],
+      controlList: staticControls,
       currentAudio: 0,
       currentTime: 0,
       audioTitle: '... Nothing is playing right now ...',

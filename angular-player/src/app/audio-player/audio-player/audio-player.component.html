@@ -1,5 +1,5 @@
 
-<div id="skin">
+<div id="skin" class="container">
   <app-play-list></app-play-list>
 
   <article id="playing-info" class="container">
@@ -19,7 +19,7 @@
       <app-player-controls
         *ngFor="let control of playerState.controlList"
         [control]="control"
-        (click)="handleClickControl(control)">
+        (click)="handleClickControl(control.name)"><i class="material-icons">{{ control.materialIcon }}</i>
       </app-player-controls>
     </ul>
   </article>
