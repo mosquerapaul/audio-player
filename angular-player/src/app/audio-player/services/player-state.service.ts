@@ -29,10 +29,8 @@ export class PlayerStateService {
     this._playerState$ = new BehaviorSubject ({
       controlList: [
         'step-backward',
-        'backward',
         'play',
         'pause',
-        'forward',
         'step-forward'
       ],
       currentAudio: 0,
