@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { PlayerState, PlayerStateService, AudioElement } from '../services/player-state.service';
-import { PlayListService } from '../services/play-list.service';
+import { PlayerState, PlayerStateService, AudioElement } from './../services/player-state.service';
+import { PlayListService } from './../services/play-list.service';
 import { Observable, Subscription } from 'rxjs';
 
 
@@ -61,18 +61,18 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   }
 
   stepNext() {
-    if(this.playerState.currentAudio === this.playList.length - 1) {
+    if (this.playerState.currentAudio === this.playList.length - 1) {
       console.log('Not allowed!! This is the last audio...');
-    } else{
+    } else {
       const index = this.playerState.currentAudio + 1;
       this.playerStart(index);
     }
   }
 
   stepPrev() {
-    if(this.playerState.currentAudio === 0) {
+    if (this.playerState.currentAudio === 0) {
       console.log('Not allowed!! This is the first audio...');
-    } else{
+    } else {
       const index = this.playerState.currentAudio - 1;
       this.playerStart(index);
     }

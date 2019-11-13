@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AudioPlayerModule } from '../audio-player.module';
 
 
 export interface AudioElement {

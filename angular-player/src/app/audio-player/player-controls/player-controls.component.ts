@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PlayerStateService, PlayerState } from '../services/player-state.service';
+import { PlayerStateService, PlayerState } from './../services/player-state.service';
 
 @Component({
   selector: 'app-player-controls',
