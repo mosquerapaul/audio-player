@@ -1,5 +1,5 @@
-<button mat-icon-button
+<button mat-icon-button color = "accent"
   [id]="control.name"
   [ngClass]="{'playing': stateService.isPlaying, 'paused': !stateService.isPlaying}">
-  <i [ngClass]="['material-icons', control.name]" >{{ control.materialIcon }}</i>
+  <mat-icon [ngClass]="['material-icons', control.name]">{{ control.materialIcon }}</mat-icon>
 </button>

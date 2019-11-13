@@ -29,6 +29,10 @@ export class PlayListComponent implements OnInit, OnDestroy {
     this.playListService = playListService;
   }
 
+  playAudio(index: number) {
+    console.log('User ask to play audio id: ', index);
+  }
+
   ngOnInit() {
     this.playerState$ = this.stateService.getState();
     this.playerStateSubscription = this.playerState$.subscribe(state => {

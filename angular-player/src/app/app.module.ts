@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { AudioPlayerModule } from './audio-player/audio-player.module';
+
+import { MaterialModule } from './shared/material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -14,7 +17,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     AudioPlayerModule,
+    MaterialModule,
     BrowserAnimationsModule
+  ],
+  exports: [
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
