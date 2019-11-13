@@ -1,5 +1,5 @@
 <div id="playlist">
   <ol>
-    <li *ngFor="let audio of playerState.playList; let i = index" id="audio{{i}}">{{ audio.audioTitle }}<div class="audioButtons"></div></li>
+    <li *ngFor="let audio of playList; let i = index" id="audio{{i}}">{{ audio.audioTitle }}<div [ngClass]="'audioButtons'"></div></li>
   </ol>
 </div>
