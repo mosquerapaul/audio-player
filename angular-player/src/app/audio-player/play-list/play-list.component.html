@@ -1,1 +1,5 @@
-<p>play-list works!</p>
+<div id="playlist">
+  <ol>
+    <li *ngFor="let audio of playList; let i = index" id="audio{{i}}">{{ audio.audioTitle }}<div [ngClass]="'audioButtons'"></div></li>
+  </ol>
+</div>
