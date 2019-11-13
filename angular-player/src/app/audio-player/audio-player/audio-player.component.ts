@@ -36,10 +36,9 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     if (!index) {
       index = 0;
     }
-    this.playerState.audioTitle = this.playList[index].audioTitle;
-    this.stateService.playerState.currentAudio = index;
+    this.stateService.playingAudio(index, this.playList[index].audioTitle);
     this.audioPlayer.src = this.playList[index].sourceURL;
-    // Needs to update playing info
+    this.audioPlayer.playbackRate = 1;
     this.audioPlayer.play();
     this.playerState.isPlaying = true;
     console.log('PLaying now: ', this.playerState.audioTitle);
@@ -48,28 +47,35 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   playerPause() {
     this.audioPlayer.pause();
     this.playerState.isPlaying = false;
+    this.audioPlayer.playbackRate = 1;
   }
 
   fforware() {
     console.log('Forware called...');
+    this.audioPlayer.playbackRate = 5;
   }
 
   fbackward() {
     console.log('Backware called...');
+    this.audioPlayer.playbackRate = -5;
   }
 
   stepNext() {
-    // this.stateService.stateNextAudio();
-    console.log(this.playerState.currentAudio);
-
-
-    this.playerStart(this.stateService.playerState$.value.currentAudio);
-    console.log('Next called...');
-    console.log(this.playerState.currentAudio, this.playerState.audioTitle);
+    if(this.playerState.currentAudio === this.playList.length - 1) {
+      console.log('Not allowed!! This is the last audio...');
+    } else{
+      const index = this.playerState.currentAudio + 1;
+      this.playerStart(index);
+    }
   }
 
   stepPrev() {
-    console.log('Prev called...');
+    if(this.playerState.currentAudio === 0) {
+      console.log('Not allowed!! This is the first audio...');
+    } else{
+      const index = this.playerState.currentAudio - 1;
+      this.playerStart(index);
+    }
   }
 
   timeUpdate() {

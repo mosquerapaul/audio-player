@@ -72,21 +72,13 @@ export class PlayerStateService {
     return this._playerState$.asObservable();
   }
 
-  playAudio(index: number, title: string) {
+  playingAudio(index: number, title: string) {
     if (!index) {
       index = 0;
     }
     this.playerState.currentAudio = index;
     this.playerState.currentTime = 0;
     this.playerState.audioTitle = title;
-  }
-
-  nextAudio(title: string) {
-    this.playAudio(this.playerState.currentAudio + 1, title);
-  }
-
-  prevAudio(title: string) {
-    this.playAudio(this.playerState.currentAudio - 1, title);
   }
 
 }
