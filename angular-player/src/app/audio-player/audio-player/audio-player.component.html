@@ -20,6 +20,7 @@
     <app-player-controls
       *ngFor="let control of playerState.controlList"
       [control]="control"
+      [ngClass]="{'play-pause': control.name === 'play' || control.name === 'pause'}"
       (click)="handleClickControl(control.name)">
     </app-player-controls>
   </article>

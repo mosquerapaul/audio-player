@@ -27,6 +27,16 @@ article.controls {
   left: 0;
   right: 0;
   margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 60px);
+  grid-template-areas: "back play-pause next";
+  grid-column-gap: 5px;
+  text-align: center;
+}
+
+app-player-controls.play-pause {
+  grid-column: play-pause;
+  grid-row: 1;
 }
 
 .trackinfo{
