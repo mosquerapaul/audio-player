@@ -1,9 +1,11 @@
 
-<div id="skin" class="container">
-  <app-play-list></app-play-list>
+<mat-sidenav-container>
+  <article>
+    <app-play-list></app-play-list>
+  </article>
 
   <article [id]="'playing-info'">
-    <p [ngClass]="'trackinfo'">
+    <p [ngClass]="'track-info'">
       <span [id]="'audio-name'">{{ (stateService.playerState$ | async).audioTitle }}</span>
       <span [class]="'fill-remaining-space'"></span>
       <span [id]="'audio-duration'">{{ (stateService.playerState$ | async).currentTime | date:'mm:ss' }} / {{ (stateService.playerState$ | async).duration | date:'mm:ss' }}</span>
@@ -24,4 +26,4 @@
       (click)="handleClickControl(control.name)">
     </app-player-controls>
   </article>
-</div>
+</mat-sidenav-container>

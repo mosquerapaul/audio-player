@@ -2,26 +2,6 @@ app-audio-player {
   text-align: center;
 }
 
-.container {
-  position: absolute;
-  left: 0;
-  right: 0;
-  max-width: 1200px;
-  margin: auto;
-}
-
-#skin {
-  position: relative;
-  width: 600px;
-  height: fit-content;
-  max-height: 90%;
-  border:  4px solid;
-  border-radius: 5px;
-  margin: 50px auto;
-  padding: 10px 20px;
-  background-color: #888;
-}
-
 article.controls {
   width: fit-content;
   left: 0;
@@ -39,11 +19,12 @@ app-player-controls.play-pause {
   grid-row: 1;
 }
 
-.trackinfo{
+article#playing-info {
+  margin: 20px;
+}
+
+.track-info{
   display: flex;
-  width: 90%;
-  left: 0;
-  right: 0;
   margin: auto;
 }
 #progress-bar-container {

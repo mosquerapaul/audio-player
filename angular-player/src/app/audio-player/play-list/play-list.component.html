@@ -1,4 +1,4 @@
-<div id="playlist">
+<div id="play-list">
   <mat-nav-list color="primary">
     <mat-list-item @show-hide *ngFor="let audio of playList; let i = index" id="audio{{i}}">
         <a matLine href="/play/{{i}}">{{ audio.audioTitle }}</a>
