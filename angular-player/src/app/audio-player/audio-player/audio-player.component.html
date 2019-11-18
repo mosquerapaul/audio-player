@@ -6,7 +6,7 @@
     <p [ngClass]="'trackinfo'">
       <span [id]="'audio-name'">{{ (stateService.playerState$ | async).audioTitle }}</span>
       <span [class]="'fill-remaining-space'"></span>
-      <span [id]="'audio-duration'">{{ (stateService.playerState$ | async).currentTime }} / {{ (stateService.playerState$ | async).duration }}</span>
+      <span [id]="'audio-duration'">{{ (stateService.playerState$ | async).currentTime | date:'mm:ss' }} / {{ (stateService.playerState$ | async).duration | date:'mm:ss' }}</span>
     </p>
 
     <div [id]="'progress-bar-container'">

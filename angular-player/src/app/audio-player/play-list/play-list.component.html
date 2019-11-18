@@ -9,12 +9,7 @@
           <mat-icon color = "accent">edit</mat-icon>
         </a>
         <a mat-icon-button href="/delete/{{i}}">
-          <mat-icon color = "accent">delete_forever</mat-icon>
+          <mat-icon color = "warn">delete_forever</mat-icon>
         </a>
     </mat-list-item>
   </mat-nav-list>
-
-  <ol>
-    <li *ngFor="let audio of playList; let i = index" id="audio{{i}}">{{ audio.audioTitle }}<div [ngClass]="'audioButtons'"></div></li>
-  </ol>
-</div>

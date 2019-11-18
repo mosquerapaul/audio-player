@@ -13,6 +13,7 @@ export interface PlayerState {
   controlList: Control[];
   currentAudio: number;
   currentTime: number;
+  duration: number;
   audioTitle: string;
   isPlaying: boolean;
 }
@@ -42,6 +43,7 @@ export class PlayerStateService {
       controlList: staticControls,
       currentAudio: 0,
       currentTime: 268000,
+      duration: 0,
       audioTitle: '... Nothing is playing right now ...',
       isPlaying: false
     });
@@ -71,19 +73,11 @@ export class PlayerStateService {
     this._playerState$.value.currentAudio = currentAudio;
     this._playerState$.value.audioTitle = audio.audioTitle;
     this._playerState$.value.currentTime = 0;
+    this._playerState$.value.duration = audio.duration;
   }
 
   getState(): Observable<PlayerState> {
     return this._playerState$.asObservable();
-  }
-
-  playingAudio(index: number, title: string) {
-    if (!index) {
-      index = 0;
-    }
-    this.playerState.currentAudio = index;
-    this.playerState.currentTime = 0;
-    this.playerState.audioTitle = title;
   }
 
 }

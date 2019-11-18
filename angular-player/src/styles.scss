@@ -2,5 +2,17 @@
 
 @import '@angular/material/prebuilt-themes/purple-green.css';
 
-html, body { height: 100%; }
+$primary_color : #7B1FA2;
+$accent_color : #69F0AE;
+$warn_color : #F44336;
+
+html, body { height: 100%; color: $primary_color}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.accent {
+  color: $accent_color;
+}
+
+.warn {
+  color: $warn_color;
+}
