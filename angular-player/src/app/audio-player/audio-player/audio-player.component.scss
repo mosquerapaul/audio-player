@@ -1,12 +1,15 @@
+@import '../../../variables.scss';
+
 app-audio-player {
   text-align: center;
 }
 
 article.controls {
   width: fit-content;
+  height: fit-content;
   left: 0;
   right: 0;
-  margin: auto;
+  margin: 20px auto;
   display: grid;
   grid-template-columns: repeat(3, 60px);
   grid-template-areas: "back play-pause next";
@@ -21,6 +24,7 @@ app-player-controls.play-pause {
 
 article#playing-info {
   margin: 20px;
+  color: $accent_color;
 }
 
 .track-info{

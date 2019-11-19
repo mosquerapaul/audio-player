@@ -5,7 +5,7 @@
   </article>
 
   <article [id]="'playing-info'">
-    <p [ngClass]="'track-info'">
+    <p color = "accent" [ngClass]="['track-info', 'mat-h2']">
       <span [id]="'audio-name'">{{ (stateService.playerState$ | async).audioTitle }}</span>
       <span [class]="'fill-remaining-space'"></span>
       <span [id]="'audio-duration'">{{ (stateService.playerState$ | async).currentTime | date:'mm:ss' }} / {{ (stateService.playerState$ | async).duration | date:'mm:ss' }}</span>
@@ -18,7 +18,7 @@
     </div>
   </article>
 
-  <article [ngClass]="'controls'">
+  <article [ngClass]="['controls']">
     <app-player-controls
       *ngFor="let control of playerState.controlList"
       [control]="control"
