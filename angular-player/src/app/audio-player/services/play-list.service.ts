@@ -7,6 +7,7 @@ export interface AudioElement {
   duration: number;
   audioTitle: string;
   artist: string;
+  credits: string;
 }
 
 const staticPlayList: AudioElement[] = [
@@ -14,49 +15,57 @@ const staticPlayList: AudioElement[] = [
     sourceURL: './assets/bensound-allthat.mp3',
     duration: 146000,
     audioTitle: 'All that',
-    artist: 'Benjamin Tissot'
+    artist: 'Benjamin Tissot',
+    credits: 'Music from www.bensound.com'
   },
   {
     sourceURL: './assets/bensound-beyondtheline.mp3',
     duration: 186000,
     audioTitle: 'Beyond the line',
-    artist: 'Benjamin Tissot'
+    artist: 'Benjamin Tissot',
+    credits: 'Music from www.bensound.com'
   },
   {
     sourceURL: './assets/bensound-happyrock.mp3',
     duration: 105000,
     audioTitle: 'Happy rock',
-    artist: 'Benjamin Tissot'
+    artist: 'Benjamin Tissot',
+    credits: 'Music from www.bensound.com'
   },
   {
     sourceURL: './assets/bensound-highoctane.mp3',
     duration: 155000,
     audioTitle: 'High Octane',
-    artist: 'Benjamin Tissot'
+    artist: 'Benjamin Tissot',
+    credits: 'Music from www.bensound.com'
   },
   {
     sourceURL: './assets/bensound-hipjazz.mp3',
     duration: 164000,
     audioTitle: 'Hip Jazz',
-    artist: 'Benjamin Tissot'
+    artist: 'Benjamin Tissot',
+    credits: 'Music from www.bensound.com'
   },
   {
     sourceURL: './assets/bensound-jazzcomedy.mp3',
     duration: 193000,
     audioTitle: 'Jazz Comedy',
-    artist: 'Benjamin Tissot'
+    artist: 'Benjamin Tissot',
+    credits: 'Music from www.bensound.com'
   },
   {
     sourceURL: './assets/bensound-punky.mp3',
     duration: 126000,
     audioTitle: 'Punky',
-    artist: 'Benjamin Tissot'
+    artist: 'Benjamin Tissot',
+    credits: 'Music from www.bensound.com'
   },
   {
     sourceURL: './assets/bensound-rumble.mp3',
     duration: 154000,
     audioTitle: 'Rumble',
-    artist: 'Benjamin Tissot'
+    artist: 'Benjamin Tissot',
+    credits: 'Music from www.bensound.com'
   }
 ];
 
