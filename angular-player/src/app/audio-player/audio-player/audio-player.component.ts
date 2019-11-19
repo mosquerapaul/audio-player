@@ -36,9 +36,10 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     if (!index) {
       index = 0;
     }
-    this.stateService.playingAudio(index, this.playList[index].audioTitle);
+    this.stateService.updateCurrentAudio(this.playList[index], index);
     this.audioPlayer.src = this.playList[index].sourceURL;
     this.audioPlayer.playbackRate = 1;
+    this.audioPlayer.volume = 0.3;
     this.audioPlayer.play();
     this.playerState.isPlaying = true;
     console.log('PLaying now: ', this.playerState.audioTitle);

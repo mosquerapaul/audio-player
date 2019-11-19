@@ -1,8 +1,5 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# Audio files for test
-*.mp3
-
 # compiled output
 /dist
 /tmp

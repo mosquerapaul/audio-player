@@ -1,0 +1,55 @@
+@import '../../../variables.scss';
+
+app-audio-player {
+  text-align: center;
+}
+
+article.controls {
+  width: fit-content;
+  height: fit-content;
+  left: 0;
+  right: 0;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 60px);
+  grid-template-areas: "back play-pause next";
+  grid-column-gap: 5px;
+  text-align: center;
+}
+
+app-player-controls.play-pause {
+  grid-column: play-pause;
+  grid-row: 1;
+}
+
+article#playing-info {
+  margin: 20px;
+  color: $accent_color;
+}
+
+.track-info{
+  display: flex;
+  margin: auto;
+}
+#progress-bar-container {
+  position: relative;
+  height: 20px;
+}
+#progress-bar-background {
+  position: absolute;
+  top: 10px;
+}
+#progress-bar {
+  position: absolute;
+  width: 40%;
+  top: 0;
+  mat-icon {
+    position: absolute;
+    right: -12px;
+  }
+}
+.fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}

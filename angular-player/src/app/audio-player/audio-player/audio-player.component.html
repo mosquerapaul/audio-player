@@ -1,26 +1,29 @@
 
-<div id="skin">
-  <app-play-list></app-play-list>
+<mat-sidenav-container>
+  <article>
+    <app-play-list></app-play-list>
+  </article>
 
-  <article id="playing-info" class="container">
-    <p class="trackinfo">
-      <span id="audio-name">{{ (stateService.playerState$ | async).audioTitle }}</span>
-      <span id="audio-duration">{{ (stateService.playerState$ | async).currentTime }} / {{ (stateService.playerState$ | async).duration }}</span>
+  <article [id]="'playing-info'">
+    <p color = "accent" [ngClass]="['track-info', 'mat-h2']">
+      <span [id]="'audio-name'">{{ (stateService.playerState$ | async).audioTitle }}</span>
+      <span [class]="'fill-remaining-space'"></span>
+      <span [id]="'audio-duration'">{{ (stateService.playerState$ | async).currentTime | date:'mm:ss' }} / {{ (stateService.playerState$ | async).duration | date:'mm:ss' }}</span>
     </p>
 
-    <div id="progress-bar-background">
-      <div id="progress-bar"><i class="fas fa-compact-disc"></i></div>
-
+    <div [id]="'progress-bar-container'">
+      <mat-progress-bar [id]="'progress-bar-background'" mode="determinate" value="40">
+      </mat-progress-bar>
+      <div [id]="'progress-bar'"><mat-icon color="accent">album</mat-icon></div>
     </div>
   </article>
 
-  <article>
-    <ul class="controls">
-      <app-player-controls
-        *ngFor="let control of playerState.controlList"
-        [control]="control"
-        (click)="handleClickControl(control)">
-      </app-player-controls>
-    </ul>
+  <article [ngClass]="['controls']">
+    <app-player-controls
+      *ngFor="let control of playerState.controlList"
+      [control]="control"
+      [ngClass]="{'play-pause': control.name === 'play' || control.name === 'pause'}"
+      (click)="handleClickControl(control.name)">
+    </app-player-controls>
   </article>
-</div>
+</mat-sidenav-container>

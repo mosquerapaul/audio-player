@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import '@angular/material/prebuilt-themes/purple-green.css';
+@import "variables.scss";
+
+*[primary] {
+  color: $primary_color;
+}
+
+*[accent] {
+  color: $accent_color;
+}
+
+*[warn] {
+  color: $warn_color;
+}
+
+html, body { height: 100%; color: $primary_color}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+

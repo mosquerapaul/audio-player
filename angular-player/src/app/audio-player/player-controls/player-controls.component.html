@@ -1,5 +1,6 @@
-<button
-  [ngClass]="{'playing': stateService.isPlaying, 'paused': !stateService.isPlaying}">
-  <i [ngClass]="['fas', 'fa-' + control]" ></i>
-  {{ control }}
+<button @show-hide mat-icon-button color = "accent"
+  *ngIf="playerState.isPlaying && control.name !== 'play' || !playerState.isPlaying && control.name !== 'pause'"
+  [ngClass]="['md-48']"
+  [ngClass]="{'playing': playerState.isPlaying, 'paused': !playerState.isPlaying}">
+  <mat-icon [ngClass]="['material-icons', control.name, 'md-48']">{{ control.materialIcon }}</mat-icon>
 </button>
