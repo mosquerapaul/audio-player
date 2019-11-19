@@ -4,7 +4,8 @@
   "description": "Reproductor de audio desarrollado con Node.js y Angular io. ",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon app.js"
+    "test": "nodemon app.js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   },
   "homepage": "https://github.com/mosquerapaul/audio-player#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "normalize-port": "^1.0.0"
   }
 }
