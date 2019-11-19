@@ -1,0 +1,29 @@
+{
+  "name": "fapan",
+  "version": "1.0.0",
+  "description": "Reproductor de audio desarrollado con Node.js y Angular io. ",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mosquerapaul/audio-player.git"
+  },
+  "keywords": [
+    "Audio",
+    "player",
+    "Angular",
+    "Node",
+    "express"
+  ],
+  "author": "mosquerapaul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mosquerapaul/audio-player/issues"
+  },
+  "homepage": "https://github.com/mosquerapaul/audio-player#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

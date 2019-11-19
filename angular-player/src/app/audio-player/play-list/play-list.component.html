@@ -1,0 +1,17 @@
+<div id="play-list">
+  <mat-nav-list>
+    <mat-list-item @show-hide *ngFor="let audio of playList; let i = index"
+    id="audio{{i}}" title="{{ audio.credits }}">
+      <h2 matLine>{{ audio.audioTitle }}</h2>
+      <p matLine accent>Artist: {{ audio.artist }}</p>
+      <a mat-icon-button href="/play/{{i}}">
+        <mat-icon color = "accent">play_arrow</mat-icon>
+      </a>
+      <a mat-icon-button href="/edit/{{i}}">
+        <mat-icon color = "accent">edit</mat-icon>
+      </a>
+      <a mat-icon-button href="/delete/{{i}}">
+        <mat-icon color = "warn">delete_forever</mat-icon>
+        </a>
+    </mat-list-item>
+  </mat-nav-list>
