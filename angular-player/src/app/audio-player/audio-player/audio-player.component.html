@@ -1,6 +1,14 @@
 
 <mat-sidenav-container>
   <article>
+    <mat-toolbar>
+      <mat-toolbar-row [class]="'mat-h1'">
+        Audio Player - {{ (stateService.playerState$ | async).audioTitle }}
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </article>
+
+  <article [id]="'play-list'">
     <app-play-list></app-play-list>
   </article>
 

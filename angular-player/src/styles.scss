@@ -18,3 +18,34 @@
 html, body { height: 100%; color: $primary_color}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+// Distribución vertical
+
+mat-sidenav-content {
+  display: flex !important;
+  height: 100vh !important;
+  flex-direction: column;
+
+  article {
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: 50px;
+  }
+  article#play-list {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+}
+
+::-webkit-scrollbar{
+  width:5px;
+  margin-right: 5px;
+}
+::-webkit-scrollbar-track{
+  background:#69f0ae66;
+  border-radius:5px;
+  border: solid 3px transparent;
+}
+::-webkit-scrollbar-thumb{
+  background:#69f0ae;
+  border-radius:5px
+}

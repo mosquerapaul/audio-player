@@ -1,7 +1,7 @@
 /******************************************************************
  *                          EXPRESS ROUTER
  * Router realizado con Express
- * Se encargará principalmente de devolver los archivos de audio 
+ * Se encargará principalmente de devolver los archivos de audio
  * solicitados desde el reproductor.
 ******************************************************************/
 
