@@ -78,9 +78,10 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
       console.log('Not allowed!! This is the last audio...');
     } else {
       const index = this.playerState.currentAudio + 1;
-      this.stateService.updateCurrentAudio(this.playList[index], index);
-      if (this.playerState.isPlaying){
+      if (this.playerState.isPlaying) {
         this.playerStart(index);
+      } else {
+        this.stateService.updateCurrentAudio(this.playList[index], index);
       }
     }
   }
@@ -90,9 +91,10 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
       console.log('Not allowed!! This is the first audio...');
     } else {
       const index = this.playerState.currentAudio - 1;
-      this.stateService.updateCurrentAudio(this.playList[index], index);
-      if (this.playerState.isPlaying){
+      if (this.playerState.isPlaying) {
         this.playerStart(index);
+      } else {
+        this.stateService.updateCurrentAudio(this.playList[index], index);
       }
     }
   }
