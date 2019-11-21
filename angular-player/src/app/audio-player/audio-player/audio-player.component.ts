@@ -33,9 +33,18 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     });
   }
 
+  getProgress() {
+    return 100000 * this.playerState.currentTime / this.playerState.duration;
+  }
+
   updateCurrentTime() {
     this.stateService.updateCurrentTime(this.audioPlayer.currentTime);
-    console.log('time update event', this.playerState.currentTime);
+    console.log(
+      'time update event ',
+      '\n current time: ', this.playerState.currentTime,
+      '\n duration: ', this.playerState.duration,
+      '\n progress', this.getProgress);
+    return this.playerState.currentTime;
   }
 
   playerStart(index: number) {
