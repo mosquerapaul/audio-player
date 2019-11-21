@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PlayerState, PlayerStateService, AudioElement } from './../services/player-state.service';
 import { PlayListService } from './../services/play-list.service';
 import { Observable, Subscription } from 'rxjs';
+import { formatDate } from '@angular/common';
 
 
 
@@ -34,12 +35,14 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   }
 
   getProgress() {
-    return 100000 * this.playerState.currentTime / this.playerState.duration;
+    return 100 * this.playerState.currentTime / this.playerState.duration;
   }
 
   updateCurrentTime() {
     this.stateService.updateCurrentTime(this.audioPlayer.currentTime);
-    return this.playerState.currentTime;
+    return this.playerState.currentTime ?
+      formatDate(this.playerState.currentTime, 'mm:ss', 'en-US') :
+      '--:--';
   }
 
   playerStart(index: number) {

@@ -61,7 +61,7 @@ export class PlayerStateService {
   }
 
   updateCurrentTime(newTime: number) {
-    this._playerState$.value.currentTime = newTime;
+    this._playerState$.value.currentTime = newTime * 1000;
   }
 
   getCurrentAudio(): number {
