@@ -1,10 +1,8 @@
 
 <mat-sidenav-container>
   <article>
-    <mat-toolbar>
-      <mat-toolbar-row [class]="'mat-h1'">
+    <mat-toolbar [class]="'mat-h1'">
         Audio Player - {{ (stateService.playerState$ | async).audioTitle }}
-      </mat-toolbar-row>
     </mat-toolbar>
   </article>
 
@@ -16,13 +14,15 @@
     <p color = "accent" [ngClass]="['track-info', 'mat-h2']">
       <span [id]="'audio-name'">{{ (stateService.playerState$ | async).audioTitle }}</span>
       <span [class]="'fill-remaining-space'"></span>
-      <span [id]="'audio-duration'">{{ (stateService.playerState$ | async).currentTime | date:'mm:ss' }} / {{ (stateService.playerState$ | async).duration | date:'mm:ss' }}</span>
+      <span [id]="'audio-times'">
+        {{ (stateService.playerState$ | async).currentTime | date:'mm:ss' }} / {{ (stateService.playerState$ | async).duration | date:'mm:ss' }}
+      </span>
     </p>
 
     <div [id]="'progress-bar-container'">
-      <mat-progress-bar [id]="'progress-bar-background'" mode="determinate" value="40">
+      <mat-progress-bar [id]="'progress-bar-background'" mode="determinate" value="{{(getProgress())}}">
       </mat-progress-bar>
-      <div [id]="'progress-bar'"><mat-icon color="accent">album</mat-icon></div>
+      <div [id]="'progress-bar'" style="display:none;"><mat-icon color="accent">album</mat-icon></div>
     </div>
   </article>
 

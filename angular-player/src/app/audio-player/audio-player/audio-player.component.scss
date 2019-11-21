@@ -4,13 +4,10 @@ app-audio-player {
   text-align: center;
 }
 
-mat-toolbar .mat-h1{
-  margin: 16px 0;
-}
-
 article.controls {
   width: fit-content;
-  height: fit-content;
+  height: 50px;
+  overflow: hidden;
   left: 0;
   right: 0;
   margin: 20px auto;
