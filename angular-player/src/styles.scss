@@ -27,12 +27,13 @@ mat-sidenav-content {
 
   article {
     flex-grow: 0;
-    flex-shrink: 0;
-    height: 50px;
+    flex-shrink: 1;
+    height: fit-content;
   }
   article#play-list {
     flex-grow: 1;
     overflow-y: auto;
+    background-color: #FFFFFF08;
   }
 }
 

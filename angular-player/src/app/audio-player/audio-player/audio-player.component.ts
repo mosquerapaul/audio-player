@@ -28,26 +28,38 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   constructor(playerStateService: PlayerStateService, playListService: PlayListService) {
     this.stateService = playerStateService;
     this.playListService = playListService;
+    this.audioPlayer.addEventListener('timeupdate', (event) => {
+      this.updateCurrentTime();
+    });
   }
 
-
+  updateCurrentTime() {
+    this.stateService.updateCurrentTime(this.audioPlayer.currentTime);
+    console.log('time update event', this.playerState.currentTime);
+  }
 
   playerStart(index: number) {
     if (!index) {
       index = 0;
     }
-    this.stateService.updateCurrentAudio(this.playList[index], index);
-    this.audioPlayer.src = this.playList[index].sourceURL;
-    this.audioPlayer.playbackRate = 1;
-    this.audioPlayer.volume = 0.3;
-    this.audioPlayer.play();
+    const isPlayStarted = this.audioPlayer.currentTime > 0;
+    if (!isPlayStarted) {
+      this.audioPlayer.playbackRate = 1;
+      this.audioPlayer.volume = 0.3;
+    }
+    const hasAudioChanged = this.playerState.currentAudio !== index;
+    if (hasAudioChanged) {
+      this.stateService.updateCurrentAudio(this.playList[index], index);
+      this.audioPlayer.src = this.playList[index].sourceURL;
+    }
     this.playerState.isPlaying = true;
+    this.audioPlayer.play();
     console.log('PLaying now: ', this.playerState.audioTitle);
   }
 
   playerPause() {
-    this.audioPlayer.pause();
     this.playerState.isPlaying = false;
+    this.audioPlayer.pause();
     this.audioPlayer.playbackRate = 1;
   }
 
@@ -67,7 +79,7 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     } else {
       const index = this.playerState.currentAudio + 1;
       this.stateService.updateCurrentAudio(this.playList[index], index);
-      if(this.playerState.isPlaying){
+      if (this.playerState.isPlaying){
         this.playerStart(index);
       }
     }
@@ -79,7 +91,7 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     } else {
       const index = this.playerState.currentAudio - 1;
       this.stateService.updateCurrentAudio(this.playList[index], index);
-      if(this.playerState.isPlaying){
+      if (this.playerState.isPlaying){
         this.playerStart(index);
       }
     }
@@ -93,11 +105,15 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   handleClickControl(control: string) {
     switch (control) {
       case 'play':
-        if (!this.playerState.isPlaying) {
-          this.playerStart(this.playerState.currentAudio);
+        if (this.playerState.isPlaying) {
+          break;
         }
+        this.playerStart(this.playerState.currentAudio);
         break;
       case 'pause':
+        if (!this.playerState.isPlaying) {
+          break;
+        }
         this.playerPause();
         break;
       case 'step-forward':

@@ -40,8 +40,8 @@ export class PlayerStateService {
   constructor() {
     this._playerState$ = new BehaviorSubject ({
       controlList: staticControls,
-      currentAudio: 0,
-      currentTime: 268000,
+      currentAudio: null,
+      currentTime: 0,
       duration: 0,
       audioTitle: '... Nothing is playing right now ...',
       isPlaying: false
@@ -71,7 +71,6 @@ export class PlayerStateService {
   updateCurrentAudio(audio: AudioElement, currentAudio) {
     this._playerState$.value.currentAudio = currentAudio;
     this._playerState$.value.audioTitle = audio.audioTitle;
-    this._playerState$.value.currentTime = 0;
     this._playerState$.value.duration = audio.duration;
   }
 
