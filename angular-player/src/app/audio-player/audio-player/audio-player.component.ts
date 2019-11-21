@@ -39,11 +39,6 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
 
   updateCurrentTime() {
     this.stateService.updateCurrentTime(this.audioPlayer.currentTime);
-    console.log(
-      'time update event ',
-      '\n current time: ', this.playerState.currentTime,
-      '\n duration: ', this.playerState.duration,
-      '\n progress', this.getProgress);
     return this.playerState.currentTime;
   }
 
