@@ -45,7 +45,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n<mat-sidenav-container>\n  <article>\n    <mat-toolbar [class]=\"'mat-h1'\">\n        Audio Player - {{ (stateService.playerState$ | async).audioTitle }}\n    </mat-toolbar>\n  </article>\n\n  <article [id]=\"'play-list'\">\n    <app-play-list></app-play-list>\n  </article>\n\n  <article [id]=\"'playing-info'\">\n    <p color = \"accent\" [ngClass]=\"['track-info', 'mat-h2']\">\n      <span [id]=\"'audio-name'\">{{ (stateService.playerState$ | async).audioTitle }}</span>\n      <span [class]=\"'fill-remaining-space'\"></span>\n      <span [id]=\"'audio-times'\">\n        {{ (stateService.playerState$ | async).currentTime }} / {{ (stateService.playerState$ | async).duration | date:'mm:ss' }}\n      </span>\n    </p>\n\n    <div [id]=\"'progress-bar-container'\">\n      <mat-progress-bar [id]=\"'progress-bar-background'\" mode=\"determinate\" value=\"{{(getProgress())}}\">\n      </mat-progress-bar>\n      <div [id]=\"'progress-bar'\" style=\"display:none;\"><mat-icon color=\"accent\">album</mat-icon></div>\n    </div>\n  </article>\n\n  <article [ngClass]=\"['controls']\">\n    <app-player-controls\n      *ngFor=\"let control of playerState.controlList\"\n      [control]=\"control\"\n      [ngClass]=\"{'play-pause': control.name === 'play' || control.name === 'pause'}\"\n      (click)=\"handleClickControl(control.name)\">\n    </app-player-controls>\n  </article>\n</mat-sidenav-container>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("\n<mat-sidenav-container>\n  <article>\n    <mat-toolbar [class]=\"'mat-h1'\">\n        Audio Player - {{ (stateService.playerState$ | async).audioTitle }}\n    </mat-toolbar>\n  </article>\n\n  <article [id]=\"'play-list'\">\n    <app-play-list></app-play-list>\n  </article>\n\n  <article [id]=\"'playing-info'\">\n    <p color = \"accent\" [ngClass]=\"['track-info', 'mat-h2']\">\n      <span [id]=\"'audio-name'\">{{ (stateService.playerState$ | async).audioTitle }}</span>\n      <span [class]=\"'fill-remaining-space'\"></span>\n      <span [id]=\"'audio-times'\">\n        {{ (stateService.playerState$ | async).currentTime | date:'mm:ss' }} / {{ (stateService.playerState$ | async).duration | date:'mm:ss' }}\n      </span>\n    </p>\n\n    <div [id]=\"'progress-bar-container'\">\n      <mat-progress-bar [id]=\"'progress-bar-background'\" mode=\"determinate\" value=\"{{(getProgress())}}\">\n      </mat-progress-bar>\n      <div [id]=\"'progress-bar'\" style=\"display:none;\"><mat-icon color=\"accent\">album</mat-icon></div>\n    </div>\n  </article>\n\n  <article [ngClass]=\"['controls']\">\n    <app-player-controls\n      *ngFor=\"let control of playerState.controlList\"\n      [control]=\"control\"\n      [ngClass]=\"{'play-pause': control.name === 'play' || control.name === 'pause'}\"\n      (click)=\"handleClickControl(control.name)\">\n    </app-player-controls>\n  </article>\n</mat-sidenav-container>\n");
 
 /***/ }),
 
@@ -517,7 +517,7 @@ let AudioPlayerComponent = class AudioPlayerComponent {
         });
     }
     getProgress() {
-        return 100000 * this.playerState.currentTime / this.playerState.duration;
+        return 100 * this.playerState.currentTime / this.playerState.duration;
     }
     updateCurrentTime() {
         this.stateService.updateCurrentTime(this.audioPlayer.currentTime);
@@ -963,7 +963,7 @@ let PlayerStateService = class PlayerStateService {
         this._playerState$.next(newState);
     }
     updateCurrentTime(newTime) {
-        this._playerState$.value.currentTime = newTime;
+        this._playerState$.value.currentTime = newTime * 1000;
     }
     getCurrentAudio() {
         return this._playerState$.value.currentAudio;
