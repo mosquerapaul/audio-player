@@ -10,7 +10,7 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
         style({
           opacity: 0
         }),
-        animate('0.5s 1s', style({
+        animate('0.5s 0.5s', style({
           opacity: 1
         }))
       ]),
@@ -18,7 +18,7 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
         style({
           opacity: 1
         }),
-        animate('0.5s 1s', style({
+        animate('0.5s 0.5s', style({
           opacity: 0
         }))
       ]),
