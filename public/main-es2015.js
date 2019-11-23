@@ -58,7 +58,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div id=\"play-list\">\n  <mat-nav-list>\n    <mat-list-item @show-hide *ngFor=\"let audio of playList; let i = index\"\n    id=\"audio{{i}}\" title=\"{{ audio.credits }}\">\n      <h2 matLine>{{ audio.audioTitle }}</h2>\n      <p matLine accent>Artist: {{ audio.artist }}</p>\n      <a mat-icon-button href=\"/play/{{i}}\">\n        <mat-icon color = \"accent\">play_arrow</mat-icon>\n      </a>\n      <a mat-icon-button href=\"/edit/{{i}}\">\n        <mat-icon color = \"accent\">edit</mat-icon>\n      </a>\n      <a mat-icon-button href=\"/delete/{{i}}\">\n        <mat-icon color = \"warn\">delete_forever</mat-icon>\n        </a>\n    </mat-list-item>\n  </mat-nav-list>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div id=\"play-list\">\n  <mat-nav-list>\n    <mat-list-item @show-hide *ngFor=\"let audio of playList; let i = index\"\n    id=\"audio{{i}}\" title=\"{{ audio.credits }}\">\n      <h2 matLine>{{ audio.audioTitle }}</h2>\n      <p matLine accent>Artist: {{ audio.artist }}</p>\n      <p>{{ audio.duration | date:'mm:ss'}}</p>\n      <a mat-icon-button href=\"/play/{{i}}\">\n        <mat-icon color = \"accent\">play_arrow</mat-icon>\n      </a>\n      <a mat-icon-button href=\"/edit/{{i}}\">\n        <mat-icon color = \"accent\">edit</mat-icon>\n      </a>\n      <a mat-icon-button href=\"/delete/{{i}}\">\n        <mat-icon color = \"warn\">delete_forever</mat-icon>\n        </a>\n    </mat-list-item>\n  </mat-nav-list>\n");
 
 /***/ }),
 
@@ -482,7 +482,7 @@ AudioPlayerModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("app-audio-player {\n  text-align: center;\n}\n\narticle.controls {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  height: 50px;\n  overflow: hidden;\n  left: 0;\n  right: 0;\n  margin: 20px auto;\n  display: grid;\n  grid-template-columns: repeat(3, 60px);\n  grid-template-areas: \"back play-pause next\";\n  grid-column-gap: 5px;\n  text-align: center;\n}\n\napp-player-controls.play-pause {\n  grid-column: play-pause;\n  grid-row: 1;\n}\n\narticle#playing-info {\n  margin: 20px;\n  color: #69F0AE;\n}\n\n.track-info {\n  display: flex;\n  margin: auto;\n}\n\n#progress-bar-container {\n  position: relative;\n  height: 20px;\n}\n\n#progress-bar-background {\n  position: absolute;\n  top: 10px;\n}\n\n#progress-bar {\n  position: absolute;\n  width: 40%;\n  top: 0;\n}\n\n#progress-bar mat-icon {\n  position: absolute;\n  right: -12px;\n}\n\n.fill-remaining-space {\n  /* This fills the remaining space, by using flexbox.\n     Every toolbar row uses a flexbox row layout. */\n  flex: 1 1 auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3BhdWxtb3NxdWVyYS9qcy1wcm9qZWN0cy9hdWRpby1wbGF5ZXItbm9kZS1hbmd1bGFyL2FuZ3VsYXItcGxheWVyL3NyYy9hcHAvYXVkaW8tcGxheWVyL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIvYXVkaW8tcGxheWVyLmNvbXBvbmVudC5zY3NzIiwiL2hvbWUvcGF1bG1vc3F1ZXJhL2pzLXByb2plY3RzL2F1ZGlvLXBsYXllci1ub2RlLWFuZ3VsYXIvYW5ndWxhci1wbGF5ZXIvc3JjL3ZhcmlhYmxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0VBQ0Usa0JBQUE7QUNERjs7QURJQTtFQUNFLDBCQUFBO0VBQUEsdUJBQUE7RUFBQSxrQkFBQTtFQUNBLFlBQUE7RUFDQSxnQkFBQTtFQUNBLE9BQUE7RUFDQSxRQUFBO0VBQ0EsaUJBQUE7RUFDQSxhQUFBO0VBQ0Esc0NBQUE7RUFDQSwyQ0FBQTtFQUNBLG9CQUFBO0VBQ0Esa0JBQUE7QUNERjs7QURJQTtFQUNFLHVCQUFBO0VBQ0EsV0FBQTtBQ0RGOztBRElBO0VBQ0UsWUFBQTtFQUNBLGNFekJjO0FEd0JoQjs7QURJQTtFQUNFLGFBQUE7RUFDQSxZQUFBO0FDREY7O0FER0E7RUFDRSxrQkFBQTtFQUNBLFlBQUE7QUNBRjs7QURFQTtFQUNFLGtCQUFBO0VBQ0EsU0FBQTtBQ0NGOztBRENBO0VBQ0Usa0JBQUE7RUFDQSxVQUFBO0VBQ0EsTUFBQTtBQ0VGOztBRERFO0VBQ0Usa0JBQUE7RUFDQSxZQUFBO0FDR0o7O0FEQUE7RUFDRTttREFBQTtFQUVBLGNBQUE7QUNHRiIsImZpbGUiOiJzcmMvYXBwL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIvYXVkaW8tcGxheWVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCAnLi4vLi4vLi4vdmFyaWFibGVzLnNjc3MnO1xuXG5hcHAtYXVkaW8tcGxheWVyIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG5hcnRpY2xlLmNvbnRyb2xzIHtcbiAgd2lkdGg6IGZpdC1jb250ZW50O1xuICBoZWlnaHQ6IDUwcHg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICBtYXJnaW46IDIwcHggYXV0bztcbiAgZGlzcGxheTogZ3JpZDtcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMywgNjBweCk7XG4gIGdyaWQtdGVtcGxhdGUtYXJlYXM6IFwiYmFjayBwbGF5LXBhdXNlIG5leHRcIjtcbiAgZ3JpZC1jb2x1bW4tZ2FwOiA1cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuYXBwLXBsYXllci1jb250cm9scy5wbGF5LXBhdXNlIHtcbiAgZ3JpZC1jb2x1bW46IHBsYXktcGF1c2U7XG4gIGdyaWQtcm93OiAxO1xufVxuXG5hcnRpY2xlI3BsYXlpbmctaW5mbyB7XG4gIG1hcmdpbjogMjBweDtcbiAgY29sb3I6ICRhY2NlbnRfY29sb3I7XG59XG5cbi50cmFjay1pbmZve1xuICBkaXNwbGF5OiBmbGV4O1xuICBtYXJnaW46IGF1dG87XG59XG4jcHJvZ3Jlc3MtYmFyLWNvbnRhaW5lciB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgaGVpZ2h0OiAyMHB4O1xufVxuI3Byb2dyZXNzLWJhci1iYWNrZ3JvdW5kIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDEwcHg7XG59XG4jcHJvZ3Jlc3MtYmFyIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB3aWR0aDogNDAlO1xuICB0b3A6IDA7XG4gIG1hdC1pY29uIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgcmlnaHQ6IC0xMnB4O1xuICB9XG59XG4uZmlsbC1yZW1haW5pbmctc3BhY2Uge1xuICAvKiBUaGlzIGZpbGxzIHRoZSByZW1haW5pbmcgc3BhY2UsIGJ5IHVzaW5nIGZsZXhib3guXG4gICAgIEV2ZXJ5IHRvb2xiYXIgcm93IHVzZXMgYSBmbGV4Ym94IHJvdyBsYXlvdXQuICovXG4gIGZsZXg6IDEgMSBhdXRvO1xufVxuIiwiYXBwLWF1ZGlvLXBsYXllciB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuYXJ0aWNsZS5jb250cm9scyB7XG4gIHdpZHRoOiBmaXQtY29udGVudDtcbiAgaGVpZ2h0OiA1MHB4O1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBsZWZ0OiAwO1xuICByaWdodDogMDtcbiAgbWFyZ2luOiAyMHB4IGF1dG87XG4gIGRpc3BsYXk6IGdyaWQ7XG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDMsIDYwcHgpO1xuICBncmlkLXRlbXBsYXRlLWFyZWFzOiBcImJhY2sgcGxheS1wYXVzZSBuZXh0XCI7XG4gIGdyaWQtY29sdW1uLWdhcDogNXB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbmFwcC1wbGF5ZXItY29udHJvbHMucGxheS1wYXVzZSB7XG4gIGdyaWQtY29sdW1uOiBwbGF5LXBhdXNlO1xuICBncmlkLXJvdzogMTtcbn1cblxuYXJ0aWNsZSNwbGF5aW5nLWluZm8ge1xuICBtYXJnaW46IDIwcHg7XG4gIGNvbG9yOiAjNjlGMEFFO1xufVxuXG4udHJhY2staW5mbyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIG1hcmdpbjogYXV0bztcbn1cblxuI3Byb2dyZXNzLWJhci1jb250YWluZXIge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIGhlaWdodDogMjBweDtcbn1cblxuI3Byb2dyZXNzLWJhci1iYWNrZ3JvdW5kIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDEwcHg7XG59XG5cbiNwcm9ncmVzcy1iYXIge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHdpZHRoOiA0MCU7XG4gIHRvcDogMDtcbn1cbiNwcm9ncmVzcy1iYXIgbWF0LWljb24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHJpZ2h0OiAtMTJweDtcbn1cblxuLmZpbGwtcmVtYWluaW5nLXNwYWNlIHtcbiAgLyogVGhpcyBmaWxscyB0aGUgcmVtYWluaW5nIHNwYWNlLCBieSB1c2luZyBmbGV4Ym94LlxuICAgICBFdmVyeSB0b29sYmFyIHJvdyB1c2VzIGEgZmxleGJveCByb3cgbGF5b3V0LiAqL1xuICBmbGV4OiAxIDEgYXV0bztcbn0iLCJcbiRwcmltYXJ5X2NvbG9yIDogIzdCMUZBMjtcbiRhY2NlbnRfY29sb3IgOiAjNjlGMEFFO1xuJHdhcm5fY29sb3IgOiAjRjQ0MzM2O1xuXG4kYm9yZGVyX3JhZGl1c19kZWZhdWx0OiA1cHg7XG4iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("app-audio-player {\n  text-align: center;\n}\n\narticle mat-toolbar.mat-h1 {\n  white-space: normal;\n}\n\narticle.controls {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  height: 50px;\n  overflow: hidden;\n  left: 0;\n  right: 0;\n  margin: 20px auto;\n  display: grid;\n  grid-template-columns: repeat(3, 60px);\n  grid-template-areas: \"back play-pause next\";\n  grid-column-gap: 5px;\n  text-align: center;\n}\n\napp-player-controls.play-pause {\n  grid-column: play-pause;\n  grid-row: 1;\n}\n\narticle#playing-info {\n  margin: 20px auto;\n  color: #69F0AE;\n  width: 96vw;\n}\n\n.track-info {\n  display: flex;\n  margin: auto;\n}\n\n#progress-bar-container {\n  position: relative;\n  height: 20px;\n}\n\n#progress-bar-background {\n  position: absolute;\n  top: 10px;\n}\n\n#progress-bar {\n  position: absolute;\n  width: 40%;\n  top: 0;\n}\n\n#progress-bar mat-icon {\n  position: absolute;\n  right: -12px;\n}\n\n.fill-remaining-space {\n  /* This fills the remaining space, by using flexbox.\n     Every toolbar row uses a flexbox row layout. */\n  flex: 1 1 auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3BhdWxtb3NxdWVyYS9qcy1wcm9qZWN0cy9hdWRpby1wbGF5ZXItbm9kZS1hbmd1bGFyL2FuZ3VsYXItcGxheWVyL3NyYy9hcHAvYXVkaW8tcGxheWVyL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIvYXVkaW8tcGxheWVyLmNvbXBvbmVudC5zY3NzIiwiL2hvbWUvcGF1bG1vc3F1ZXJhL2pzLXByb2plY3RzL2F1ZGlvLXBsYXllci1ub2RlLWFuZ3VsYXIvYW5ndWxhci1wbGF5ZXIvc3JjL3ZhcmlhYmxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0VBQ0Usa0JBQUE7QUNERjs7QURJQTtFQUNFLG1CQUFBO0FDREY7O0FESUE7RUFDRSwwQkFBQTtFQUFBLHVCQUFBO0VBQUEsa0JBQUE7RUFDQSxZQUFBO0VBQ0EsZ0JBQUE7RUFDQSxPQUFBO0VBQ0EsUUFBQTtFQUNBLGlCQUFBO0VBQ0EsYUFBQTtFQUNBLHNDQUFBO0VBQ0EsMkNBQUE7RUFDQSxvQkFBQTtFQUNBLGtCQUFBO0FDREY7O0FESUE7RUFDRSx1QkFBQTtFQUNBLFdBQUE7QUNERjs7QURJQTtFQUNFLGlCQUFBO0VBQ0EsY0U3QmM7RUY4QmQsV0FBQTtBQ0RGOztBRElBO0VBQ0UsYUFBQTtFQUNBLFlBQUE7QUNERjs7QURHQTtFQUNFLGtCQUFBO0VBQ0EsWUFBQTtBQ0FGOztBREVBO0VBQ0Usa0JBQUE7RUFDQSxTQUFBO0FDQ0Y7O0FEQ0E7RUFDRSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxNQUFBO0FDRUY7O0FEREU7RUFDRSxrQkFBQTtFQUNBLFlBQUE7QUNHSjs7QURBQTtFQUNFO21EQUFBO0VBRUEsY0FBQTtBQ0dGIiwiZmlsZSI6InNyYy9hcHAvYXVkaW8tcGxheWVyL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0ICcuLi8uLi8uLi92YXJpYWJsZXMuc2Nzcyc7XG5cbmFwcC1hdWRpby1wbGF5ZXIge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbmFydGljbGUgbWF0LXRvb2xiYXIubWF0LWgxIHtcbiAgd2hpdGUtc3BhY2U6IG5vcm1hbDtcbn1cblxuYXJ0aWNsZS5jb250cm9scyB7XG4gIHdpZHRoOiBmaXQtY29udGVudDtcbiAgaGVpZ2h0OiA1MHB4O1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBsZWZ0OiAwO1xuICByaWdodDogMDtcbiAgbWFyZ2luOiAyMHB4IGF1dG87XG4gIGRpc3BsYXk6IGdyaWQ7XG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDMsIDYwcHgpO1xuICBncmlkLXRlbXBsYXRlLWFyZWFzOiBcImJhY2sgcGxheS1wYXVzZSBuZXh0XCI7XG4gIGdyaWQtY29sdW1uLWdhcDogNXB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbmFwcC1wbGF5ZXItY29udHJvbHMucGxheS1wYXVzZSB7XG4gIGdyaWQtY29sdW1uOiBwbGF5LXBhdXNlO1xuICBncmlkLXJvdzogMTtcbn1cblxuYXJ0aWNsZSNwbGF5aW5nLWluZm8ge1xuICBtYXJnaW46IDIwcHggYXV0bztcbiAgY29sb3I6ICRhY2NlbnRfY29sb3I7XG4gIHdpZHRoOiA5NnZ3O1xufVxuXG4udHJhY2staW5mb3tcbiAgZGlzcGxheTogZmxleDtcbiAgbWFyZ2luOiBhdXRvO1xufVxuI3Byb2dyZXNzLWJhci1jb250YWluZXIge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIGhlaWdodDogMjBweDtcbn1cbiNwcm9ncmVzcy1iYXItYmFja2dyb3VuZCB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiAxMHB4O1xufVxuI3Byb2dyZXNzLWJhciB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgd2lkdGg6IDQwJTtcbiAgdG9wOiAwO1xuICBtYXQtaWNvbiB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHJpZ2h0OiAtMTJweDtcbiAgfVxufVxuLmZpbGwtcmVtYWluaW5nLXNwYWNlIHtcbiAgLyogVGhpcyBmaWxscyB0aGUgcmVtYWluaW5nIHNwYWNlLCBieSB1c2luZyBmbGV4Ym94LlxuICAgICBFdmVyeSB0b29sYmFyIHJvdyB1c2VzIGEgZmxleGJveCByb3cgbGF5b3V0LiAqL1xuICBmbGV4OiAxIDEgYXV0bztcbn1cbiIsImFwcC1hdWRpby1wbGF5ZXIge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbmFydGljbGUgbWF0LXRvb2xiYXIubWF0LWgxIHtcbiAgd2hpdGUtc3BhY2U6IG5vcm1hbDtcbn1cblxuYXJ0aWNsZS5jb250cm9scyB7XG4gIHdpZHRoOiBmaXQtY29udGVudDtcbiAgaGVpZ2h0OiA1MHB4O1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBsZWZ0OiAwO1xuICByaWdodDogMDtcbiAgbWFyZ2luOiAyMHB4IGF1dG87XG4gIGRpc3BsYXk6IGdyaWQ7XG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDMsIDYwcHgpO1xuICBncmlkLXRlbXBsYXRlLWFyZWFzOiBcImJhY2sgcGxheS1wYXVzZSBuZXh0XCI7XG4gIGdyaWQtY29sdW1uLWdhcDogNXB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbmFwcC1wbGF5ZXItY29udHJvbHMucGxheS1wYXVzZSB7XG4gIGdyaWQtY29sdW1uOiBwbGF5LXBhdXNlO1xuICBncmlkLXJvdzogMTtcbn1cblxuYXJ0aWNsZSNwbGF5aW5nLWluZm8ge1xuICBtYXJnaW46IDIwcHggYXV0bztcbiAgY29sb3I6ICM2OUYwQUU7XG4gIHdpZHRoOiA5NnZ3O1xufVxuXG4udHJhY2staW5mbyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIG1hcmdpbjogYXV0bztcbn1cblxuI3Byb2dyZXNzLWJhci1jb250YWluZXIge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIGhlaWdodDogMjBweDtcbn1cblxuI3Byb2dyZXNzLWJhci1iYWNrZ3JvdW5kIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDEwcHg7XG59XG5cbiNwcm9ncmVzcy1iYXIge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHdpZHRoOiA0MCU7XG4gIHRvcDogMDtcbn1cbiNwcm9ncmVzcy1iYXIgbWF0LWljb24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHJpZ2h0OiAtMTJweDtcbn1cblxuLmZpbGwtcmVtYWluaW5nLXNwYWNlIHtcbiAgLyogVGhpcyBmaWxscyB0aGUgcmVtYWluaW5nIHNwYWNlLCBieSB1c2luZyBmbGV4Ym94LlxuICAgICBFdmVyeSB0b29sYmFyIHJvdyB1c2VzIGEgZmxleGJveCByb3cgbGF5b3V0LiAqL1xuICBmbGV4OiAxIDEgYXV0bztcbn0iLCJcbiRwcmltYXJ5X2NvbG9yIDogIzdCMUZBMjtcbiRhY2NlbnRfY29sb3IgOiAjNjlGMEFFO1xuJHdhcm5fY29sb3IgOiAjRjQ0MzM2O1xuXG4kYm9yZGVyX3JhZGl1c19kZWZhdWx0OiA1cHg7XG4iXX0= */");
 
 /***/ }),
 
@@ -529,16 +529,16 @@ let AudioPlayerComponent = class AudioPlayerComponent {
         if (!index) {
             index = 0;
         }
+        // Listening to audio end
+        this.audioPlayer.addEventListener('ended', (event) => {
+            this.stepNext(); // If audio ends player steps into next audio
+        });
+        // If the audio isn't started then init playback rate and volume
         const isPlayStarted = this.audioPlayer.currentTime > 0;
         if (!isPlayStarted) {
-            this.audioPlayer.playbackRate = 1;
-            this.audioPlayer.volume = 0.3;
+            this.initPlayer(index);
         }
-        const hasAudioChanged = this.playerState.currentAudio !== index;
-        if (hasAudioChanged) {
-            this.stateService.updateCurrentAudio(this.playList[index], index);
-            this.audioPlayer.src = this.playList[index].sourceURL;
-        }
+        // Start playing
         this.playerState.isPlaying = true;
         this.audioPlayer.play();
         console.log('PLaying now: ', this.playerState.audioTitle);
@@ -547,26 +547,21 @@ let AudioPlayerComponent = class AudioPlayerComponent {
         this.playerState.isPlaying = false;
         this.audioPlayer.pause();
         this.audioPlayer.playbackRate = 1;
-    }
-    fforware() {
-        console.log('Forware called...');
-        this.audioPlayer.playbackRate = 5;
-    }
-    fbackward() {
-        console.log('Backware called...');
-        this.audioPlayer.playbackRate = -5;
+        this.audioPlayer.removeEventListener('ended', (event) => {
+            console.log('Not listening to end of reproduction');
+        });
     }
     stepNext() {
         if (this.playerState.currentAudio === this.playList.length - 1) {
             console.log('Not allowed!! This is the last audio...');
         }
         else {
+            this.playerState.currentAudio = this.playerState.currentAudio === null ? -1 : this.playerState.currentAudio;
             const index = this.playerState.currentAudio + 1;
+            this.stateService.updateCurrentAudio(this.playList[index], index);
+            this.audioPlayer.src = this.playList[index].sourceURL;
             if (this.playerState.isPlaying) {
                 this.playerStart(index);
-            }
-            else {
-                this.stateService.updateCurrentAudio(this.playList[index], index);
             }
         }
     }
@@ -581,6 +576,7 @@ let AudioPlayerComponent = class AudioPlayerComponent {
             }
             else {
                 this.stateService.updateCurrentAudio(this.playList[index], index);
+                this.audioPlayer.src = this.playList[index].sourceURL;
             }
         }
     }
@@ -608,13 +604,13 @@ let AudioPlayerComponent = class AudioPlayerComponent {
             case 'step-backward':
                 this.stepPrev();
                 break;
-            case 'backward':
-                this.fbackward();
-                break;
-            case 'forward':
-                this.fforware();
-                break;
         }
+    }
+    initPlayer(index) {
+        this.audioPlayer.playbackRate = 1;
+        this.audioPlayer.volume = 0.3;
+        this.stateService.updateCurrentAudio(this.playList[index], index);
+        this.audioPlayer.src = this.playList[index].sourceURL;
     }
     ngOnInit() {
         this.playerState$ = this.stateService.getState();
@@ -627,8 +623,12 @@ let AudioPlayerComponent = class AudioPlayerComponent {
         });
     }
     ngOnDestroy() {
-        this.playListSubscription.unsubscribe();
-        this.playerStateSubscription.unsubscribe();
+        // If the audio isn't started then init playback rate and volume
+        const isPlayStarted = this.audioPlayer.currentTime > 0;
+        if (!isPlayStarted) {
+            this.playListSubscription.unsubscribe();
+            this.playerStateSubscription.unsubscribe();
+        }
     }
 };
 AudioPlayerComponent.ctorParameters = () => [
@@ -793,7 +793,7 @@ PlayerControlsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                     Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({
                         opacity: 0
                     }),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["animate"])('0.5s 0.5s', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["animate"])('0.5s 0.3s', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({
                         opacity: 1
                     }))
                 ]),
@@ -801,7 +801,7 @@ PlayerControlsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                     Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({
                         opacity: 1
                     }),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["animate"])('0.5s 0.5s', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["animate"])('0.5s 0s', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({
                         opacity: 0
                     }))
                 ]),
@@ -969,12 +969,23 @@ let PlayerStateService = class PlayerStateService {
         return this._playerState$.value.currentAudio;
     }
     updateCurrentAudio(audio, currentAudio) {
-        this._playerState$.value.currentAudio = currentAudio;
-        this._playerState$.value.audioTitle = audio.audioTitle;
-        this._playerState$.value.duration = audio.duration;
+        this.playerState.currentAudio = currentAudio;
+        this.playerState.audioTitle = audio.audioTitle;
+        this.playerState.duration = audio.duration;
+        this.playerState.currentTime = 0;
     }
     getState() {
         return this._playerState$.asObservable();
+    }
+    clearState() {
+        this.playerState = {
+            controlList: staticControls,
+            currentAudio: null,
+            currentTime: 0,
+            duration: 0,
+            audioTitle: '... Nothing is playing right now ...',
+            isPlaying: false
+        };
     }
 };
 PlayerStateService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

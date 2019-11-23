@@ -4,6 +4,10 @@ app-audio-player {
   text-align: center;
 }
 
+article mat-toolbar.mat-h1 {
+  white-space: normal;
+}
+
 article.controls {
   width: fit-content;
   height: 50px;
@@ -24,8 +28,9 @@ app-player-controls.play-pause {
 }
 
 article#playing-info {
-  margin: 20px;
+  margin: 20px auto;
   color: $accent_color;
+  width: 96vw;
 }
 
 .track-info{

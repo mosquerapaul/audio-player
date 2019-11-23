@@ -4,6 +4,7 @@
     id="audio{{i}}" title="{{ audio.credits }}">
       <h2 matLine>{{ audio.audioTitle }}</h2>
       <p matLine accent>Artist: {{ audio.artist }}</p>
+      <p>{{ audio.duration | date:'mm:ss'}}</p>
       <a mat-icon-button href="/play/{{i}}">
         <mat-icon color = "accent">play_arrow</mat-icon>
       </a>
