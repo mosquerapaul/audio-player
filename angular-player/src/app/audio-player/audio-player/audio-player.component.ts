@@ -49,16 +49,19 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     if (!index) {
       index = 0;
     }
+
+    // Listening to audio end
+    this.audioPlayer.addEventListener('ended', (event) => {
+      this.stepNext(); // If audio ends player steps into next audio
+    });
+
+    // If the audio isn't started then init playback rate and volume
     const isPlayStarted = this.audioPlayer.currentTime > 0;
     if (!isPlayStarted) {
-      this.audioPlayer.playbackRate = 1;
-      this.audioPlayer.volume = 0.3;
+      this.initPlayer(index);
     }
-    const hasAudioChanged = this.playerState.currentAudio !== index;
-    if (hasAudioChanged) {
-      this.stateService.updateCurrentAudio(this.playList[index], index);
-      this.audioPlayer.src = this.playList[index].sourceURL;
-    }
+
+    // Start playing
     this.playerState.isPlaying = true;
     this.audioPlayer.play();
     console.log('PLaying now: ', this.playerState.audioTitle);
@@ -68,27 +71,21 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     this.playerState.isPlaying = false;
     this.audioPlayer.pause();
     this.audioPlayer.playbackRate = 1;
-  }
-
-  fforware() {
-    console.log('Forware called...');
-    this.audioPlayer.playbackRate = 5;
-  }
-
-  fbackward() {
-    console.log('Backware called...');
-    this.audioPlayer.playbackRate = -5;
+    this.audioPlayer.removeEventListener('ended', (event) => {
+      console.log('Not listening to end of reproduction');
+    });
   }
 
   stepNext() {
     if (this.playerState.currentAudio === this.playList.length - 1) {
       console.log('Not allowed!! This is the last audio...');
     } else {
+      this.playerState.currentAudio = this.playerState.currentAudio === null ? -1 : this.playerState.currentAudio;
       const index = this.playerState.currentAudio + 1;
+      this.stateService.updateCurrentAudio(this.playList[index], index);
+      this.audioPlayer.src = this.playList[index].sourceURL;
       if (this.playerState.isPlaying) {
         this.playerStart(index);
-      } else {
-        this.stateService.updateCurrentAudio(this.playList[index], index);
       }
     }
   }
@@ -102,6 +99,7 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
         this.playerStart(index);
       } else {
         this.stateService.updateCurrentAudio(this.playList[index], index);
+        this.audioPlayer.src = this.playList[index].sourceURL;
       }
     }
   }
@@ -131,13 +129,14 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
       case 'step-backward':
         this.stepPrev();
         break;
-      case 'backward':
-        this.fbackward();
-        break;
-      case 'forward':
-        this.fforware();
-        break;
     }
+  }
+
+  initPlayer(index) {
+    this.audioPlayer.playbackRate = 1;
+    this.audioPlayer.volume = 0.3;
+    this.stateService.updateCurrentAudio(this.playList[index], index);
+    this.audioPlayer.src = this.playList[index].sourceURL;
   }
 
   ngOnInit() {
@@ -153,8 +152,11 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.playListSubscription.unsubscribe();
-    this.playerStateSubscription.unsubscribe();
+    // If the audio isn't started then init playback rate and volume
+    const isPlayStarted = this.audioPlayer.currentTime > 0;
+    if (!isPlayStarted) {
+      this.playListSubscription.unsubscribe();
+      this.playerStateSubscription.unsubscribe();
+    }
   }
-
 }

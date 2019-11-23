@@ -69,13 +69,25 @@ export class PlayerStateService {
   }
 
   updateCurrentAudio(audio: AudioElement, currentAudio) {
-    this._playerState$.value.currentAudio = currentAudio;
-    this._playerState$.value.audioTitle = audio.audioTitle;
-    this._playerState$.value.duration = audio.duration;
+    this.playerState.currentAudio = currentAudio;
+    this.playerState.audioTitle = audio.audioTitle;
+    this.playerState.duration = audio.duration;
+    this.playerState.currentTime = 0;
   }
 
   getState(): Observable<PlayerState> {
     return this._playerState$.asObservable();
+  }
+
+  clearState() {
+    this.playerState = {
+      controlList: staticControls,
+      currentAudio: null,
+      currentTime: 0,
+      duration: 0,
+      audioTitle: '... Nothing is playing right now ...',
+      isPlaying: false
+    };
   }
 
 }
