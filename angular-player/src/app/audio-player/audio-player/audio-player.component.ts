@@ -152,11 +152,7 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // If the audio isn't started then init playback rate and volume
-    const isPlayStarted = this.audioPlayer.currentTime > 0;
-    if (!isPlayStarted) {
-      this.playListSubscription.unsubscribe();
-      this.playerStateSubscription.unsubscribe();
-    }
+    this.playListSubscription.unsubscribe();
+    this.playerStateSubscription.unsubscribe();
   }
 }
