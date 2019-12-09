@@ -33,3 +33,6 @@ typings/
 
 # Output of 'npm pack'
 *.tgz
+
+# Original logo
+*.xcf
