@@ -5,13 +5,16 @@
       <h2 matLine>{{ audio.audioTitle }}</h2>
       <p matLine accent>Artist: {{ audio.artist }}</p>
       <p>{{ audio.duration | date:'mm:ss'}}</p>
-      <a mat-icon-button href="/play/{{i}}">
+      <a mat-icon-button
+        (click)= "playAudio(i)">
         <mat-icon color = "accent">play_arrow</mat-icon>
       </a>
-      <a mat-icon-button href="/edit/{{i}}">
+      <a mat-icon-button
+        (click)= "editAudio(i)">
         <mat-icon color = "accent">edit</mat-icon>
       </a>
-      <a mat-icon-button href="/delete/{{i}}">
+      <a mat-icon-button
+        (click)= "deleteAudio(i)">
         <mat-icon color = "warn">delete_forever</mat-icon>
         </a>
     </mat-list-item>

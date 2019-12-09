@@ -1,4 +1,5 @@
 <button @show-hide mat-icon-button color = "accent"
+  [disabled]="!playerState.isPlaying && control.name !== 'play' && control.name !== 'pause'"
   *ngIf="playerState.isPlaying && control.name !== 'play' || !playerState.isPlaying && control.name !== 'pause'"
   [ngClass]="['md-48']"
   [ngClass]="{'playing': playerState.isPlaying, 'paused': !playerState.isPlaying}">
