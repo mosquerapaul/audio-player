@@ -14,6 +14,7 @@ export interface PlayerState {
   progress: number;
   audioTitle: string;
   isPlaying: boolean;
+  isLastAudio: boolean;
 }
 
 export interface Control {

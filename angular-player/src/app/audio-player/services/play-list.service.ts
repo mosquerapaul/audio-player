@@ -3,13 +3,6 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { AudioElement } from './../model/model-interface';
 
-export interface AudioElement {
-  sourceURL: string;
-  duration: number;
-  audioTitle: string;
-  artist: string;
-  credits: string;
-}
 
 const staticPlayList: AudioElement[] = [
   {

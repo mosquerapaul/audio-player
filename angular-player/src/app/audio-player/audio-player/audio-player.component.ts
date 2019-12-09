@@ -76,10 +76,12 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
 
   stepNext() {
     if (this.playerState.currentAudio === this.playList.length - 1) {
+      this.playerState.isLastAudio = true;
       console.log('Not allowed!! This is the last audio...');
     } else {
       this.playerState.currentAudio = this.playerState.currentAudio === null ? -1 : this.playerState.currentAudio;
       const index = this.playerState.currentAudio + 1;
+      this.playerState.isLastAudio = index === this.playList.length - 1;
       this.stateService.updateCurrentAudio(this.playList[index], index);
       this.audioPlayer.src = this.playList[index].sourceURL;
       if (this.playerState.isPlaying) {
@@ -97,13 +99,13 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
         this.playerStart(index);
       } else {
         this.stateService.updateCurrentAudio(this.playList[index], index);
+        this.playerState.isLastAudio = index === this.playList.length - 1;
         this.audioPlayer.src = this.playList[index].sourceURL;
       }
     }
   }
 
   timeUpdate() {
-    console.log(this.playerState.currentTime, this.audioPlayer);
     this.stateService.updateCurrentTime(this.audioPlayer.currentTime);
   }
 
@@ -131,9 +133,13 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   }
 
   initPlayer(index) {
+    this.stateService.initPlayer(index);
+    this.stateService.updateCurrentAudio(this.playList[index], index);
+    this.playerState.isLastAudio = index === this.playList.length - 1;
+
+    // Iniciación movida a Player State
     this.audioPlayer.playbackRate = 1;
     this.audioPlayer.volume = 0.3;
-    this.stateService.updateCurrentAudio(this.playList[index], index);
     this.audioPlayer.src = this.playList[index].sourceURL;
   }
 
