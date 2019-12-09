@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subject, BehaviorSubject } from 'rxjs';
+import { AudioElement } from './../model/model-interface';
 
 export interface AudioElement {
   sourceURL: string;

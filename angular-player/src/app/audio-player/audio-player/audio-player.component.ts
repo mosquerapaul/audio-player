@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { PlayerState, PlayerStateService, AudioElement } from './../services/player-state.service';
+import { PlayerState, AudioElement } from './../model/model-interface';
 import { PlayListService } from './../services/play-list.service';
-import { Observable, Subscription } from 'rxjs';
+import { PlayerStateService } from './../services/player-state.service';
+import { Observable, Subscription, from } from 'rxjs';
 import { formatDate } from '@angular/common';
 
 
@@ -29,8 +30,13 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   constructor(playerStateService: PlayerStateService, playListService: PlayListService) {
     this.stateService = playerStateService;
     this.playListService = playListService;
+    // Listening to current time changes
     this.audioPlayer.addEventListener('timeupdate', (event) => {
       this.updateCurrentTime();
+    });
+    // Listening to audio end
+    this.audioPlayer.addEventListener('ended', (event) => {
+      this.stepNext(); // If audio ends player steps into next audio
     });
   }
 
@@ -50,14 +56,9 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
       index = 0;
     }
 
-    // Listening to audio end
-    this.audioPlayer.addEventListener('ended', (event) => {
-      this.stepNext(); // If audio ends player steps into next audio
-    });
-
     // If the audio isn't started then init playback rate and volume
     const isPlayStarted = this.audioPlayer.currentTime > 0;
-    if (!isPlayStarted) {
+    if (!isPlayStarted || index !== this.playerState.currentAudio) {
       this.initPlayer(index);
     }
 
@@ -71,9 +72,6 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     this.playerState.isPlaying = false;
     this.audioPlayer.pause();
     this.audioPlayer.playbackRate = 1;
-    this.audioPlayer.removeEventListener('ended', (event) => {
-      console.log('Not listening to end of reproduction');
-    });
   }
 
   stepNext() {

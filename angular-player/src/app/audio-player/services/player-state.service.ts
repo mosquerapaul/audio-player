@@ -1,26 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AudioElement, PlayerState, Control } from './../model/model-interface';
 
-
-export interface AudioElement {
-  sourceURL: string;
-  duration: number;
-  audioTitle: string;
-}
-
-export interface PlayerState {
-  controlList: Control[];
-  currentAudio: number;
-  currentTime: number;
-  duration: number;
-  audioTitle: string;
-  isPlaying: boolean;
-}
-
-export interface Control {
-  name: string;
-  materialIcon: string;
-}
 
 const staticControls: Control[] = [
   {name: 'step-backward', materialIcon: 'skip_previous'},

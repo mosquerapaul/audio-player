@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { PlayerStateService, PlayerState } from '../services/player-state.service';
-import { Observable, Subscription } from 'rxjs';
+import { PlayerStateService } from './../services/player-state.service';
+import { PlayerState } from './../model/model-interface';
+import { Observable, Subscription, from } from 'rxjs';
 import { AudioElement, PlayListService } from '../services/play-list.service';
 import { trigger, transition, style, animate } from '@angular/animations';
 
