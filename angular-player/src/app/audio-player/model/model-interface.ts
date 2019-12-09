@@ -11,6 +11,7 @@ export interface PlayerState {
   currentAudio: number;
   currentTime: number;
   duration: number;
+  progress: number;
   audioTitle: string;
   isPlaying: boolean;
 }
