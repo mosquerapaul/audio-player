@@ -58,7 +58,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div id=\"play-list\">\n  <mat-nav-list>\n    <mat-list-item @show-hide *ngFor=\"let audio of playList; let i = index\"\n    id=\"audio{{i}}\" title=\"{{ audio.credits }}\">\n      <h2 matLine>{{ audio.audioTitle }}</h2>\n      <p matLine accent>Artist: {{ audio.artist }}</p>\n      <p>{{ audio.duration | date:'mm:ss'}}</p>\n      <a mat-icon-button\n        (click)= \"playAudio(i)\">\n        <mat-icon color = \"accent\">play_arrow</mat-icon>\n      </a>\n      <a mat-icon-button\n        (click)= \"editAudio(i)\">\n        <mat-icon color = \"accent\">edit</mat-icon>\n      </a>\n      <a mat-icon-button\n        (click)= \"deleteAudio(i)\">\n        <mat-icon color = \"warn\">delete_forever</mat-icon>\n        </a>\n    </mat-list-item>\n  </mat-nav-list>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div id=\"play-list\">\n  <mat-nav-list [@audioPlayList] = playList.length>\n    <mat-list-item [@activeAudio] = \"i === playerState.currentAudio\" *ngFor=\"let audio of playList; let i = index\"\n    id=\"audio{{i}}\" title=\"{{ audio.credits }}\">\n      <h2 matLine>{{ audio.audioTitle }}</h2>\n      <p matLine accent>Artist: {{ audio.artist }}</p>\n      <p>{{ audio.duration | date:'mm:ss'}}</p>\n      <a mat-icon-button\n        (click)= \"playAudio(i)\">\n        <mat-icon color = \"accent\">play_arrow</mat-icon>\n      </a>\n      <a mat-icon-button\n        (click)= \"editAudio(i)\">\n        <mat-icon color = \"accent\">edit</mat-icon>\n      </a>\n      <a mat-icon-button\n        (click)= \"deleteAudio(i)\">\n        <mat-icon color = \"warn\">delete_forever</mat-icon>\n        </a>\n    </mat-list-item>\n  </mat-nav-list>\n</div>\n");
 
 /***/ }),
 
@@ -587,6 +587,12 @@ let AudioPlayerComponent = class AudioPlayerComponent {
     ngOnInit() {
         this.playerState$ = this.stateService.getState();
         this.playerStateSubscription = this.playerState$.subscribe(state => {
+            if (this.playerState) {
+                if (this.playerState.isPlaying) {
+                    this.stateService.updateCurrentAudio(this.playList[this.playerState.currentAudio], this.playerState.currentAudio);
+                    this.stateService.playAudio();
+                }
+            }
             this.playerState = state;
         });
         this.playList$ = this.playListService.getPlayList$();
@@ -685,24 +691,40 @@ PlayListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-play-list',
         animations: [
-            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["trigger"])('show-hide', [
-                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["transition"])(':enter', [
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({
-                        opacity: 0
-                    }),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["animate"])('0.5s 2s', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({
-                        opacity: 1
-                    }))
-                ]),
-                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["transition"])(':leave', [
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({
-                        opacity: 1
-                    }),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["animate"])('0.5s 1s', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({
-                        opacity: 0
-                    }))
-                ]),
+            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["trigger"])('audioPlayList', [
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["transition"])('* => *', [
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["query"])(':enter', [
+                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({ opacity: 0 }),
+                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["stagger"])(100, [
+                            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["animate"])('0.8s', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({ opacity: 1 }))
+                        ])
+                    ])
+                ])
             ]),
+            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["trigger"])('activeAudio', [
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["state"])('true', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({
+                    backgroundColor: '#9c27b033'
+                })),
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["state"])('false', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({
+                    backgroundColor: 'inherit'
+                })),
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["transition"])('* => true', [
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({
+                        backgroundColor: 'inherit'
+                    }),
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["animate"])('0.5s 0.5s', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({
+                        backgroundColor: '#9c27b033'
+                    }))
+                ]),
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["transition"])('* => false', [
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({
+                        backgroundColor: '#9c27b033'
+                    }),
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["animate"])('0.5s 0.5s', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({
+                        backgroundColor: 'inherit'
+                    }))
+                ]),
+            ])
         ],
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./play-list.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/audio-player/play-list/play-list.component.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./play-list.component.scss */ "./src/app/audio-player/play-list/play-list.component.scss")).default]
@@ -940,7 +962,8 @@ let PlayerStateService = class PlayerStateService {
         });
         // Listening to audio end
         this.audioPlayerElement.addEventListener('ended', (event) => {
-            // this.stepNext(); If audio ends player steps into next audio
+            this.playerState.currentAudio++;
+            this._playerState$.next(this.playerState); // If audio ends player steps into next audio
         });
     }
     /****************************************************
