@@ -534,11 +534,11 @@ let AudioPlayerComponent = class AudioPlayerComponent {
         }
         else {
             this.playerState.currentAudio = this.playerState.currentAudio === null ? -1 : this.playerState.currentAudio;
-            const index = this.playerState.currentAudio + 1;
-            this.playerState.isLastAudio = index === this.playList.length - 1;
-            this.stateService.updateCurrentAudio(this.playList[index], index);
+            const newIndex = this.playerState.currentAudio + 1;
+            this.playerState.isLastAudio = this.stateService.checkLastAudio(newIndex, this.playList.length - 1);
+            this.stateService.updateCurrentAudio(this.playList[newIndex], newIndex);
             if (this.playerState.isPlaying) {
-                this.playerPlay(index);
+                this.playerPlay(newIndex);
             }
         }
     }
@@ -553,7 +553,7 @@ let AudioPlayerComponent = class AudioPlayerComponent {
             }
             else {
                 this.stateService.updateCurrentAudio(this.playList[newIndex], newIndex);
-                this.playerState.isLastAudio = newIndex === this.playList.length - 1;
+                this.playerState.isLastAudio = this.stateService.checkLastAudio(newIndex, this.playList.length - 1);
             }
         }
     }
@@ -663,6 +663,7 @@ let PlayListComponent = class PlayListComponent {
     playAudio(index) {
         const audioToPlay = this.playList[index];
         this.stateService.updateCurrentAudio(audioToPlay, index);
+        this.playerState.isLastAudio = this.stateService.checkLastAudio(index, this.playList.length - 1);
         this.stateService.playAudio();
     }
     editAudio(index) { console.log('trying to edit audio', index); }
@@ -1014,6 +1015,9 @@ let PlayerStateService = class PlayerStateService {
         this.playerState.currentTime = 0;
         this.audioPlayerElement.src = audio.sourceURL;
         this.audioPlayerElement.load();
+    }
+    checkLastAudio(newIndex, lastIndex) {
+        return newIndex === lastIndex;
     }
     /****************************************************
      *             PLAYER FUNCTIONS

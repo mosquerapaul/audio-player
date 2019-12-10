@@ -559,11 +559,11 @@
                     }
                     else {
                         this.playerState.currentAudio = this.playerState.currentAudio === null ? -1 : this.playerState.currentAudio;
-                        var index = this.playerState.currentAudio + 1;
-                        this.playerState.isLastAudio = index === this.playList.length - 1;
-                        this.stateService.updateCurrentAudio(this.playList[index], index);
+                        var newIndex = this.playerState.currentAudio + 1;
+                        this.playerState.isLastAudio = this.stateService.checkLastAudio(newIndex, this.playList.length - 1);
+                        this.stateService.updateCurrentAudio(this.playList[newIndex], newIndex);
                         if (this.playerState.isPlaying) {
-                            this.playerPlay(index);
+                            this.playerPlay(newIndex);
                         }
                     }
                 };
@@ -578,7 +578,7 @@
                         }
                         else {
                             this.stateService.updateCurrentAudio(this.playList[newIndex], newIndex);
-                            this.playerState.isLastAudio = newIndex === this.playList.length - 1;
+                            this.playerState.isLastAudio = this.stateService.checkLastAudio(newIndex, this.playList.length - 1);
                         }
                     }
                 };
@@ -679,6 +679,7 @@
                 PlayListComponent.prototype.playAudio = function (index) {
                     var audioToPlay = this.playList[index];
                     this.stateService.updateCurrentAudio(audioToPlay, index);
+                    this.playerState.isLastAudio = this.stateService.checkLastAudio(index, this.playList.length - 1);
                     this.stateService.playAudio();
                 };
                 PlayListComponent.prototype.editAudio = function (index) { console.log('trying to edit audio', index); };
@@ -1019,6 +1020,9 @@
                     this.playerState.currentTime = 0;
                     this.audioPlayerElement.src = audio.sourceURL;
                     this.audioPlayerElement.load();
+                };
+                PlayerStateService.prototype.checkLastAudio = function (newIndex, lastIndex) {
+                    return newIndex === lastIndex;
                 };
                 /****************************************************
                  *             PLAYER FUNCTIONS
