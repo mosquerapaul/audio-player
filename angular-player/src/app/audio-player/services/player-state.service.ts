@@ -112,6 +112,9 @@ export class PlayerStateService {
     this.audioPlayerElement.load();
   }
 
+  checkLastAudio(newIndex: number, lastIndex: number) {
+    return newIndex === lastIndex;
+  }
 
   /****************************************************
    *             PLAYER FUNCTIONS
