@@ -14,8 +14,6 @@ import { formatDate } from '@angular/common';
 })
 export class AudioPlayerComponent implements OnInit, OnDestroy {
 
-  private audioPlayer = new Audio();
-
   stateService: PlayerStateService;
   playerState$: Observable<PlayerState>;
   playerState: PlayerState;
@@ -30,48 +28,29 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   constructor(playerStateService: PlayerStateService, playListService: PlayListService) {
     this.stateService = playerStateService;
     this.playListService = playListService;
-    // Listening to current time changes
-    this.audioPlayer.addEventListener('timeupdate', (event) => {
-      this.updateCurrentTime();
-    });
-    // Listening to audio end
-    this.audioPlayer.addEventListener('ended', (event) => {
-      this.stepNext(); // If audio ends player steps into next audio
-    });
   }
 
-  getProgress() {
-    return 100 * this.playerState.currentTime / this.playerState.duration;
-  }
-
-  updateCurrentTime() {
-    this.stateService.updateCurrentTime(this.audioPlayer.currentTime);
-    return this.playerState.currentTime ?
-      formatDate(this.playerState.currentTime, 'mm:ss', 'en-US') :
-      '--:--';
-  }
-
-  playerStart(index: number) {
+  playerPlay(index: number) {
     if (!index) {
       index = 0;
     }
-
-    // If the audio isn't started then init playback rate and volume
-    const isPlayStarted = this.audioPlayer.currentTime > 0;
-    if (!isPlayStarted || index !== this.playerState.currentAudio) {
-      this.initPlayer(index);
+    const isPlayStarted = this.playerState.currentTime > 0;
+    if (!isPlayStarted) {
+      this.playerReady(index);
     }
-
+    if (index !== this.playerState.currentAudio) {
+      this.stateService.updateCurrentAudio(this.playList[index], index);
+    }
     // Start playing
     this.playerState.isPlaying = true;
-    this.audioPlayer.play();
+    this.stateService.playAudio();
     console.log('PLaying now: ', this.playerState.audioTitle);
   }
 
   playerPause() {
     this.playerState.isPlaying = false;
-    this.audioPlayer.pause();
-    this.audioPlayer.playbackRate = 1;
+    this.stateService.playerPause();
+
   }
 
   stepNext() {
@@ -83,9 +62,8 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
       const index = this.playerState.currentAudio + 1;
       this.playerState.isLastAudio = index === this.playList.length - 1;
       this.stateService.updateCurrentAudio(this.playList[index], index);
-      this.audioPlayer.src = this.playList[index].sourceURL;
       if (this.playerState.isPlaying) {
-        this.playerStart(index);
+        this.playerPlay(index);
       }
     }
   }
@@ -94,33 +72,24 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     if (this.playerState.currentAudio === 0) {
       console.log('Not allowed!! This is the first audio...');
     } else {
-      const index = this.playerState.currentAudio - 1;
+      const newIndex = this.playerState.currentAudio - 1;
       if (this.playerState.isPlaying) {
-        this.playerStart(index);
+        this.playerPlay(newIndex);
       } else {
-        this.stateService.updateCurrentAudio(this.playList[index], index);
-        this.playerState.isLastAudio = index === this.playList.length - 1;
-        this.audioPlayer.src = this.playList[index].sourceURL;
+        this.stateService.updateCurrentAudio(this.playList[newIndex], newIndex);
+        this.playerState.isLastAudio = newIndex === this.playList.length - 1;
       }
     }
-  }
-
-  timeUpdate() {
-    this.stateService.updateCurrentTime(this.audioPlayer.currentTime);
   }
 
   handleClickControl(control: string) {
     switch (control) {
       case 'play':
-        if (this.playerState.isPlaying) {
-          break;
-        }
-        this.playerStart(this.playerState.currentAudio);
+        if (this.playerState.isPlaying) { break; }
+        this.playerPlay(this.playerState.currentAudio);
         break;
       case 'pause':
-        if (!this.playerState.isPlaying) {
-          break;
-        }
+        if (!this.playerState.isPlaying) { break; }
         this.playerPause();
         break;
       case 'step-forward':
@@ -132,15 +101,10 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     }
   }
 
-  initPlayer(index) {
-    this.stateService.initPlayer(index);
+  playerReady(index) {
+    this.stateService.initPlayer();
     this.stateService.updateCurrentAudio(this.playList[index], index);
     this.playerState.isLastAudio = index === this.playList.length - 1;
-
-    // Iniciación movida a Player State
-    this.audioPlayer.playbackRate = 1;
-    this.audioPlayer.volume = 0.3;
-    this.audioPlayer.src = this.playList[index].sourceURL;
   }
 
   ngOnInit() {

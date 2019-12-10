@@ -36,6 +36,8 @@ export class PlayerStateService {
       isLastAudio: undefined
     });
 
+    this.initPlayer();
+
 
     // Listening to current time changes
     this.audioPlayerElement.addEventListener('timeupdate', (event) => {
@@ -46,6 +48,11 @@ export class PlayerStateService {
       // this.stepNext(); If audio ends player steps into next audio
     });
   }
+
+
+  /****************************************************
+   *             MANAGE THE STATE
+   ****************************************************/
 
   get playerState$(): BehaviorSubject<PlayerState> {
     return this._playerState$;
@@ -59,34 +66,14 @@ export class PlayerStateService {
     this._playerState$.next(newState);
   }
 
-  /****************************************************
-   *             UPDATING DE STATE CHANGES
-   ****************************************************/
-
-  timeUpdate() {
-    this.playerState.currentTime = this.audioPlayerElement.currentTime * 1000;
-    this.playerState.duration = this.audioPlayerElement.duration * 1000;
-    this.playerState.progress = updateProgress(this.audioPlayerElement.currentTime, this.audioPlayerElement.duration);
-  }
-
-  updateCurrentTime(newTime: number) {
-    this._playerState$.value.currentTime = newTime * 1000;
+  getState(): Observable<PlayerState> {
+    return this._playerState$.asObservable();
   }
 
   getCurrentAudio(): number {
     return this._playerState$.value.currentAudio;
   }
 
-  updateCurrentAudio(audio: AudioElement, currentAudio) {
-    this.playerState.currentAudio = currentAudio;
-    this.playerState.audioTitle = audio.audioTitle;
-    this.playerState.duration = audio.duration;
-    this.playerState.currentTime = 0;
-  }
-
-  getState(): Observable<PlayerState> {
-    return this._playerState$.asObservable();
-  }
 
   clearState() {
     this.playerState = {
@@ -102,18 +89,40 @@ export class PlayerStateService {
   }
 
 
+  /****************************************************
+   *             UPDATING DE STATE CHANGES
+   ****************************************************/
+
+  timeUpdate() {
+    this.playerState.currentTime = this.audioPlayerElement.currentTime * 1000;
+    this.playerState.duration = this.audioPlayerElement.duration * 1000;
+    this.playerState.progress = updateProgress(this.audioPlayerElement.currentTime, this.audioPlayerElement.duration);
+  }
+
+  updateCurrentTime(newTime: number) {
+    this._playerState$.value.currentTime = newTime * 1000;
+  }
+  updateCurrentAudio(audio: AudioElement, newIndex) {
+    this.playerState.currentAudio = newIndex;
+    this.playerState.audioTitle = audio.audioTitle;
+    this.playerState.duration = audio.duration;
+    this.playerState.currentTime = 0;
+    this.audioPlayerElement.src = audio.sourceURL;
+    this.audioPlayerElement.load();
+  }
+
 
   /****************************************************
    *             PLAYER FUNCTIONS
    ****************************************************/
 
-  initPlayer(index) {
+  initPlayer() {
     this.audioPlayerElement.playbackRate = 1;
     this.audioPlayerElement.volume = 0.3;
   }
 
-  playAudio(audio: AudioElement) {
-    this.audioPlayerElement.src = audio.sourceURL;
+  playAudio() {
+    console.log(this.audioPlayerElement.src);
     this.audioPlayerElement.play();
   }
 
