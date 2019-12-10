@@ -2,6 +2,7 @@
 <mat-sidenav-container>
   <article>
     <mat-toolbar [class]="'mat-h1'">
+      <img src="/assets/angular-player.png">
         Audio Player - {{ (stateService.playerState$ | async).audioTitle }}
     </mat-toolbar>
   </article>
@@ -20,7 +21,7 @@
     </p>
 
     <div [id]="'progress-bar-container'">
-      <mat-progress-bar [id]="'progress-bar-background'" mode="determinate" value="{{(getProgress())}}">
+      <mat-progress-bar [id]="'progress-bar-background'" mode="determinate" value="{{ (stateService.playerState$ | async).progress }}">
       </mat-progress-bar>
       <div [id]="'progress-bar'" style="display:none;"><mat-icon color="accent">album</mat-icon></div>
     </div>
