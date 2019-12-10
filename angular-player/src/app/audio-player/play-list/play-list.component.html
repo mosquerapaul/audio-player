@@ -1,6 +1,6 @@
 <div id="play-list">
-  <mat-nav-list>
-    <mat-list-item @show-hide *ngFor="let audio of playList; let i = index"
+  <mat-nav-list [@audioPlayList] = playList.length>
+    <mat-list-item [@activeAudio] = "i === playerState.currentAudio" *ngFor="let audio of playList; let i = index"
     id="audio{{i}}" title="{{ audio.credits }}">
       <h2 matLine>{{ audio.audioTitle }}</h2>
       <p matLine accent>Artist: {{ audio.artist }}</p>

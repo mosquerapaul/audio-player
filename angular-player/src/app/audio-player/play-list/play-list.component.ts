@@ -1,32 +1,48 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PlayerStateService } from './../services/player-state.service';
 import { PlayerState } from './../model/model-interface';
-import { Observable, Subscription, from } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { PlayListService } from '../services/play-list.service';
 import { AudioElement } from './../model/model-interface';
-import { trigger, transition, style, animate } from '@angular/animations';
+import { trigger, transition, style, animate, query, stagger, state } from '@angular/animations';
 
 @Component({
   selector: 'app-play-list',
   animations: [
-    trigger('show-hide', [
-      transition(':enter', [
-        style({
-          opacity: 0
-        }),
-        animate('0.5s 2s', style({
-          opacity: 1
-        }))
-      ]),
-      transition(':leave', [
-        style({
-          opacity: 1
-        }),
-        animate('0.5s 1s', style({
-          opacity: 0
-        }))
-      ]),
+    trigger('audioPlayList', [
+      transition('* => *', [
+        query(':enter', [
+          style({ opacity: 0 }),
+          stagger(100, [
+            animate('0.8s', style({ opacity: 1 }))
+          ])
+        ])
+      ])
     ]),
+    trigger('activeAudio', [
+      state('true', style({
+        backgroundColor: '#9c27b033'
+      })),
+      state('false', style({
+        backgroundColor: 'inherit'
+      })),
+      transition('* => true', [
+        style({
+          backgroundColor: 'inherit'
+        }),
+        animate('0.5s 0.5s', style({
+          backgroundColor: '#9c27b033'
+        }))
+      ]),
+      transition('* => false', [
+        style({
+          backgroundColor: '#9c27b033'
+        }),
+        animate('0.5s 0.5s', style({
+          backgroundColor: 'inherit'
+        }))
+      ]),
+    ])
   ],
   templateUrl: './play-list.component.html',
   styleUrls: ['./play-list.component.scss']

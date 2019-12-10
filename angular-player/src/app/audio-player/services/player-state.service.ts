@@ -45,7 +45,8 @@ export class PlayerStateService {
     });
     // Listening to audio end
     this.audioPlayerElement.addEventListener('ended', (event) => {
-      // this.stepNext(); If audio ends player steps into next audio
+      this.playerState.currentAudio++;
+      this._playerState$.next(this.playerState); // If audio ends player steps into next audio
     });
   }
 

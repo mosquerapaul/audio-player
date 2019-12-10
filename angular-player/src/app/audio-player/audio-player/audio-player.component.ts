@@ -2,8 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PlayerState, AudioElement } from './../model/model-interface';
 import { PlayListService } from './../services/play-list.service';
 import { PlayerStateService } from './../services/player-state.service';
-import { Observable, Subscription, from } from 'rxjs';
-import { formatDate } from '@angular/common';
+import { Observable, Subscription } from 'rxjs';
 
 
 
@@ -107,6 +106,12 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.playerState$ = this.stateService.getState();
     this.playerStateSubscription = this.playerState$.subscribe(state => {
+      if (this.playerState) {
+        if(this.playerState.isPlaying) {
+          this.stateService.updateCurrentAudio(this.playList[this.playerState.currentAudio], this.playerState.currentAudio)
+          this.stateService.playAudio();
+        }
+      }
       this.playerState = state;
     });
 
