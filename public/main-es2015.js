@@ -45,7 +45,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n<mat-sidenav-container>\n  <article>\n    <mat-toolbar [class]=\"'mat-h1'\">\n        Audio Player - {{ (stateService.playerState$ | async).audioTitle }}\n    </mat-toolbar>\n  </article>\n\n  <article [id]=\"'play-list'\">\n    <app-play-list></app-play-list>\n  </article>\n\n  <article [id]=\"'playing-info'\">\n    <p color = \"accent\" [ngClass]=\"['track-info', 'mat-h2']\">\n      <span [id]=\"'audio-name'\">{{ (stateService.playerState$ | async).audioTitle }}</span>\n      <span [class]=\"'fill-remaining-space'\"></span>\n      <span [id]=\"'audio-times'\">\n        {{ (stateService.playerState$ | async).currentTime | date:'mm:ss' }} / {{ (stateService.playerState$ | async).duration | date:'mm:ss' }}\n      </span>\n    </p>\n\n    <div [id]=\"'progress-bar-container'\">\n      <mat-progress-bar [id]=\"'progress-bar-background'\" mode=\"determinate\" value=\"{{(getProgress())}}\">\n      </mat-progress-bar>\n      <div [id]=\"'progress-bar'\" style=\"display:none;\"><mat-icon color=\"accent\">album</mat-icon></div>\n    </div>\n  </article>\n\n  <article [ngClass]=\"['controls']\">\n    <app-player-controls\n      *ngFor=\"let control of playerState.controlList\"\n      [control]=\"control\"\n      [ngClass]=\"{'play-pause': control.name === 'play' || control.name === 'pause'}\"\n      (click)=\"handleClickControl(control.name)\">\n    </app-player-controls>\n  </article>\n</mat-sidenav-container>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("\n<mat-sidenav-container>\n  <article>\n    <mat-toolbar [class]=\"'mat-h1'\">\n      <img src=\"/assets/angular-player.png\">\n        Audio Player - {{ (stateService.playerState$ | async).audioTitle }}\n    </mat-toolbar>\n  </article>\n\n  <article [id]=\"'play-list'\">\n    <app-play-list></app-play-list>\n  </article>\n\n  <article [id]=\"'playing-info'\">\n    <p color = \"accent\" [ngClass]=\"['track-info', 'mat-h2']\">\n      <span [id]=\"'audio-name'\">{{ (stateService.playerState$ | async).audioTitle }}</span>\n      <span [class]=\"'fill-remaining-space'\"></span>\n      <span [id]=\"'audio-times'\">\n        {{ (stateService.playerState$ | async).currentTime | date:'mm:ss' }} / {{ (stateService.playerState$ | async).duration | date:'mm:ss' }}\n      </span>\n    </p>\n\n    <div [id]=\"'progress-bar-container'\">\n      <mat-progress-bar [id]=\"'progress-bar-background'\" mode=\"determinate\" value=\"{{ (stateService.playerState$ | async).progress }}\">\n      </mat-progress-bar>\n      <div [id]=\"'progress-bar'\" style=\"display:none;\"><mat-icon color=\"accent\">album</mat-icon></div>\n    </div>\n  </article>\n\n  <article [ngClass]=\"['controls']\">\n    <app-player-controls\n      *ngFor=\"let control of playerState.controlList\"\n      [control]=\"control\"\n      [ngClass]=\"{'play-pause': control.name === 'play' || control.name === 'pause'}\"\n      (click)=\"handleClickControl(control.name)\">\n    </app-player-controls>\n  </article>\n</mat-sidenav-container>\n");
 
 /***/ }),
 
@@ -58,7 +58,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div id=\"play-list\">\n  <mat-nav-list>\n    <mat-list-item @show-hide *ngFor=\"let audio of playList; let i = index\"\n    id=\"audio{{i}}\" title=\"{{ audio.credits }}\">\n      <h2 matLine>{{ audio.audioTitle }}</h2>\n      <p matLine accent>Artist: {{ audio.artist }}</p>\n      <p>{{ audio.duration | date:'mm:ss'}}</p>\n      <a mat-icon-button href=\"/play/{{i}}\">\n        <mat-icon color = \"accent\">play_arrow</mat-icon>\n      </a>\n      <a mat-icon-button href=\"/edit/{{i}}\">\n        <mat-icon color = \"accent\">edit</mat-icon>\n      </a>\n      <a mat-icon-button href=\"/delete/{{i}}\">\n        <mat-icon color = \"warn\">delete_forever</mat-icon>\n        </a>\n    </mat-list-item>\n  </mat-nav-list>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div id=\"play-list\">\n  <mat-nav-list>\n    <mat-list-item @show-hide *ngFor=\"let audio of playList; let i = index\"\n    id=\"audio{{i}}\" title=\"{{ audio.credits }}\">\n      <h2 matLine>{{ audio.audioTitle }}</h2>\n      <p matLine accent>Artist: {{ audio.artist }}</p>\n      <p>{{ audio.duration | date:'mm:ss'}}</p>\n      <a mat-icon-button\n        (click)= \"playAudio(i)\">\n        <mat-icon color = \"accent\">play_arrow</mat-icon>\n      </a>\n      <a mat-icon-button\n        (click)= \"editAudio(i)\">\n        <mat-icon color = \"accent\">edit</mat-icon>\n      </a>\n      <a mat-icon-button\n        (click)= \"deleteAudio(i)\">\n        <mat-icon color = \"warn\">delete_forever</mat-icon>\n        </a>\n    </mat-list-item>\n  </mat-nav-list>\n</div>\n");
 
 /***/ }),
 
@@ -71,7 +71,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<button @show-hide mat-icon-button color = \"accent\"\n  *ngIf=\"playerState.isPlaying && control.name !== 'play' || !playerState.isPlaying && control.name !== 'pause'\"\n  [ngClass]=\"['md-48']\"\n  [ngClass]=\"{'playing': playerState.isPlaying, 'paused': !playerState.isPlaying}\">\n  <mat-icon [ngClass]=\"['material-icons', control.name, 'md-48']\">{{ control.materialIcon }}</mat-icon>\n</button>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<button @show-hide mat-icon-button color = \"accent\"\n  [disabled]=\"playerState.currentAudio === 0 && control.name === 'step-backward' || playerState.isLastAudio && control.name === 'step-forward'\"\n  *ngIf=\"playerState.isPlaying && control.name !== 'play' || !playerState.isPlaying && control.name !== 'pause'\"\n  [ngClass]=\"['md-48']\"\n  [ngClass]=\"{'playing': playerState.isPlaying, 'paused': !playerState.isPlaying}\">\n  <mat-icon [ngClass]=\"['material-icons', control.name, 'md-48']\">{{ control.materialIcon }}</mat-icon>\n</button>\n");
 
 /***/ }),
 
@@ -482,7 +482,7 @@ AudioPlayerModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("app-audio-player {\n  text-align: center;\n}\n\narticle mat-toolbar.mat-h1 {\n  white-space: normal;\n}\n\narticle.controls {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  height: 50px;\n  overflow: hidden;\n  left: 0;\n  right: 0;\n  margin: 20px auto;\n  display: grid;\n  grid-template-columns: repeat(3, 60px);\n  grid-template-areas: \"back play-pause next\";\n  grid-column-gap: 5px;\n  text-align: center;\n}\n\napp-player-controls.play-pause {\n  grid-column: play-pause;\n  grid-row: 1;\n}\n\narticle#playing-info {\n  margin: 20px auto;\n  color: #69F0AE;\n  width: 96vw;\n}\n\n.track-info {\n  display: flex;\n  margin: auto;\n}\n\n#progress-bar-container {\n  position: relative;\n  height: 20px;\n}\n\n#progress-bar-background {\n  position: absolute;\n  top: 10px;\n}\n\n#progress-bar {\n  position: absolute;\n  width: 40%;\n  top: 0;\n}\n\n#progress-bar mat-icon {\n  position: absolute;\n  right: -12px;\n}\n\n.fill-remaining-space {\n  /* This fills the remaining space, by using flexbox.\n     Every toolbar row uses a flexbox row layout. */\n  flex: 1 1 auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3BhdWxtb3NxdWVyYS9qcy1wcm9qZWN0cy9hdWRpby1wbGF5ZXItbm9kZS1hbmd1bGFyL2FuZ3VsYXItcGxheWVyL3NyYy9hcHAvYXVkaW8tcGxheWVyL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIvYXVkaW8tcGxheWVyLmNvbXBvbmVudC5zY3NzIiwiL2hvbWUvcGF1bG1vc3F1ZXJhL2pzLXByb2plY3RzL2F1ZGlvLXBsYXllci1ub2RlLWFuZ3VsYXIvYW5ndWxhci1wbGF5ZXIvc3JjL3ZhcmlhYmxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0VBQ0Usa0JBQUE7QUNERjs7QURJQTtFQUNFLG1CQUFBO0FDREY7O0FESUE7RUFDRSwwQkFBQTtFQUFBLHVCQUFBO0VBQUEsa0JBQUE7RUFDQSxZQUFBO0VBQ0EsZ0JBQUE7RUFDQSxPQUFBO0VBQ0EsUUFBQTtFQUNBLGlCQUFBO0VBQ0EsYUFBQTtFQUNBLHNDQUFBO0VBQ0EsMkNBQUE7RUFDQSxvQkFBQTtFQUNBLGtCQUFBO0FDREY7O0FESUE7RUFDRSx1QkFBQTtFQUNBLFdBQUE7QUNERjs7QURJQTtFQUNFLGlCQUFBO0VBQ0EsY0U3QmM7RUY4QmQsV0FBQTtBQ0RGOztBRElBO0VBQ0UsYUFBQTtFQUNBLFlBQUE7QUNERjs7QURHQTtFQUNFLGtCQUFBO0VBQ0EsWUFBQTtBQ0FGOztBREVBO0VBQ0Usa0JBQUE7RUFDQSxTQUFBO0FDQ0Y7O0FEQ0E7RUFDRSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxNQUFBO0FDRUY7O0FEREU7RUFDRSxrQkFBQTtFQUNBLFlBQUE7QUNHSjs7QURBQTtFQUNFO21EQUFBO0VBRUEsY0FBQTtBQ0dGIiwiZmlsZSI6InNyYy9hcHAvYXVkaW8tcGxheWVyL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0ICcuLi8uLi8uLi92YXJpYWJsZXMuc2Nzcyc7XG5cbmFwcC1hdWRpby1wbGF5ZXIge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbmFydGljbGUgbWF0LXRvb2xiYXIubWF0LWgxIHtcbiAgd2hpdGUtc3BhY2U6IG5vcm1hbDtcbn1cblxuYXJ0aWNsZS5jb250cm9scyB7XG4gIHdpZHRoOiBmaXQtY29udGVudDtcbiAgaGVpZ2h0OiA1MHB4O1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBsZWZ0OiAwO1xuICByaWdodDogMDtcbiAgbWFyZ2luOiAyMHB4IGF1dG87XG4gIGRpc3BsYXk6IGdyaWQ7XG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDMsIDYwcHgpO1xuICBncmlkLXRlbXBsYXRlLWFyZWFzOiBcImJhY2sgcGxheS1wYXVzZSBuZXh0XCI7XG4gIGdyaWQtY29sdW1uLWdhcDogNXB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbmFwcC1wbGF5ZXItY29udHJvbHMucGxheS1wYXVzZSB7XG4gIGdyaWQtY29sdW1uOiBwbGF5LXBhdXNlO1xuICBncmlkLXJvdzogMTtcbn1cblxuYXJ0aWNsZSNwbGF5aW5nLWluZm8ge1xuICBtYXJnaW46IDIwcHggYXV0bztcbiAgY29sb3I6ICRhY2NlbnRfY29sb3I7XG4gIHdpZHRoOiA5NnZ3O1xufVxuXG4udHJhY2staW5mb3tcbiAgZGlzcGxheTogZmxleDtcbiAgbWFyZ2luOiBhdXRvO1xufVxuI3Byb2dyZXNzLWJhci1jb250YWluZXIge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIGhlaWdodDogMjBweDtcbn1cbiNwcm9ncmVzcy1iYXItYmFja2dyb3VuZCB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiAxMHB4O1xufVxuI3Byb2dyZXNzLWJhciB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgd2lkdGg6IDQwJTtcbiAgdG9wOiAwO1xuICBtYXQtaWNvbiB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHJpZ2h0OiAtMTJweDtcbiAgfVxufVxuLmZpbGwtcmVtYWluaW5nLXNwYWNlIHtcbiAgLyogVGhpcyBmaWxscyB0aGUgcmVtYWluaW5nIHNwYWNlLCBieSB1c2luZyBmbGV4Ym94LlxuICAgICBFdmVyeSB0b29sYmFyIHJvdyB1c2VzIGEgZmxleGJveCByb3cgbGF5b3V0LiAqL1xuICBmbGV4OiAxIDEgYXV0bztcbn1cbiIsImFwcC1hdWRpby1wbGF5ZXIge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbmFydGljbGUgbWF0LXRvb2xiYXIubWF0LWgxIHtcbiAgd2hpdGUtc3BhY2U6IG5vcm1hbDtcbn1cblxuYXJ0aWNsZS5jb250cm9scyB7XG4gIHdpZHRoOiBmaXQtY29udGVudDtcbiAgaGVpZ2h0OiA1MHB4O1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBsZWZ0OiAwO1xuICByaWdodDogMDtcbiAgbWFyZ2luOiAyMHB4IGF1dG87XG4gIGRpc3BsYXk6IGdyaWQ7XG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDMsIDYwcHgpO1xuICBncmlkLXRlbXBsYXRlLWFyZWFzOiBcImJhY2sgcGxheS1wYXVzZSBuZXh0XCI7XG4gIGdyaWQtY29sdW1uLWdhcDogNXB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbmFwcC1wbGF5ZXItY29udHJvbHMucGxheS1wYXVzZSB7XG4gIGdyaWQtY29sdW1uOiBwbGF5LXBhdXNlO1xuICBncmlkLXJvdzogMTtcbn1cblxuYXJ0aWNsZSNwbGF5aW5nLWluZm8ge1xuICBtYXJnaW46IDIwcHggYXV0bztcbiAgY29sb3I6ICM2OUYwQUU7XG4gIHdpZHRoOiA5NnZ3O1xufVxuXG4udHJhY2staW5mbyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIG1hcmdpbjogYXV0bztcbn1cblxuI3Byb2dyZXNzLWJhci1jb250YWluZXIge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIGhlaWdodDogMjBweDtcbn1cblxuI3Byb2dyZXNzLWJhci1iYWNrZ3JvdW5kIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDEwcHg7XG59XG5cbiNwcm9ncmVzcy1iYXIge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHdpZHRoOiA0MCU7XG4gIHRvcDogMDtcbn1cbiNwcm9ncmVzcy1iYXIgbWF0LWljb24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHJpZ2h0OiAtMTJweDtcbn1cblxuLmZpbGwtcmVtYWluaW5nLXNwYWNlIHtcbiAgLyogVGhpcyBmaWxscyB0aGUgcmVtYWluaW5nIHNwYWNlLCBieSB1c2luZyBmbGV4Ym94LlxuICAgICBFdmVyeSB0b29sYmFyIHJvdyB1c2VzIGEgZmxleGJveCByb3cgbGF5b3V0LiAqL1xuICBmbGV4OiAxIDEgYXV0bztcbn0iLCJcbiRwcmltYXJ5X2NvbG9yIDogIzdCMUZBMjtcbiRhY2NlbnRfY29sb3IgOiAjNjlGMEFFO1xuJHdhcm5fY29sb3IgOiAjRjQ0MzM2O1xuXG4kYm9yZGVyX3JhZGl1c19kZWZhdWx0OiA1cHg7XG4iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("app-audio-player {\n  text-align: center;\n}\n\narticle mat-toolbar.mat-h1 {\n  white-space: normal;\n}\n\nmat-toolbar > img {\n  height: 70%;\n  padding: 10px;\n}\n\narticle.controls {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  height: 50px;\n  overflow: hidden;\n  left: 0;\n  right: 0;\n  margin: 20px auto;\n  display: grid;\n  grid-template-columns: repeat(3, 60px);\n  grid-template-areas: \"back play-pause next\";\n  grid-column-gap: 5px;\n  text-align: center;\n}\n\napp-player-controls.play-pause {\n  grid-column: play-pause;\n  grid-row: 1;\n}\n\narticle#playing-info {\n  margin: 20px auto;\n  color: #69F0AE;\n  width: 96vw;\n}\n\n.track-info {\n  display: flex;\n  margin: auto;\n}\n\n#progress-bar-container {\n  position: relative;\n  height: 20px;\n}\n\n#progress-bar-background {\n  position: absolute;\n  top: 10px;\n}\n\n#progress-bar {\n  position: absolute;\n  width: 40%;\n  top: 0;\n}\n\n#progress-bar mat-icon {\n  position: absolute;\n  right: -12px;\n}\n\n.fill-remaining-space {\n  /* This fills the remaining space, by using flexbox.\n     Every toolbar row uses a flexbox row layout. */\n  flex: 1 1 auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3BhdWxtb3NxdWVyYS9qcy1wcm9qZWN0cy9hdWRpby1wbGF5ZXItbm9kZS1hbmd1bGFyL2FuZ3VsYXItcGxheWVyL3NyYy9hcHAvYXVkaW8tcGxheWVyL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIvYXVkaW8tcGxheWVyLmNvbXBvbmVudC5zY3NzIiwiL2hvbWUvcGF1bG1vc3F1ZXJhL2pzLXByb2plY3RzL2F1ZGlvLXBsYXllci1ub2RlLWFuZ3VsYXIvYW5ndWxhci1wbGF5ZXIvc3JjL3ZhcmlhYmxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0VBQ0Usa0JBQUE7QUNERjs7QURJQTtFQUNFLG1CQUFBO0FDREY7O0FESUE7RUFDRSxXQUFBO0VBQ0EsYUFBQTtBQ0RGOztBRElBO0VBQ0UsMEJBQUE7RUFBQSx1QkFBQTtFQUFBLGtCQUFBO0VBQ0EsWUFBQTtFQUNBLGdCQUFBO0VBQ0EsT0FBQTtFQUNBLFFBQUE7RUFDQSxpQkFBQTtFQUNBLGFBQUE7RUFDQSxzQ0FBQTtFQUNBLDJDQUFBO0VBQ0Esb0JBQUE7RUFDQSxrQkFBQTtBQ0RGOztBRElBO0VBQ0UsdUJBQUE7RUFDQSxXQUFBO0FDREY7O0FESUE7RUFDRSxpQkFBQTtFQUNBLGNFbENjO0VGbUNkLFdBQUE7QUNERjs7QURJQTtFQUNFLGFBQUE7RUFDQSxZQUFBO0FDREY7O0FER0E7RUFDRSxrQkFBQTtFQUNBLFlBQUE7QUNBRjs7QURFQTtFQUNFLGtCQUFBO0VBQ0EsU0FBQTtBQ0NGOztBRENBO0VBQ0Usa0JBQUE7RUFDQSxVQUFBO0VBQ0EsTUFBQTtBQ0VGOztBRERFO0VBQ0Usa0JBQUE7RUFDQSxZQUFBO0FDR0o7O0FEQUE7RUFDRTttREFBQTtFQUVBLGNBQUE7QUNHRiIsImZpbGUiOiJzcmMvYXBwL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIvYXVkaW8tcGxheWVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCAnLi4vLi4vLi4vdmFyaWFibGVzLnNjc3MnO1xuXG5hcHAtYXVkaW8tcGxheWVyIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG5hcnRpY2xlIG1hdC10b29sYmFyLm1hdC1oMSB7XG4gIHdoaXRlLXNwYWNlOiBub3JtYWw7XG59XG5cbm1hdC10b29sYmFyPmltZyB7XG4gIGhlaWdodDogNzAlO1xuICBwYWRkaW5nOiAxMHB4O1xufVxuXG5hcnRpY2xlLmNvbnRyb2xzIHtcbiAgd2lkdGg6IGZpdC1jb250ZW50O1xuICBoZWlnaHQ6IDUwcHg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICBtYXJnaW46IDIwcHggYXV0bztcbiAgZGlzcGxheTogZ3JpZDtcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMywgNjBweCk7XG4gIGdyaWQtdGVtcGxhdGUtYXJlYXM6IFwiYmFjayBwbGF5LXBhdXNlIG5leHRcIjtcbiAgZ3JpZC1jb2x1bW4tZ2FwOiA1cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuYXBwLXBsYXllci1jb250cm9scy5wbGF5LXBhdXNlIHtcbiAgZ3JpZC1jb2x1bW46IHBsYXktcGF1c2U7XG4gIGdyaWQtcm93OiAxO1xufVxuXG5hcnRpY2xlI3BsYXlpbmctaW5mbyB7XG4gIG1hcmdpbjogMjBweCBhdXRvO1xuICBjb2xvcjogJGFjY2VudF9jb2xvcjtcbiAgd2lkdGg6IDk2dnc7XG59XG5cbi50cmFjay1pbmZve1xuICBkaXNwbGF5OiBmbGV4O1xuICBtYXJnaW46IGF1dG87XG59XG4jcHJvZ3Jlc3MtYmFyLWNvbnRhaW5lciB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgaGVpZ2h0OiAyMHB4O1xufVxuI3Byb2dyZXNzLWJhci1iYWNrZ3JvdW5kIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDEwcHg7XG59XG4jcHJvZ3Jlc3MtYmFyIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB3aWR0aDogNDAlO1xuICB0b3A6IDA7XG4gIG1hdC1pY29uIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgcmlnaHQ6IC0xMnB4O1xuICB9XG59XG4uZmlsbC1yZW1haW5pbmctc3BhY2Uge1xuICAvKiBUaGlzIGZpbGxzIHRoZSByZW1haW5pbmcgc3BhY2UsIGJ5IHVzaW5nIGZsZXhib3guXG4gICAgIEV2ZXJ5IHRvb2xiYXIgcm93IHVzZXMgYSBmbGV4Ym94IHJvdyBsYXlvdXQuICovXG4gIGZsZXg6IDEgMSBhdXRvO1xufVxuIiwiYXBwLWF1ZGlvLXBsYXllciB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuYXJ0aWNsZSBtYXQtdG9vbGJhci5tYXQtaDEge1xuICB3aGl0ZS1zcGFjZTogbm9ybWFsO1xufVxuXG5tYXQtdG9vbGJhciA+IGltZyB7XG4gIGhlaWdodDogNzAlO1xuICBwYWRkaW5nOiAxMHB4O1xufVxuXG5hcnRpY2xlLmNvbnRyb2xzIHtcbiAgd2lkdGg6IGZpdC1jb250ZW50O1xuICBoZWlnaHQ6IDUwcHg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICBtYXJnaW46IDIwcHggYXV0bztcbiAgZGlzcGxheTogZ3JpZDtcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMywgNjBweCk7XG4gIGdyaWQtdGVtcGxhdGUtYXJlYXM6IFwiYmFjayBwbGF5LXBhdXNlIG5leHRcIjtcbiAgZ3JpZC1jb2x1bW4tZ2FwOiA1cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuYXBwLXBsYXllci1jb250cm9scy5wbGF5LXBhdXNlIHtcbiAgZ3JpZC1jb2x1bW46IHBsYXktcGF1c2U7XG4gIGdyaWQtcm93OiAxO1xufVxuXG5hcnRpY2xlI3BsYXlpbmctaW5mbyB7XG4gIG1hcmdpbjogMjBweCBhdXRvO1xuICBjb2xvcjogIzY5RjBBRTtcbiAgd2lkdGg6IDk2dnc7XG59XG5cbi50cmFjay1pbmZvIHtcbiAgZGlzcGxheTogZmxleDtcbiAgbWFyZ2luOiBhdXRvO1xufVxuXG4jcHJvZ3Jlc3MtYmFyLWNvbnRhaW5lciB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgaGVpZ2h0OiAyMHB4O1xufVxuXG4jcHJvZ3Jlc3MtYmFyLWJhY2tncm91bmQge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogMTBweDtcbn1cblxuI3Byb2dyZXNzLWJhciB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgd2lkdGg6IDQwJTtcbiAgdG9wOiAwO1xufVxuI3Byb2dyZXNzLWJhciBtYXQtaWNvbiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgcmlnaHQ6IC0xMnB4O1xufVxuXG4uZmlsbC1yZW1haW5pbmctc3BhY2Uge1xuICAvKiBUaGlzIGZpbGxzIHRoZSByZW1haW5pbmcgc3BhY2UsIGJ5IHVzaW5nIGZsZXhib3guXG4gICAgIEV2ZXJ5IHRvb2xiYXIgcm93IHVzZXMgYSBmbGV4Ym94IHJvdyBsYXlvdXQuICovXG4gIGZsZXg6IDEgMSBhdXRvO1xufSIsIlxuJHByaW1hcnlfY29sb3IgOiAjN0IxRkEyO1xuJGFjY2VudF9jb2xvciA6ICM2OUYwQUU7XG4kd2Fybl9jb2xvciA6ICNGNDQzMzY7XG5cbiRib3JkZXJfcmFkaXVzX2RlZmF1bHQ6IDVweDtcbiJdfQ== */");
 
 /***/ }),
 
@@ -498,70 +498,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AudioPlayerComponent", function() { return AudioPlayerComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _services_player_state_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../services/player-state.service */ "./src/app/audio-player/services/player-state.service.ts");
-/* harmony import */ var _services_play_list_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../services/play-list.service */ "./src/app/audio-player/services/play-list.service.ts");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
-
+/* harmony import */ var _services_play_list_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../services/play-list.service */ "./src/app/audio-player/services/play-list.service.ts");
+/* harmony import */ var _services_player_state_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../services/player-state.service */ "./src/app/audio-player/services/player-state.service.ts");
 
 
 
 
 let AudioPlayerComponent = class AudioPlayerComponent {
     constructor(playerStateService, playListService) {
-        this.audioPlayer = new Audio();
         this.playList = [];
         this.stateService = playerStateService;
         this.playListService = playListService;
-        this.audioPlayer.addEventListener('timeupdate', (event) => {
-            this.updateCurrentTime();
-        });
     }
-    getProgress() {
-        return 100 * this.playerState.currentTime / this.playerState.duration;
-    }
-    updateCurrentTime() {
-        this.stateService.updateCurrentTime(this.audioPlayer.currentTime);
-        return this.playerState.currentTime ?
-            Object(_angular_common__WEBPACK_IMPORTED_MODULE_4__["formatDate"])(this.playerState.currentTime, 'mm:ss', 'en-US') :
-            '--:--';
-    }
-    playerStart(index) {
+    playerPlay(index) {
         if (!index) {
             index = 0;
         }
-        // Listening to audio end
-        this.audioPlayer.addEventListener('ended', (event) => {
-            this.stepNext(); // If audio ends player steps into next audio
-        });
-        // If the audio isn't started then init playback rate and volume
-        const isPlayStarted = this.audioPlayer.currentTime > 0;
+        const isPlayStarted = this.playerState.currentTime > 0;
         if (!isPlayStarted) {
-            this.initPlayer(index);
+            this.playerReady(index);
+        }
+        if (index !== this.playerState.currentAudio) {
+            this.stateService.updateCurrentAudio(this.playList[index], index);
         }
         // Start playing
-        this.playerState.isPlaying = true;
-        this.audioPlayer.play();
-        console.log('PLaying now: ', this.playerState.audioTitle);
+        this.stateService.playAudio();
     }
     playerPause() {
-        this.playerState.isPlaying = false;
-        this.audioPlayer.pause();
-        this.audioPlayer.playbackRate = 1;
-        this.audioPlayer.removeEventListener('ended', (event) => {
-            console.log('Not listening to end of reproduction');
-        });
+        this.stateService.playerPause();
     }
     stepNext() {
         if (this.playerState.currentAudio === this.playList.length - 1) {
+            this.playerState.isLastAudio = true;
             console.log('Not allowed!! This is the last audio...');
         }
         else {
             this.playerState.currentAudio = this.playerState.currentAudio === null ? -1 : this.playerState.currentAudio;
             const index = this.playerState.currentAudio + 1;
+            this.playerState.isLastAudio = index === this.playList.length - 1;
             this.stateService.updateCurrentAudio(this.playList[index], index);
-            this.audioPlayer.src = this.playList[index].sourceURL;
             if (this.playerState.isPlaying) {
-                this.playerStart(index);
+                this.playerPlay(index);
             }
         }
     }
@@ -570,19 +547,15 @@ let AudioPlayerComponent = class AudioPlayerComponent {
             console.log('Not allowed!! This is the first audio...');
         }
         else {
-            const index = this.playerState.currentAudio - 1;
+            const newIndex = this.playerState.currentAudio - 1;
             if (this.playerState.isPlaying) {
-                this.playerStart(index);
+                this.playerPlay(newIndex);
             }
             else {
-                this.stateService.updateCurrentAudio(this.playList[index], index);
-                this.audioPlayer.src = this.playList[index].sourceURL;
+                this.stateService.updateCurrentAudio(this.playList[newIndex], newIndex);
+                this.playerState.isLastAudio = newIndex === this.playList.length - 1;
             }
         }
-    }
-    timeUpdate() {
-        console.log(this.playerState.currentTime, this.audioPlayer);
-        this.stateService.updateCurrentTime(this.audioPlayer.currentTime);
     }
     handleClickControl(control) {
         switch (control) {
@@ -590,7 +563,7 @@ let AudioPlayerComponent = class AudioPlayerComponent {
                 if (this.playerState.isPlaying) {
                     break;
                 }
-                this.playerStart(this.playerState.currentAudio);
+                this.playerPlay(this.playerState.currentAudio);
                 break;
             case 'pause':
                 if (!this.playerState.isPlaying) {
@@ -606,11 +579,10 @@ let AudioPlayerComponent = class AudioPlayerComponent {
                 break;
         }
     }
-    initPlayer(index) {
-        this.audioPlayer.playbackRate = 1;
-        this.audioPlayer.volume = 0.3;
+    playerReady(index) {
+        this.stateService.initPlayer();
         this.stateService.updateCurrentAudio(this.playList[index], index);
-        this.audioPlayer.src = this.playList[index].sourceURL;
+        this.playerState.isLastAudio = index === this.playList.length - 1;
     }
     ngOnInit() {
         this.playerState$ = this.stateService.getState();
@@ -623,17 +595,13 @@ let AudioPlayerComponent = class AudioPlayerComponent {
         });
     }
     ngOnDestroy() {
-        // If the audio isn't started then init playback rate and volume
-        const isPlayStarted = this.audioPlayer.currentTime > 0;
-        if (!isPlayStarted) {
-            this.playListSubscription.unsubscribe();
-            this.playerStateSubscription.unsubscribe();
-        }
+        this.playListSubscription.unsubscribe();
+        this.playerStateSubscription.unsubscribe();
     }
 };
 AudioPlayerComponent.ctorParameters = () => [
-    { type: _services_player_state_service__WEBPACK_IMPORTED_MODULE_2__["PlayerStateService"] },
-    { type: _services_play_list_service__WEBPACK_IMPORTED_MODULE_3__["PlayListService"] }
+    { type: _services_player_state_service__WEBPACK_IMPORTED_MODULE_3__["PlayerStateService"] },
+    { type: _services_play_list_service__WEBPACK_IMPORTED_MODULE_2__["PlayListService"] }
 ];
 AudioPlayerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -672,7 +640,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PlayListComponent", function() { return PlayListComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _services_player_state_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/player-state.service */ "./src/app/audio-player/services/player-state.service.ts");
+/* harmony import */ var _services_player_state_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../services/player-state.service */ "./src/app/audio-player/services/player-state.service.ts");
 /* harmony import */ var _services_play_list_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/play-list.service */ "./src/app/audio-player/services/play-list.service.ts");
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm2015/animations.js");
 
@@ -686,6 +654,13 @@ let PlayListComponent = class PlayListComponent {
         this.stateService = stateService;
         this.playListService = playListService;
     }
+    playAudio(index) {
+        const audioToPlay = this.playList[index];
+        this.stateService.updateCurrentAudio(audioToPlay, index);
+        this.stateService.playAudio();
+    }
+    editAudio(index) { console.log('trying to edit audio', index); }
+    deleteAudio(index) { console.log('trying to delete audio', index); }
     ngOnInit() {
         this.playerState$ = this.stateService.getState();
         this.playerStateSubscription = this.playerState$.subscribe(state => {
@@ -763,7 +738,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PlayerControlsComponent", function() { return PlayerControlsComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _services_player_state_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/player-state.service */ "./src/app/audio-player/services/player-state.service.ts");
+/* harmony import */ var _services_player_state_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../services/player-state.service */ "./src/app/audio-player/services/player-state.service.ts");
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm2015/animations.js");
 
 
@@ -942,17 +917,35 @@ const staticControls = [
     { name: 'pause', materialIcon: 'pause_circle_outline' },
     { name: 'step-forward', materialIcon: 'skip_next' }
 ];
+function updateProgress(currentTime, duration) {
+    return 100 * currentTime / duration;
+}
 let PlayerStateService = class PlayerStateService {
     constructor() {
+        this.audioPlayerElement = new Audio();
         this._playerState$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]({
             controlList: staticControls,
             currentAudio: null,
             currentTime: 0,
             duration: 0,
+            progress: 0,
             audioTitle: '... Nothing is playing right now ...',
-            isPlaying: false
+            isPlaying: false,
+            isLastAudio: undefined
+        });
+        this.initPlayer();
+        // Listening to current time changes
+        this.audioPlayerElement.addEventListener('timeupdate', (event) => {
+            this.timeUpdate();
+        });
+        // Listening to audio end
+        this.audioPlayerElement.addEventListener('ended', (event) => {
+            // this.stepNext(); If audio ends player steps into next audio
         });
     }
+    /****************************************************
+     *             MANAGE THE STATE
+     ****************************************************/
     get playerState$() {
         return this._playerState$;
     }
@@ -962,20 +955,11 @@ let PlayerStateService = class PlayerStateService {
     set playerState(newState) {
         this._playerState$.next(newState);
     }
-    updateCurrentTime(newTime) {
-        this._playerState$.value.currentTime = newTime * 1000;
+    getState() {
+        return this._playerState$.asObservable();
     }
     getCurrentAudio() {
         return this._playerState$.value.currentAudio;
-    }
-    updateCurrentAudio(audio, currentAudio) {
-        this.playerState.currentAudio = currentAudio;
-        this.playerState.audioTitle = audio.audioTitle;
-        this.playerState.duration = audio.duration;
-        this.playerState.currentTime = 0;
-    }
-    getState() {
-        return this._playerState$.asObservable();
     }
     clearState() {
         this.playerState = {
@@ -983,9 +967,47 @@ let PlayerStateService = class PlayerStateService {
             currentAudio: null,
             currentTime: 0,
             duration: 0,
+            progress: 0,
             audioTitle: '... Nothing is playing right now ...',
-            isPlaying: false
+            isPlaying: false,
+            isLastAudio: undefined
         };
+    }
+    /****************************************************
+     *             UPDATING DE STATE CHANGES
+     ****************************************************/
+    timeUpdate() {
+        this.playerState.currentTime = this.audioPlayerElement.currentTime * 1000;
+        this.playerState.duration = this.audioPlayerElement.duration * 1000;
+        this.playerState.progress = updateProgress(this.audioPlayerElement.currentTime, this.audioPlayerElement.duration);
+    }
+    updateCurrentTime(newTime) {
+        this._playerState$.value.currentTime = newTime * 1000;
+    }
+    updateCurrentAudio(audio, newIndex) {
+        this.playerState.currentAudio = newIndex;
+        this.playerState.audioTitle = audio.audioTitle;
+        this.playerState.duration = audio.duration;
+        this.playerState.currentTime = 0;
+        this.audioPlayerElement.src = audio.sourceURL;
+        this.audioPlayerElement.load();
+    }
+    /****************************************************
+     *             PLAYER FUNCTIONS
+     ****************************************************/
+    initPlayer() {
+        this.audioPlayerElement.playbackRate = 1;
+        this.audioPlayerElement.volume = 0.3;
+    }
+    playAudio() {
+        console.log('PLaying now: ', this.playerState.audioTitle);
+        this.audioPlayerElement.play();
+        this.playerState.isPlaying = true;
+    }
+    playerPause() {
+        this.playerState.isPlaying = false;
+        this.audioPlayerElement.pause();
+        this.audioPlayerElement.playbackRate = 1;
     }
 };
 PlayerStateService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -1043,14 +1065,14 @@ MaterialModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatProgressSpinnerModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatButtonModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSortModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableModule"],
             _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTabsModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatCheckboxModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatToolbarModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatCardModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"],
             _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatProgressSpinnerModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatInputModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatPaginatorModule"], _angular_material_list__WEBPACK_IMPORTED_MODULE_9__["MatListModule"], _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_10__["MatGridListModule"],
-            _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_11__["MatProgressBarModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSidenavModule"]
+            _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_11__["MatProgressBarModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSidenavModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTooltipModule"]
         ],
         exports: [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTabsModule"], _angular_material_divider__WEBPACK_IMPORTED_MODULE_8__["MatDividerModule"], _angular_material_slider__WEBPACK_IMPORTED_MODULE_7__["MatSliderModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_6__["MatSelectModule"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_5__["MatRadioModule"],
             _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatNativeDateModule"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_4__["MatDatepickerModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSnackBarModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatIconModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogModule"],
             _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatProgressSpinnerModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatButtonModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSortModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatCheckboxModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatToolbarModule"],
             _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatCardModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTabsModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatProgressSpinnerModule"],
             _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatInputModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatPaginatorModule"], _angular_material_list__WEBPACK_IMPORTED_MODULE_9__["MatListModule"], _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_10__["MatGridListModule"],
-            _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_11__["MatProgressBarModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSidenavModule"]]
+            _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_11__["MatProgressBarModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSidenavModule"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTooltipModule"]]
     })
 ], MaterialModule);
 
