@@ -54,7 +54,8 @@ export class PlayListComponent implements OnInit, OnDestroy {
 
   playAudio(index: number) {
     const audioToPlay = this.playList[index];
-    console.log('trying to play audio', audioToPlay);
+    this.stateService.updateCurrentAudio(audioToPlay, index);
+    this.stateService.playAudio();
   }
   editAudio(index: number) {console.log('trying to edit audio', index)}
   deleteAudio(index: number) {console.log('trying to delete audio', index)}

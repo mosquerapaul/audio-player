@@ -122,8 +122,9 @@ export class PlayerStateService {
   }
 
   playAudio() {
-    console.log(this.audioPlayerElement.src);
+    console.log('PLaying now: ', this.playerState.audioTitle);
     this.audioPlayerElement.play();
+    this.playerState.isPlaying = true;
   }
 
   playerPause() {
