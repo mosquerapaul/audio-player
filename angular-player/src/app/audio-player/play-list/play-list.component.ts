@@ -73,8 +73,8 @@ export class PlayListComponent implements OnInit, OnDestroy {
     this.stateService.updateCurrentAudio(audioToPlay, index);
     this.stateService.playAudio();
   }
-  editAudio(index: number) {console.log('trying to edit audio', index)}
-  deleteAudio(index: number) {console.log('trying to delete audio', index)}
+  editAudio(index: number) {console.log('trying to edit audio', index); }
+  deleteAudio(index: number) {console.log('trying to delete audio', index); }
 
   ngOnInit() {
     this.playerState$ = this.stateService.getState();

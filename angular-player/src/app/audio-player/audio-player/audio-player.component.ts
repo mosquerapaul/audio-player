@@ -107,8 +107,8 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     this.playerState$ = this.stateService.getState();
     this.playerStateSubscription = this.playerState$.subscribe(state => {
       if (this.playerState) {
-        if(this.playerState.isPlaying) {
-          this.stateService.updateCurrentAudio(this.playList[this.playerState.currentAudio], this.playerState.currentAudio)
+        if (this.playerState.isPlaying) {
+          this.stateService.updateCurrentAudio(this.playList[this.playerState.currentAudio], this.playerState.currentAudio);
           this.stateService.playAudio();
         }
       }
