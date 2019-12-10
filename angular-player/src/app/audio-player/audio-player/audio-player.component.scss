@@ -8,6 +8,11 @@ article mat-toolbar.mat-h1 {
   white-space: normal;
 }
 
+mat-toolbar>img {
+  height: 70%;
+  padding: 10px;
+}
+
 article.controls {
   width: fit-content;
   height: 50px;

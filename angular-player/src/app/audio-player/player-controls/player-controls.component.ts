@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { PlayerStateService, PlayerState, Control } from '../services/player-state.service';
+import { PlayerStateService } from './../services/player-state.service';
+import { PlayerState, Control } from './../model/model-interface';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 @Component({
