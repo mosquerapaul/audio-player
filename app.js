@@ -24,10 +24,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 /*         Import de Controladores
 ****************************************/
+const {uploadController} = require('./controller/uploadController.js');
 
 
 /*         Resolución de rutas
 ****************************************/
+app.post(['/audioupload'], uploadController);
 
 
 /*         Rutas estáticas
