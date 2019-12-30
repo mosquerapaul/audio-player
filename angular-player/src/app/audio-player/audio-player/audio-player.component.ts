@@ -103,6 +103,8 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     this.playerState.isLastAudio = index === this.playList.length - 1;
   }
 
+  fileUpload() {}
+
   ngOnInit() {
     this.playerState$ = this.stateService.getState();
     this.playerStateSubscription = this.playerState$.subscribe(state => {

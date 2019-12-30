@@ -4,6 +4,11 @@
     <mat-toolbar [class]="'mat-h1'">
       <img src="/assets/angular-player.png">
         Audio Player - {{ (stateService.playerState$ | async).audioTitle }}
+        <span [class]="'fill-remaining-space'"></span>
+        <a mat-icon-button
+          (click)= "fileUpload()">
+          <mat-icon color = "accent" [ngClass]="['md-36']">cloud_upload</mat-icon>
+        </a>
     </mat-toolbar>
   </article>
 

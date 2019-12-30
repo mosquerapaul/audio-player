@@ -64,3 +64,16 @@ article#playing-info {
      Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
 }
+
+.md-36 {
+  font-size: $md-36;
+  height: $md-36;
+  width: $md-36;
+  line-height: $md-36;
+}
+.md-48 {
+  font-size: $md-48;
+  height: $md-48;
+  width: $md-48;
+  line-height: $md-48;
+}
