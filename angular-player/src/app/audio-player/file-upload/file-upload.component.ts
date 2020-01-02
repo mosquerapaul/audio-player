@@ -33,10 +33,6 @@ export class FileUploadComponent implements OnInit {
     this.renderer.selectRootElement(this.inputFile.nativeElement).click();
   }
 
-  isValidForm() {
-    return this.sourceURL && this.audioTitle && this.artist && this.credits;
-  }
-
   onSubmit() {
     this.loading = true;
     console.log('Form submited');
@@ -48,7 +44,7 @@ export class FileUploadComponent implements OnInit {
     setTimeout( () => {
       this.loading = false;
     }, 500 );
-    console.log('File Upload Started');
+    console.log('Form Loaded');
   }
 
 }
