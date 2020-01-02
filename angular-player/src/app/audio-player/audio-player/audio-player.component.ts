@@ -3,7 +3,8 @@ import { PlayerState, AudioElement } from './../model/model-interface';
 import { PlayListService } from './../services/play-list.service';
 import { PlayerStateService } from './../services/player-state.service';
 import { Observable, Subscription } from 'rxjs';
-
+import { MatDialog } from '@angular/material';
+import { FileUploadComponent } from '../file-upload/file-upload.component';
 
 
 @Component({
@@ -24,9 +25,17 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   playListSubscription: Subscription;
   playerStateSubscription: Subscription;
 
-  constructor(playerStateService: PlayerStateService, playListService: PlayListService) {
+  constructor(playerStateService: PlayerStateService, playListService: PlayListService, public dialog: MatDialog) {
     this.stateService = playerStateService;
     this.playListService = playListService;
+  }
+
+  fileUpload() {
+    const dialogRef = this.dialog.open(FileUploadComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   playerPlay(index: number) {
@@ -102,8 +111,6 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     this.stateService.updateCurrentAudio(this.playList[index], index);
     this.playerState.isLastAudio = index === this.playList.length - 1;
   }
-
-  fileUpload() {}
 
   ngOnInit() {
     this.playerState$ = this.stateService.getState();

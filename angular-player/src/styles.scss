@@ -7,6 +7,10 @@
   color: $primary_color;
 }
 
+.primary-text {
+  color: $primary_text;
+}
+
 *[accent] {
   color: $accent_color;
 }
@@ -50,4 +54,9 @@ mat-sidenav-content {
 ::-webkit-scrollbar-thumb{
   background:#69f0ae;
   border-radius:5px
+}
+
+
+.center {
+  text-align: center;
 }

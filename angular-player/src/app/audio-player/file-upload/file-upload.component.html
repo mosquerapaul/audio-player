@@ -1,0 +1,61 @@
+<h2 [class]="'mat-h1'">Audio Upload</h2>
+<div *ngIf="loading"><mat-spinner></mat-spinner></div>
+<div [hidden]="loading">
+  <form (ngSubmit)="onSubmit()" #audioUploadForm="ngForm">
+    <ul>
+      <li>
+        <a mat-stroked-button (click)="chooseFile()">
+          <mat-icon>folder</mat-icon> Select File
+        </a>
+        <mat-form-field>
+          <input matInput disabled  id="displaySourceURL"
+              [(ngModel)]="sourceURL" name="displaySourceURL">
+        </mat-form-field>
+        <input #inputFile hidden class="file" type="file" id="sourceURL"
+              [(ngModel)]="sourceURL" name="sourceURL" required>
+      </li>
+      <li>
+        <mat-form-field class="full_width">
+          <input matInput placeholder="Audio Title" id="title"
+              [(ngModel)]="audioTitle" name="title" required>
+          <button mat-button matSuffix mat-icon-button
+            *ngIf="audioTitle"
+            aria-label="Clear"
+            (click)="audioTitle=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </li>
+      <li>
+        <mat-form-field class="full_width">
+          <input matInput placeholder="Artist name" id="artist"
+            [(ngModel)]="artist" name="artist" required>
+          <button mat-button matSuffix mat-icon-button
+            *ngIf="artist"
+            aria-label="Clear"
+            (click)="artist=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </li>
+      <li>
+        <mat-form-field class="full_width">
+          <input matInput placeholder="Credits" id="credits"
+            [(ngModel)]="credits" name="credits" required>
+          <button mat-button matSuffix mat-icon-button
+            *ngIf="credits"
+            aria-label="Clear"
+            (click)="credits=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </li>
+      <li class="center">
+        <button mat-stroked-button class="btn btn-success"
+          type="submit" [disabled]="!isValidForm()">
+          <mat-icon>cloud_upload</mat-icon> Submit
+        </button>
+      </li>
+    </ul>
+  </form>
+</div>
