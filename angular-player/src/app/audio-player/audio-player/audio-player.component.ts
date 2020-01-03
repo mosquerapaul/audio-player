@@ -30,7 +30,7 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     this.playListService = playListService;
   }
 
-  fileUpload() {
+  openDialogfileUpload() {
     const dialogRef = this.dialog.open(FileUploadComponent);
 
     dialogRef.afterClosed().subscribe(result => {

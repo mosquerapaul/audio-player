@@ -6,7 +6,7 @@
         Audio Player - {{ (stateService.playerState$ | async).audioTitle }}
         <span [class]="'fill-remaining-space'"></span>
         <a mat-icon-button
-          (click)= "fileUpload()">
+          (click)= "openDialogfileUpload()">
           <mat-icon [ngClass]="['md-36']">cloud_upload</mat-icon>
         </a>
     </mat-toolbar>
