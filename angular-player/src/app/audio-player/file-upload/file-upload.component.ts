@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { AudioElement } from '../model/model-interface';
-import { MAT_DIALOG_DATA } from '@angular/material';
-
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 
 @Component({
@@ -15,27 +14,37 @@ export class FileUploadComponent implements OnInit {
 
   loading: boolean;
 
-  sourceURL: string;
-  duration: number;
-  audioTitle: string;
-  artist: string;
-  credits: string;
+  audio: AudioElement;
 
-  constructor(private renderer: Renderer2, @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.sourceURL = '';
-    this.duration = 0;
-    this.audioTitle = '';
-    this.artist = '';
-    this.credits = '';
+  fileData: any;
+
+  constructor(
+        private renderer: Renderer2,
+        public dialogRef: MatDialogRef<FileUploadComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.audio = {
+      sourceURL : '',
+      duration : 0,
+      audioTitle : '',
+      artist : '',
+      credits : ''
+    };
   }
 
   chooseFile() {
     this.renderer.selectRootElement(this.inputFile.nativeElement).click();
   }
 
-  onSubmit() {
+  fileUpdated() {
+    this.audio.sourceURL = this.renderer.selectRootElement(this.inputFile.nativeElement).files[0].name;
+  }
+
+  onSubmit(formValue) {
+    console.log('submit called');
     this.loading = true;
-    console.log('Form submited');
+    console.log('Form content', formValue);
+    console.log(this.renderer.selectRootElement(this.inputFile.nativeElement).files[0]);
+    this.dialogRef.close(this.audio);
   }
 
   ngOnInit() {
