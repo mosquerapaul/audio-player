@@ -32,7 +32,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n<app-audio-player></app-audio-player>\n\n<router-outlet></router-outlet>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("\n<router-outlet></router-outlet>\n");
 
 /***/ }),
 
@@ -45,7 +45,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n<mat-sidenav-container>\n  <article>\n    <mat-toolbar [class]=\"'mat-h1'\">\n      <img src=\"/assets/angular-player.png\">\n        Audio Player - {{ (stateService.playerState$ | async).audioTitle }}\n    </mat-toolbar>\n  </article>\n\n  <article [id]=\"'play-list'\">\n    <app-play-list></app-play-list>\n  </article>\n\n  <article [id]=\"'playing-info'\">\n    <p color = \"accent\" [ngClass]=\"['track-info', 'mat-h2']\">\n      <span [id]=\"'audio-name'\">{{ (stateService.playerState$ | async).audioTitle }}</span>\n      <span [class]=\"'fill-remaining-space'\"></span>\n      <span [id]=\"'audio-times'\">\n        {{ (stateService.playerState$ | async).currentTime | date:'mm:ss' }} / {{ (stateService.playerState$ | async).duration | date:'mm:ss' }}\n      </span>\n    </p>\n\n    <div [id]=\"'progress-bar-container'\">\n      <mat-progress-bar [id]=\"'progress-bar-background'\" mode=\"determinate\" value=\"{{ (stateService.playerState$ | async).progress }}\">\n      </mat-progress-bar>\n      <div [id]=\"'progress-bar'\" style=\"display:none;\"><mat-icon color=\"accent\">album</mat-icon></div>\n    </div>\n  </article>\n\n  <article [ngClass]=\"['controls']\">\n    <app-player-controls\n      *ngFor=\"let control of playerState.controlList\"\n      [control]=\"control\"\n      [ngClass]=\"{'play-pause': control.name === 'play' || control.name === 'pause'}\"\n      (click)=\"handleClickControl(control.name)\">\n    </app-player-controls>\n  </article>\n</mat-sidenav-container>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("\n<mat-sidenav-container>\n  <article>\n    <mat-toolbar [class]=\"'mat-h1'\">\n      <img src=\"/assets/angular-player.png\">\n        Audio Player - {{ (stateService.playerState$ | async).audioTitle }}\n        <span [class]=\"'fill-remaining-space'\"></span>\n        <a mat-icon-button\n          (click)= \"openDialogfileUpload()\">\n          <mat-icon [ngClass]=\"['md-36']\">cloud_upload</mat-icon>\n        </a>\n    </mat-toolbar>\n  </article>\n\n  <article [id]=\"'play-list'\">\n    <app-play-list></app-play-list>\n  </article>\n\n  <article [id]=\"'playing-info'\">\n    <p color = \"accent\" [ngClass]=\"['track-info', 'mat-h2']\">\n      <span [id]=\"'audio-name'\">{{ (stateService.playerState$ | async).audioTitle }}</span>\n      <span [class]=\"'fill-remaining-space'\"></span>\n      <span [id]=\"'audio-times'\">\n        {{ (stateService.playerState$ | async).currentTime | date:'mm:ss' }} / {{ (stateService.playerState$ | async).duration | date:'mm:ss' }}\n      </span>\n    </p>\n\n    <div [id]=\"'progress-bar-container'\">\n      <mat-progress-bar [id]=\"'progress-bar-background'\" mode=\"determinate\" value=\"{{ (stateService.playerState$ | async).progress }}\">\n      </mat-progress-bar>\n      <div [id]=\"'progress-bar'\" style=\"display:none;\"><mat-icon color=\"accent\">album</mat-icon></div>\n    </div>\n  </article>\n\n  <article [ngClass]=\"['controls']\">\n    <app-player-controls\n      *ngFor=\"let control of playerState.controlList\"\n      [control]=\"control\"\n      [ngClass]=\"{'play-pause': control.name === 'play' || control.name === 'pause'}\"\n      (click)=\"handleClickControl(control.name)\">\n    </app-player-controls>\n  </article>\n</mat-sidenav-container>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/audio-player/file-upload/file-upload.component.html":
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/audio-player/file-upload/file-upload.component.html ***!
+  \***********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<h2 mat-dialog-title [class]=\"'mat-h1'\">Audio Upload</h2>\n<p mat-subheader warn [class]=\"'center full_width'\">El archivo no se subirá al servidor.<br> Función en desarrollo.</p>\n<div *ngIf=\"loading\" [class]=\"'center'\"><mat-spinner></mat-spinner></div>\n<div [hidden]=\"loading\">\n  <form (ngSubmit)=\"onSubmit(audioUploadForm.form.value)\" #audioUploadForm=\"ngForm\">\n    <ul>\n      <mat-dialog-content>\n        <li>\n          <a mat-stroked-button (click)=\"chooseFile()\">\n            <mat-icon>folder</mat-icon> Select File\n          </a>\n          <mat-form-field>\n            <input matInput disabled  id=\"displaySourceURL\"\n                [(ngModel)]=\"audio.sourceURL\" name=\"displaySourceURL\">\n          </mat-form-field>\n          <input #inputFile hidden class=\"file\" type=\"file\" id=\"sourceURL\"\n                [(ngModel)]=\"fileData\" name=\"file\" required\n                (ngModelChange)=\"fileUpdated()\">\n        </li>\n        <li>\n          <mat-form-field class=\"full_width\">\n            <input matInput placeholder=\"Audio Title\" id=\"title\"\n                [(ngModel)]=\"audio.audioTitle\" name=\"title\" required>\n            <button mat-button matSuffix mat-icon-button aria-label=\"Clear\"\n              *ngIf=\"audio.audioTitle\"\n              (click)=\"audio.audioTitle=''\">\n              <mat-icon>close</mat-icon>\n            </button>\n          </mat-form-field>\n        </li>\n        <li>\n          <mat-form-field class=\"full_width\">\n            <input matInput placeholder=\"Artist name\" id=\"artist\"\n              [(ngModel)]=\"audio.artist\" name=\"artist\" required>\n            <button mat-button matSuffix mat-icon-button aria-label=\"Clear\"\n              *ngIf=\"audio.artist\"\n              (click)=\"audio.artist=''\">\n              <mat-icon>close</mat-icon>\n            </button>\n          </mat-form-field>\n        </li>\n        <li>\n          <mat-form-field class=\"full_width\">\n            <input matInput placeholder=\"Credits\" id=\"credits\"\n              [(ngModel)]=\"audio.credits\" name=\"credits\" required>\n            <button mat-button matSuffix mat-icon-button aria-label=\"Clear\"\n              *ngIf=\"audio.credits\"\n              (click)=\"audio.credits=''\">\n              <mat-icon>close</mat-icon>\n            </button>\n          </mat-form-field>\n        </li>\n      </mat-dialog-content>\n      <mat-dialog-actions align=\"end\">\n        <button mat-stroked-button class=\"btn btn-cancel\"\n        [mat-dialog-close]=false>\n          <mat-icon>cancel</mat-icon> Cancel\n        </button>\n        <button mat-stroked-button class=\"btn btn-success\" [disabled]=\"!audioUploadForm.form.valid\"\n        type=\"submit\">\n          <mat-icon>cloud_upload</mat-icon> Submit\n        </button>\n      </mat-dialog-actions>\n    </ul>\n  </form>\n</div>\n");
 
 /***/ }),
 
@@ -317,10 +330,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _audio_player_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./audio-player/file-upload/file-upload.component */ "./src/app/audio-player/file-upload/file-upload.component.ts");
+/* harmony import */ var _audio_player_audio_player_audio_player_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./audio-player/audio-player/audio-player.component */ "./src/app/audio-player/audio-player/audio-player.component.ts");
 
 
 
-const routes = [];
+
+
+const routes = [
+    { path: 'file-upload', component: _audio_player_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_3__["FileUploadComponent"] },
+    { path: 'player', component: _audio_player_audio_player_audio_player_component__WEBPACK_IMPORTED_MODULE_4__["AudioPlayerComponent"] },
+    { path: '**', redirectTo: '/player' }
+];
 let AppRoutingModule = class AppRoutingModule {
 };
 AppRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -362,9 +383,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppComponent = class AppComponent {
-    constructor() {
-        this.title = 'angular-player';
-    }
 };
 AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -396,6 +414,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _audio_player_audio_player_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./audio-player/audio-player.module */ "./src/app/audio-player/audio-player.module.ts");
 /* harmony import */ var _shared_material_material_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./shared/material/material.module */ "./src/app/shared/material/material.module.ts");
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
+/* harmony import */ var _audio_player_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./audio-player/file-upload/file-upload.component */ "./src/app/audio-player/file-upload/file-upload.component.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+
+
+
 
 
 
@@ -409,14 +433,17 @@ let AppModule = class AppModule {
 AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
         declarations: [
-            _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]
+            _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
+            _audio_player_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_8__["FileUploadComponent"]
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
             _app_routing_module__WEBPACK_IMPORTED_MODULE_3__["AppRoutingModule"],
             _audio_player_audio_player_module__WEBPACK_IMPORTED_MODULE_5__["AudioPlayerModule"],
             _shared_material_material_module__WEBPACK_IMPORTED_MODULE_6__["MaterialModule"],
-            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__["BrowserAnimationsModule"]
+            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__["BrowserAnimationsModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatDialogModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"]
         ],
         exports: [
             _shared_material_material_module__WEBPACK_IMPORTED_MODULE_6__["MaterialModule"]
@@ -482,7 +509,7 @@ AudioPlayerModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("app-audio-player {\n  text-align: center;\n}\n\narticle mat-toolbar.mat-h1 {\n  white-space: normal;\n}\n\nmat-toolbar > img {\n  height: 70%;\n  padding: 10px;\n}\n\narticle.controls {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  height: 50px;\n  overflow: hidden;\n  left: 0;\n  right: 0;\n  margin: 20px auto;\n  display: grid;\n  grid-template-columns: repeat(3, 60px);\n  grid-template-areas: \"back play-pause next\";\n  grid-column-gap: 5px;\n  text-align: center;\n}\n\napp-player-controls.play-pause {\n  grid-column: play-pause;\n  grid-row: 1;\n}\n\narticle#playing-info {\n  margin: 20px auto;\n  color: #69F0AE;\n  width: 96vw;\n}\n\n.track-info {\n  display: flex;\n  margin: auto;\n}\n\n#progress-bar-container {\n  position: relative;\n  height: 20px;\n}\n\n#progress-bar-background {\n  position: absolute;\n  top: 10px;\n}\n\n#progress-bar {\n  position: absolute;\n  width: 40%;\n  top: 0;\n}\n\n#progress-bar mat-icon {\n  position: absolute;\n  right: -12px;\n}\n\n.fill-remaining-space {\n  /* This fills the remaining space, by using flexbox.\n     Every toolbar row uses a flexbox row layout. */\n  flex: 1 1 auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3BhdWxtb3NxdWVyYS9qcy1wcm9qZWN0cy9hdWRpby1wbGF5ZXItbm9kZS1hbmd1bGFyL2FuZ3VsYXItcGxheWVyL3NyYy9hcHAvYXVkaW8tcGxheWVyL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIvYXVkaW8tcGxheWVyLmNvbXBvbmVudC5zY3NzIiwiL2hvbWUvcGF1bG1vc3F1ZXJhL2pzLXByb2plY3RzL2F1ZGlvLXBsYXllci1ub2RlLWFuZ3VsYXIvYW5ndWxhci1wbGF5ZXIvc3JjL3ZhcmlhYmxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0VBQ0Usa0JBQUE7QUNERjs7QURJQTtFQUNFLG1CQUFBO0FDREY7O0FESUE7RUFDRSxXQUFBO0VBQ0EsYUFBQTtBQ0RGOztBRElBO0VBQ0UsMEJBQUE7RUFBQSx1QkFBQTtFQUFBLGtCQUFBO0VBQ0EsWUFBQTtFQUNBLGdCQUFBO0VBQ0EsT0FBQTtFQUNBLFFBQUE7RUFDQSxpQkFBQTtFQUNBLGFBQUE7RUFDQSxzQ0FBQTtFQUNBLDJDQUFBO0VBQ0Esb0JBQUE7RUFDQSxrQkFBQTtBQ0RGOztBRElBO0VBQ0UsdUJBQUE7RUFDQSxXQUFBO0FDREY7O0FESUE7RUFDRSxpQkFBQTtFQUNBLGNFbENjO0VGbUNkLFdBQUE7QUNERjs7QURJQTtFQUNFLGFBQUE7RUFDQSxZQUFBO0FDREY7O0FER0E7RUFDRSxrQkFBQTtFQUNBLFlBQUE7QUNBRjs7QURFQTtFQUNFLGtCQUFBO0VBQ0EsU0FBQTtBQ0NGOztBRENBO0VBQ0Usa0JBQUE7RUFDQSxVQUFBO0VBQ0EsTUFBQTtBQ0VGOztBRERFO0VBQ0Usa0JBQUE7RUFDQSxZQUFBO0FDR0o7O0FEQUE7RUFDRTttREFBQTtFQUVBLGNBQUE7QUNHRiIsImZpbGUiOiJzcmMvYXBwL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIvYXVkaW8tcGxheWVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCAnLi4vLi4vLi4vdmFyaWFibGVzLnNjc3MnO1xuXG5hcHAtYXVkaW8tcGxheWVyIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG5hcnRpY2xlIG1hdC10b29sYmFyLm1hdC1oMSB7XG4gIHdoaXRlLXNwYWNlOiBub3JtYWw7XG59XG5cbm1hdC10b29sYmFyPmltZyB7XG4gIGhlaWdodDogNzAlO1xuICBwYWRkaW5nOiAxMHB4O1xufVxuXG5hcnRpY2xlLmNvbnRyb2xzIHtcbiAgd2lkdGg6IGZpdC1jb250ZW50O1xuICBoZWlnaHQ6IDUwcHg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICBtYXJnaW46IDIwcHggYXV0bztcbiAgZGlzcGxheTogZ3JpZDtcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMywgNjBweCk7XG4gIGdyaWQtdGVtcGxhdGUtYXJlYXM6IFwiYmFjayBwbGF5LXBhdXNlIG5leHRcIjtcbiAgZ3JpZC1jb2x1bW4tZ2FwOiA1cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuYXBwLXBsYXllci1jb250cm9scy5wbGF5LXBhdXNlIHtcbiAgZ3JpZC1jb2x1bW46IHBsYXktcGF1c2U7XG4gIGdyaWQtcm93OiAxO1xufVxuXG5hcnRpY2xlI3BsYXlpbmctaW5mbyB7XG4gIG1hcmdpbjogMjBweCBhdXRvO1xuICBjb2xvcjogJGFjY2VudF9jb2xvcjtcbiAgd2lkdGg6IDk2dnc7XG59XG5cbi50cmFjay1pbmZve1xuICBkaXNwbGF5OiBmbGV4O1xuICBtYXJnaW46IGF1dG87XG59XG4jcHJvZ3Jlc3MtYmFyLWNvbnRhaW5lciB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgaGVpZ2h0OiAyMHB4O1xufVxuI3Byb2dyZXNzLWJhci1iYWNrZ3JvdW5kIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDEwcHg7XG59XG4jcHJvZ3Jlc3MtYmFyIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB3aWR0aDogNDAlO1xuICB0b3A6IDA7XG4gIG1hdC1pY29uIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgcmlnaHQ6IC0xMnB4O1xuICB9XG59XG4uZmlsbC1yZW1haW5pbmctc3BhY2Uge1xuICAvKiBUaGlzIGZpbGxzIHRoZSByZW1haW5pbmcgc3BhY2UsIGJ5IHVzaW5nIGZsZXhib3guXG4gICAgIEV2ZXJ5IHRvb2xiYXIgcm93IHVzZXMgYSBmbGV4Ym94IHJvdyBsYXlvdXQuICovXG4gIGZsZXg6IDEgMSBhdXRvO1xufVxuIiwiYXBwLWF1ZGlvLXBsYXllciB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuYXJ0aWNsZSBtYXQtdG9vbGJhci5tYXQtaDEge1xuICB3aGl0ZS1zcGFjZTogbm9ybWFsO1xufVxuXG5tYXQtdG9vbGJhciA+IGltZyB7XG4gIGhlaWdodDogNzAlO1xuICBwYWRkaW5nOiAxMHB4O1xufVxuXG5hcnRpY2xlLmNvbnRyb2xzIHtcbiAgd2lkdGg6IGZpdC1jb250ZW50O1xuICBoZWlnaHQ6IDUwcHg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICBtYXJnaW46IDIwcHggYXV0bztcbiAgZGlzcGxheTogZ3JpZDtcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMywgNjBweCk7XG4gIGdyaWQtdGVtcGxhdGUtYXJlYXM6IFwiYmFjayBwbGF5LXBhdXNlIG5leHRcIjtcbiAgZ3JpZC1jb2x1bW4tZ2FwOiA1cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuYXBwLXBsYXllci1jb250cm9scy5wbGF5LXBhdXNlIHtcbiAgZ3JpZC1jb2x1bW46IHBsYXktcGF1c2U7XG4gIGdyaWQtcm93OiAxO1xufVxuXG5hcnRpY2xlI3BsYXlpbmctaW5mbyB7XG4gIG1hcmdpbjogMjBweCBhdXRvO1xuICBjb2xvcjogIzY5RjBBRTtcbiAgd2lkdGg6IDk2dnc7XG59XG5cbi50cmFjay1pbmZvIHtcbiAgZGlzcGxheTogZmxleDtcbiAgbWFyZ2luOiBhdXRvO1xufVxuXG4jcHJvZ3Jlc3MtYmFyLWNvbnRhaW5lciB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgaGVpZ2h0OiAyMHB4O1xufVxuXG4jcHJvZ3Jlc3MtYmFyLWJhY2tncm91bmQge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogMTBweDtcbn1cblxuI3Byb2dyZXNzLWJhciB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgd2lkdGg6IDQwJTtcbiAgdG9wOiAwO1xufVxuI3Byb2dyZXNzLWJhciBtYXQtaWNvbiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgcmlnaHQ6IC0xMnB4O1xufVxuXG4uZmlsbC1yZW1haW5pbmctc3BhY2Uge1xuICAvKiBUaGlzIGZpbGxzIHRoZSByZW1haW5pbmcgc3BhY2UsIGJ5IHVzaW5nIGZsZXhib3guXG4gICAgIEV2ZXJ5IHRvb2xiYXIgcm93IHVzZXMgYSBmbGV4Ym94IHJvdyBsYXlvdXQuICovXG4gIGZsZXg6IDEgMSBhdXRvO1xufSIsIlxuJHByaW1hcnlfY29sb3IgOiAjN0IxRkEyO1xuJGFjY2VudF9jb2xvciA6ICM2OUYwQUU7XG4kd2Fybl9jb2xvciA6ICNGNDQzMzY7XG5cbiRib3JkZXJfcmFkaXVzX2RlZmF1bHQ6IDVweDtcbiJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = ("app-audio-player {\n  text-align: center;\n}\n\narticle mat-toolbar.mat-h1 {\n  white-space: normal;\n}\n\nmat-toolbar > img {\n  height: 70%;\n  padding: 10px;\n}\n\narticle.controls {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  height: 50px;\n  overflow: hidden;\n  left: 0;\n  right: 0;\n  margin: 20px auto;\n  display: grid;\n  grid-template-columns: repeat(3, 60px);\n  grid-template-areas: \"back play-pause next\";\n  grid-column-gap: 5px;\n  text-align: center;\n}\n\napp-player-controls.play-pause {\n  grid-column: play-pause;\n  grid-row: 1;\n}\n\narticle#playing-info {\n  margin: 20px auto;\n  color: #69F0AE;\n  width: 96vw;\n}\n\n.track-info {\n  display: flex;\n  margin: auto;\n}\n\n#progress-bar-container {\n  position: relative;\n  height: 20px;\n}\n\n#progress-bar-background {\n  position: absolute;\n  top: 10px;\n}\n\n#progress-bar {\n  position: absolute;\n  width: 40%;\n  top: 0;\n}\n\n#progress-bar mat-icon {\n  position: absolute;\n  right: -12px;\n}\n\n.fill-remaining-space {\n  /* This fills the remaining space, by using flexbox.\n     Every toolbar row uses a flexbox row layout. */\n  flex: 1 1 auto;\n}\n\n.md-36 {\n  font-size: 36px !important;\n  height: 36px !important;\n  width: 36px !important;\n  line-height: 36px !important;\n}\n\n.md-48 {\n  font-size: 48px !important;\n  height: 48px !important;\n  width: 48px !important;\n  line-height: 48px !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3BhdWxtb3NxdWVyYS9qcy1wcm9qZWN0cy9hdWRpby1wbGF5ZXItbm9kZS1hbmd1bGFyL2FuZ3VsYXItcGxheWVyL3NyYy9hcHAvYXVkaW8tcGxheWVyL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIvYXVkaW8tcGxheWVyLmNvbXBvbmVudC5zY3NzIiwiL2hvbWUvcGF1bG1vc3F1ZXJhL2pzLXByb2plY3RzL2F1ZGlvLXBsYXllci1ub2RlLWFuZ3VsYXIvYW5ndWxhci1wbGF5ZXIvc3JjL3ZhcmlhYmxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0VBQ0Usa0JBQUE7QUNERjs7QURJQTtFQUNFLG1CQUFBO0FDREY7O0FESUE7RUFDRSxXQUFBO0VBQ0EsYUFBQTtBQ0RGOztBRElBO0VBQ0UsMEJBQUE7RUFBQSx1QkFBQTtFQUFBLGtCQUFBO0VBQ0EsWUFBQTtFQUNBLGdCQUFBO0VBQ0EsT0FBQTtFQUNBLFFBQUE7RUFDQSxpQkFBQTtFQUNBLGFBQUE7RUFDQSxzQ0FBQTtFQUNBLDJDQUFBO0VBQ0Esb0JBQUE7RUFDQSxrQkFBQTtBQ0RGOztBRElBO0VBQ0UsdUJBQUE7RUFDQSxXQUFBO0FDREY7O0FESUE7RUFDRSxpQkFBQTtFQUNBLGNFbENjO0VGbUNkLFdBQUE7QUNERjs7QURJQTtFQUNFLGFBQUE7RUFDQSxZQUFBO0FDREY7O0FER0E7RUFDRSxrQkFBQTtFQUNBLFlBQUE7QUNBRjs7QURFQTtFQUNFLGtCQUFBO0VBQ0EsU0FBQTtBQ0NGOztBRENBO0VBQ0Usa0JBQUE7RUFDQSxVQUFBO0VBQ0EsTUFBQTtBQ0VGOztBRERFO0VBQ0Usa0JBQUE7RUFDQSxZQUFBO0FDR0o7O0FEQUE7RUFDRTttREFBQTtFQUVBLGNBQUE7QUNHRjs7QURBQTtFQUNFLDBCRXpETTtFRjBETix1QkUxRE07RUYyRE4sc0JFM0RNO0VGNEROLDRCRTVETTtBRCtEUjs7QUREQTtFQUNFLDBCRWhFTTtFRmlFTix1QkVqRU07RUZrRU4sc0JFbEVNO0VGbUVOLDRCRW5FTTtBRHVFUiIsImZpbGUiOiJzcmMvYXBwL2F1ZGlvLXBsYXllci9hdWRpby1wbGF5ZXIvYXVkaW8tcGxheWVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCAnLi4vLi4vLi4vdmFyaWFibGVzLnNjc3MnO1xuXG5hcHAtYXVkaW8tcGxheWVyIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG5hcnRpY2xlIG1hdC10b29sYmFyLm1hdC1oMSB7XG4gIHdoaXRlLXNwYWNlOiBub3JtYWw7XG59XG5cbm1hdC10b29sYmFyPmltZyB7XG4gIGhlaWdodDogNzAlO1xuICBwYWRkaW5nOiAxMHB4O1xufVxuXG5hcnRpY2xlLmNvbnRyb2xzIHtcbiAgd2lkdGg6IGZpdC1jb250ZW50O1xuICBoZWlnaHQ6IDUwcHg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICBtYXJnaW46IDIwcHggYXV0bztcbiAgZGlzcGxheTogZ3JpZDtcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMywgNjBweCk7XG4gIGdyaWQtdGVtcGxhdGUtYXJlYXM6IFwiYmFjayBwbGF5LXBhdXNlIG5leHRcIjtcbiAgZ3JpZC1jb2x1bW4tZ2FwOiA1cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuYXBwLXBsYXllci1jb250cm9scy5wbGF5LXBhdXNlIHtcbiAgZ3JpZC1jb2x1bW46IHBsYXktcGF1c2U7XG4gIGdyaWQtcm93OiAxO1xufVxuXG5hcnRpY2xlI3BsYXlpbmctaW5mbyB7XG4gIG1hcmdpbjogMjBweCBhdXRvO1xuICBjb2xvcjogJGFjY2VudF9jb2xvcjtcbiAgd2lkdGg6IDk2dnc7XG59XG5cbi50cmFjay1pbmZve1xuICBkaXNwbGF5OiBmbGV4O1xuICBtYXJnaW46IGF1dG87XG59XG4jcHJvZ3Jlc3MtYmFyLWNvbnRhaW5lciB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgaGVpZ2h0OiAyMHB4O1xufVxuI3Byb2dyZXNzLWJhci1iYWNrZ3JvdW5kIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDEwcHg7XG59XG4jcHJvZ3Jlc3MtYmFyIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB3aWR0aDogNDAlO1xuICB0b3A6IDA7XG4gIG1hdC1pY29uIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgcmlnaHQ6IC0xMnB4O1xuICB9XG59XG4uZmlsbC1yZW1haW5pbmctc3BhY2Uge1xuICAvKiBUaGlzIGZpbGxzIHRoZSByZW1haW5pbmcgc3BhY2UsIGJ5IHVzaW5nIGZsZXhib3guXG4gICAgIEV2ZXJ5IHRvb2xiYXIgcm93IHVzZXMgYSBmbGV4Ym94IHJvdyBsYXlvdXQuICovXG4gIGZsZXg6IDEgMSBhdXRvO1xufVxuXG4ubWQtMzYge1xuICBmb250LXNpemU6ICRtZC0zNjtcbiAgaGVpZ2h0OiAkbWQtMzY7XG4gIHdpZHRoOiAkbWQtMzY7XG4gIGxpbmUtaGVpZ2h0OiAkbWQtMzY7XG59XG4ubWQtNDgge1xuICBmb250LXNpemU6ICRtZC00ODtcbiAgaGVpZ2h0OiAkbWQtNDg7XG4gIHdpZHRoOiAkbWQtNDg7XG4gIGxpbmUtaGVpZ2h0OiAkbWQtNDg7XG59XG4iLCJhcHAtYXVkaW8tcGxheWVyIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG5hcnRpY2xlIG1hdC10b29sYmFyLm1hdC1oMSB7XG4gIHdoaXRlLXNwYWNlOiBub3JtYWw7XG59XG5cbm1hdC10b29sYmFyID4gaW1nIHtcbiAgaGVpZ2h0OiA3MCU7XG4gIHBhZGRpbmc6IDEwcHg7XG59XG5cbmFydGljbGUuY29udHJvbHMge1xuICB3aWR0aDogZml0LWNvbnRlbnQ7XG4gIGhlaWdodDogNTBweDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgbGVmdDogMDtcbiAgcmlnaHQ6IDA7XG4gIG1hcmdpbjogMjBweCBhdXRvO1xuICBkaXNwbGF5OiBncmlkO1xuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgzLCA2MHB4KTtcbiAgZ3JpZC10ZW1wbGF0ZS1hcmVhczogXCJiYWNrIHBsYXktcGF1c2UgbmV4dFwiO1xuICBncmlkLWNvbHVtbi1nYXA6IDVweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG5hcHAtcGxheWVyLWNvbnRyb2xzLnBsYXktcGF1c2Uge1xuICBncmlkLWNvbHVtbjogcGxheS1wYXVzZTtcbiAgZ3JpZC1yb3c6IDE7XG59XG5cbmFydGljbGUjcGxheWluZy1pbmZvIHtcbiAgbWFyZ2luOiAyMHB4IGF1dG87XG4gIGNvbG9yOiAjNjlGMEFFO1xuICB3aWR0aDogOTZ2dztcbn1cblxuLnRyYWNrLWluZm8ge1xuICBkaXNwbGF5OiBmbGV4O1xuICBtYXJnaW46IGF1dG87XG59XG5cbiNwcm9ncmVzcy1iYXItY29udGFpbmVyIHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICBoZWlnaHQ6IDIwcHg7XG59XG5cbiNwcm9ncmVzcy1iYXItYmFja2dyb3VuZCB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiAxMHB4O1xufVxuXG4jcHJvZ3Jlc3MtYmFyIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB3aWR0aDogNDAlO1xuICB0b3A6IDA7XG59XG4jcHJvZ3Jlc3MtYmFyIG1hdC1pY29uIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICByaWdodDogLTEycHg7XG59XG5cbi5maWxsLXJlbWFpbmluZy1zcGFjZSB7XG4gIC8qIFRoaXMgZmlsbHMgdGhlIHJlbWFpbmluZyBzcGFjZSwgYnkgdXNpbmcgZmxleGJveC5cbiAgICAgRXZlcnkgdG9vbGJhciByb3cgdXNlcyBhIGZsZXhib3ggcm93IGxheW91dC4gKi9cbiAgZmxleDogMSAxIGF1dG87XG59XG5cbi5tZC0zNiB7XG4gIGZvbnQtc2l6ZTogMzZweCAhaW1wb3J0YW50O1xuICBoZWlnaHQ6IDM2cHggIWltcG9ydGFudDtcbiAgd2lkdGg6IDM2cHggIWltcG9ydGFudDtcbiAgbGluZS1oZWlnaHQ6IDM2cHggIWltcG9ydGFudDtcbn1cblxuLm1kLTQ4IHtcbiAgZm9udC1zaXplOiA0OHB4ICFpbXBvcnRhbnQ7XG4gIGhlaWdodDogNDhweCAhaW1wb3J0YW50O1xuICB3aWR0aDogNDhweCAhaW1wb3J0YW50O1xuICBsaW5lLWhlaWdodDogNDhweCAhaW1wb3J0YW50O1xufSIsIlxuJHByaW1hcnlfY29sb3IgOiAjN0IxRkEyO1xuJGFjY2VudF9jb2xvciA6ICM2OUYwQUU7XG4kd2Fybl9jb2xvciA6ICNGNDQzMzY7XG5cbiRwcmltYXJ5X3RleHQgOiAjY2U5M2Q4O1xuXG4kYm9yZGVyX3JhZGl1c19kZWZhdWx0OiA1cHg7XG5cblxuJG1kLTQ4OiA0OHB4ICFpbXBvcnRhbnQ7XG4kbWQtMzY6IDM2cHggIWltcG9ydGFudDtcblxuIl19 */");
 
 /***/ }),
 
@@ -500,15 +527,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _services_play_list_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../services/play-list.service */ "./src/app/audio-player/services/play-list.service.ts");
 /* harmony import */ var _services_player_state_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../services/player-state.service */ "./src/app/audio-player/services/player-state.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var _file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../file-upload/file-upload.component */ "./src/app/audio-player/file-upload/file-upload.component.ts");
+
+
 
 
 
 
 let AudioPlayerComponent = class AudioPlayerComponent {
-    constructor(playerStateService, playListService) {
+    constructor(playerStateService, playListService, dialog) {
+        this.dialog = dialog;
         this.playList = [];
         this.stateService = playerStateService;
         this.playListService = playListService;
+    }
+    openDialogfileUpload() {
+        const dialogRef = this.dialog.open(_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_5__["FileUploadComponent"]);
+        dialogRef.afterClosed().subscribe(result => {
+            let tempAudio;
+            tempAudio = result;
+            if (tempAudio) {
+                this.playListService.addAudio(tempAudio);
+            }
+            console.log(`Dialog result`, tempAudio);
+        });
     }
     playerPlay(index) {
         if (!index) {
@@ -607,7 +650,8 @@ let AudioPlayerComponent = class AudioPlayerComponent {
 };
 AudioPlayerComponent.ctorParameters = () => [
     { type: _services_player_state_service__WEBPACK_IMPORTED_MODULE_3__["PlayerStateService"] },
-    { type: _services_play_list_service__WEBPACK_IMPORTED_MODULE_2__["PlayListService"] }
+    { type: _services_play_list_service__WEBPACK_IMPORTED_MODULE_2__["PlayListService"] },
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialog"] }
 ];
 AudioPlayerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -616,6 +660,90 @@ AudioPlayerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./audio-player.component.scss */ "./src/app/audio-player/audio-player/audio-player.component.scss")).default]
     })
 ], AudioPlayerComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/audio-player/file-upload/file-upload.component.scss":
+/*!*********************************************************************!*\
+  !*** ./src/app/audio-player/file-upload/file-upload.component.scss ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("form > ul {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n\nmat-form-field.full_width {\n  width: 100%;\n}\n\nmat-spinner {\n  margin: auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3BhdWxtb3NxdWVyYS9qcy1wcm9qZWN0cy9hdWRpby1wbGF5ZXItbm9kZS1hbmd1bGFyL2FuZ3VsYXItcGxheWVyL3NyYy9hcHAvYXVkaW8tcGxheWVyL2ZpbGUtdXBsb2FkL2ZpbGUtdXBsb2FkLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9hdWRpby1wbGF5ZXIvZmlsZS11cGxvYWQvZmlsZS11cGxvYWQuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxnQkFBQTtFQUNBLFNBQUE7RUFDQSxVQUFBO0FDQ0Y7O0FERUE7RUFDRSxXQUFBO0FDQ0Y7O0FERUE7RUFDRSxZQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9hdWRpby1wbGF5ZXIvZmlsZS11cGxvYWQvZmlsZS11cGxvYWQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJmb3JtPnVsIHtcbiAgbGlzdC1zdHlsZTogbm9uZTtcbiAgbWFyZ2luOiAwO1xuICBwYWRkaW5nOiAwO1xufVxuXG5tYXQtZm9ybS1maWVsZC5mdWxsX3dpZHRoIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbm1hdC1zcGlubmVyIHtcbiAgbWFyZ2luOiBhdXRvO1xufVxuIiwiZm9ybSA+IHVsIHtcbiAgbGlzdC1zdHlsZTogbm9uZTtcbiAgbWFyZ2luOiAwO1xuICBwYWRkaW5nOiAwO1xufVxuXG5tYXQtZm9ybS1maWVsZC5mdWxsX3dpZHRoIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbm1hdC1zcGlubmVyIHtcbiAgbWFyZ2luOiBhdXRvO1xufSJdfQ== */");
+
+/***/ }),
+
+/***/ "./src/app/audio-player/file-upload/file-upload.component.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/audio-player/file-upload/file-upload.component.ts ***!
+  \*******************************************************************/
+/*! exports provided: FileUploadComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileUploadComponent", function() { return FileUploadComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+
+
+
+let FileUploadComponent = class FileUploadComponent {
+    constructor(renderer, dialogRef, data) {
+        this.renderer = renderer;
+        this.dialogRef = dialogRef;
+        this.data = data;
+        this.audio = {
+            sourceURL: '',
+            duration: 0,
+            audioTitle: '',
+            artist: '',
+            credits: ''
+        };
+    }
+    chooseFile() {
+        this.renderer.selectRootElement(this.inputFile.nativeElement).click();
+    }
+    fileUpdated() {
+        this.audio.sourceURL = this.renderer.selectRootElement(this.inputFile.nativeElement).files[0].name;
+    }
+    onSubmit(formValue) {
+        console.log('submit called');
+        this.loading = true;
+        console.log('Form content', formValue);
+        console.log(this.renderer.selectRootElement(this.inputFile.nativeElement).files[0]);
+        this.dialogRef.close(this.audio);
+    }
+    ngOnInit() {
+        this.loading = true;
+        setTimeout(() => {
+            this.loading = false;
+        }, 500);
+        console.log('Form Loaded');
+    }
+};
+FileUploadComponent.ctorParameters = () => [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer2"] },
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('inputFile', { static: false })
+], FileUploadComponent.prototype, "inputFile", void 0);
+FileUploadComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-file-upload',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./file-upload.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/audio-player/file-upload/file-upload.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./file-upload.component.scss */ "./src/app/audio-player/file-upload/file-upload.component.scss")).default]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], FileUploadComponent);
 
 
 
