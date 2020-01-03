@@ -15,7 +15,8 @@
           </mat-form-field>
           <input #inputFile hidden class="file" type="file" id="sourceURL"
                 [(ngModel)]="fileData" name="file" required
-                (ngModelChange)="fileUpdated()">
+                (ngModelChange)="fileUpdated()"
+                (change)="handleFileInput($event.target.files)">
         </li>
         <li>
           <mat-form-field class="full_width">

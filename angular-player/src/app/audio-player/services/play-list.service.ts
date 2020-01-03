@@ -1,8 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subject, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AudioElement } from './../model/model-interface';
+import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'Content-Type: audio/mpeg'
+  })
+};
 
 const staticPlayList: AudioElement[] = [
   {
@@ -71,7 +79,7 @@ export class PlayListService {
   playList: AudioElement[];
   playList$: BehaviorSubject<AudioElement[]>;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.playList$ = new BehaviorSubject<AudioElement[]>([]);
     this.updatePlayList(staticPlayList);
   }
@@ -92,6 +100,19 @@ export class PlayListService {
 
   getAudio(index: number) {
     return this.playList$[index];
+  }
+
+  postFile(fileToUpload: File): Observable<boolean> {
+    const endpoint = './audioupload';
+    const formData: FormData = new FormData();
+    console.log('File upload send');
+    formData.append('fileKey', fileToUpload, fileToUpload.name);
+    return this.http
+      .post(endpoint, formData, { headers: httpOptions.headers })
+      .pipe(map(() => {
+        console.log('File upload SUCESS');
+        return true;
+      }));
   }
 
 }

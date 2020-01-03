@@ -58,7 +58,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h2 mat-dialog-title [class]=\"'mat-h1'\">Audio Upload</h2>\n<p mat-subheader warn [class]=\"'center full_width'\">El archivo no se subirá al servidor.<br> Función en desarrollo.</p>\n<div *ngIf=\"loading\" [class]=\"'center'\"><mat-spinner></mat-spinner></div>\n<div [hidden]=\"loading\">\n  <form (ngSubmit)=\"onSubmit(audioUploadForm.form.value)\" #audioUploadForm=\"ngForm\">\n    <ul>\n      <mat-dialog-content>\n        <li>\n          <a mat-stroked-button (click)=\"chooseFile()\">\n            <mat-icon>folder</mat-icon> Select File\n          </a>\n          <mat-form-field>\n            <input matInput disabled  id=\"displaySourceURL\"\n                [(ngModel)]=\"audio.sourceURL\" name=\"displaySourceURL\">\n          </mat-form-field>\n          <input #inputFile hidden class=\"file\" type=\"file\" id=\"sourceURL\"\n                [(ngModel)]=\"fileData\" name=\"file\" required\n                (ngModelChange)=\"fileUpdated()\">\n        </li>\n        <li>\n          <mat-form-field class=\"full_width\">\n            <input matInput placeholder=\"Audio Title\" id=\"title\"\n                [(ngModel)]=\"audio.audioTitle\" name=\"title\" required>\n            <button mat-button matSuffix mat-icon-button aria-label=\"Clear\"\n              *ngIf=\"audio.audioTitle\"\n              (click)=\"audio.audioTitle=''\">\n              <mat-icon>close</mat-icon>\n            </button>\n          </mat-form-field>\n        </li>\n        <li>\n          <mat-form-field class=\"full_width\">\n            <input matInput placeholder=\"Artist name\" id=\"artist\"\n              [(ngModel)]=\"audio.artist\" name=\"artist\" required>\n            <button mat-button matSuffix mat-icon-button aria-label=\"Clear\"\n              *ngIf=\"audio.artist\"\n              (click)=\"audio.artist=''\">\n              <mat-icon>close</mat-icon>\n            </button>\n          </mat-form-field>\n        </li>\n        <li>\n          <mat-form-field class=\"full_width\">\n            <input matInput placeholder=\"Credits\" id=\"credits\"\n              [(ngModel)]=\"audio.credits\" name=\"credits\" required>\n            <button mat-button matSuffix mat-icon-button aria-label=\"Clear\"\n              *ngIf=\"audio.credits\"\n              (click)=\"audio.credits=''\">\n              <mat-icon>close</mat-icon>\n            </button>\n          </mat-form-field>\n        </li>\n      </mat-dialog-content>\n      <mat-dialog-actions align=\"end\">\n        <button mat-stroked-button class=\"btn btn-cancel\"\n        [mat-dialog-close]=false>\n          <mat-icon>cancel</mat-icon> Cancel\n        </button>\n        <button mat-stroked-button class=\"btn btn-success\" [disabled]=\"!audioUploadForm.form.valid\"\n        type=\"submit\">\n          <mat-icon>cloud_upload</mat-icon> Submit\n        </button>\n      </mat-dialog-actions>\n    </ul>\n  </form>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<h2 mat-dialog-title [class]=\"'mat-h1'\">Audio Upload</h2>\n<p mat-subheader warn [class]=\"'center full_width'\">El archivo no se subirá al servidor.<br> Función en desarrollo.</p>\n<div *ngIf=\"loading\" [class]=\"'center'\"><mat-spinner></mat-spinner></div>\n<div [hidden]=\"loading\">\n  <form (ngSubmit)=\"onSubmit(audioUploadForm.form.value)\" #audioUploadForm=\"ngForm\">\n    <ul>\n      <mat-dialog-content>\n        <li>\n          <a mat-stroked-button (click)=\"chooseFile()\">\n            <mat-icon>folder</mat-icon> Select File\n          </a>\n          <mat-form-field>\n            <input matInput disabled  id=\"displaySourceURL\"\n                [(ngModel)]=\"audio.sourceURL\" name=\"displaySourceURL\">\n          </mat-form-field>\n          <input #inputFile hidden class=\"file\" type=\"file\" id=\"sourceURL\"\n                [(ngModel)]=\"fileData\" name=\"file\" required\n                (ngModelChange)=\"fileUpdated()\"\n                (change)=\"handleFileInput($event.target.files)\">\n        </li>\n        <li>\n          <mat-form-field class=\"full_width\">\n            <input matInput placeholder=\"Audio Title\" id=\"title\"\n                [(ngModel)]=\"audio.audioTitle\" name=\"title\" required>\n            <button mat-button matSuffix mat-icon-button aria-label=\"Clear\"\n              *ngIf=\"audio.audioTitle\"\n              (click)=\"audio.audioTitle=''\">\n              <mat-icon>close</mat-icon>\n            </button>\n          </mat-form-field>\n        </li>\n        <li>\n          <mat-form-field class=\"full_width\">\n            <input matInput placeholder=\"Artist name\" id=\"artist\"\n              [(ngModel)]=\"audio.artist\" name=\"artist\" required>\n            <button mat-button matSuffix mat-icon-button aria-label=\"Clear\"\n              *ngIf=\"audio.artist\"\n              (click)=\"audio.artist=''\">\n              <mat-icon>close</mat-icon>\n            </button>\n          </mat-form-field>\n        </li>\n        <li>\n          <mat-form-field class=\"full_width\">\n            <input matInput placeholder=\"Credits\" id=\"credits\"\n              [(ngModel)]=\"audio.credits\" name=\"credits\" required>\n            <button mat-button matSuffix mat-icon-button aria-label=\"Clear\"\n              *ngIf=\"audio.credits\"\n              (click)=\"audio.credits=''\">\n              <mat-icon>close</mat-icon>\n            </button>\n          </mat-form-field>\n        </li>\n      </mat-dialog-content>\n      <mat-dialog-actions align=\"end\">\n        <button mat-stroked-button class=\"btn btn-cancel\"\n        [mat-dialog-close]=false>\n          <mat-icon>cancel</mat-icon> Cancel\n        </button>\n        <button mat-stroked-button class=\"btn btn-success\" [disabled]=\"!audioUploadForm.form.valid\"\n        type=\"submit\">\n          <mat-icon>cloud_upload</mat-icon> Submit\n        </button>\n      </mat-dialog-actions>\n    </ul>\n  </form>\n</div>\n");
 
 /***/ }),
 
@@ -409,14 +409,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _audio_player_audio_player_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./audio-player/audio-player.module */ "./src/app/audio-player/audio-player.module.ts");
-/* harmony import */ var _shared_material_material_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./shared/material/material.module */ "./src/app/shared/material/material.module.ts");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
-/* harmony import */ var _audio_player_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./audio-player/file-upload/file-upload.component */ "./src/app/audio-player/file-upload/file-upload.component.ts");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _audio_player_audio_player_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./audio-player/audio-player.module */ "./src/app/audio-player/audio-player.module.ts");
+/* harmony import */ var _audio_player_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./audio-player/file-upload/file-upload.component */ "./src/app/audio-player/file-upload/file-upload.component.ts");
+/* harmony import */ var _shared_material_material_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./shared/material/material.module */ "./src/app/shared/material/material.module.ts");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+
 
 
 
@@ -433,23 +435,24 @@ let AppModule = class AppModule {
 AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
         declarations: [
-            _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
-            _audio_player_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_8__["FileUploadComponent"]
+            _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
+            _audio_player_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_7__["FileUploadComponent"]
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
-            _app_routing_module__WEBPACK_IMPORTED_MODULE_3__["AppRoutingModule"],
-            _audio_player_audio_player_module__WEBPACK_IMPORTED_MODULE_5__["AudioPlayerModule"],
-            _shared_material_material_module__WEBPACK_IMPORTED_MODULE_6__["MaterialModule"],
-            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__["BrowserAnimationsModule"],
-            _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatDialogModule"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"]
+            _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
+            _audio_player_audio_player_module__WEBPACK_IMPORTED_MODULE_6__["AudioPlayerModule"],
+            _shared_material_material_module__WEBPACK_IMPORTED_MODULE_8__["MaterialModule"],
+            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_9__["BrowserAnimationsModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_10__["MatDialogModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"]
         ],
         exports: [
-            _shared_material_material_module__WEBPACK_IMPORTED_MODULE_6__["MaterialModule"]
+            _shared_material_material_module__WEBPACK_IMPORTED_MODULE_8__["MaterialModule"]
         ],
         providers: [],
-        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
+        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
     })
 ], AppModule);
 
@@ -691,14 +694,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var _services_play_list_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../services/play-list.service */ "./src/app/audio-player/services/play-list.service.ts");
+
 
 
 
 let FileUploadComponent = class FileUploadComponent {
-    constructor(renderer, dialogRef, data) {
+    constructor(playListService, renderer, dialogRef, data) {
         this.renderer = renderer;
         this.dialogRef = dialogRef;
         this.data = data;
+        this.fileToUpload = null;
         this.audio = {
             sourceURL: '',
             duration: 0,
@@ -706,6 +712,7 @@ let FileUploadComponent = class FileUploadComponent {
             artist: '',
             credits: ''
         };
+        this.playListService = playListService;
     }
     chooseFile() {
         this.renderer.selectRootElement(this.inputFile.nativeElement).click();
@@ -713,11 +720,22 @@ let FileUploadComponent = class FileUploadComponent {
     fileUpdated() {
         this.audio.sourceURL = this.renderer.selectRootElement(this.inputFile.nativeElement).files[0].name;
     }
+    handleFileInput(files) {
+        this.fileToUpload = files.item(0);
+    }
+    uploadFileToServer() {
+        this.playListService.postFile(this.fileToUpload).subscribe(data => {
+            // do something, if upload success
+            console.log('Upload Sucess');
+        }, error => {
+            console.log(error);
+        });
+    }
     onSubmit(formValue) {
-        console.log('submit called');
         this.loading = true;
         console.log('Form content', formValue);
         console.log(this.renderer.selectRootElement(this.inputFile.nativeElement).files[0]);
+        this.uploadFileToServer();
         this.dialogRef.close(this.audio);
     }
     ngOnInit() {
@@ -729,6 +747,7 @@ let FileUploadComponent = class FileUploadComponent {
     }
 };
 FileUploadComponent.ctorParameters = () => [
+    { type: _services_play_list_service__WEBPACK_IMPORTED_MODULE_3__["PlayListService"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer2"] },
     { type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
     { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] }
@@ -742,7 +761,7 @@ FileUploadComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./file-upload.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/audio-player/file-upload/file-upload.component.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./file-upload.component.scss */ "./src/app/audio-player/file-upload/file-upload.component.scss")).default]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
 ], FileUploadComponent);
 
 
@@ -955,9 +974,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 
 
 
+
+
+
+const httpOptions = {
+    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]({
+        'Content-Type': 'Content-Type: audio/mpeg'
+    })
+};
 const staticPlayList = [
     {
         sourceURL: './assets/bensound-allthat.mp3',
@@ -1017,7 +1046,8 @@ const staticPlayList = [
     }
 ];
 let PlayListService = class PlayListService {
-    constructor() {
+    constructor(http) {
+        this.http = http;
         this.playList$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
         this.updatePlayList(staticPlayList);
     }
@@ -1035,7 +1065,22 @@ let PlayListService = class PlayListService {
     getAudio(index) {
         return this.playList$[index];
     }
+    postFile(fileToUpload) {
+        const endpoint = './audioupload';
+        const formData = new FormData();
+        console.log('File upload send');
+        formData.append('fileKey', fileToUpload, fileToUpload.name);
+        return this.http
+            .post(endpoint, formData, { headers: httpOptions.headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(() => {
+            console.log('File upload SUCESS');
+            return true;
+        }));
+    }
 };
+PlayListService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"] }
+];
 PlayListService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
         providedIn: 'root'

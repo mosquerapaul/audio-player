@@ -26,6 +26,7 @@
   "homepage": "https://github.com/mosquerapaul/audio-player#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "multer": "^1.4.2",
     "normalize-port": "^1.0.0"
   }
 }
