@@ -24,11 +24,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 /*         Import de Controladores
 ****************************************/
+const checkAudioList = require('./controller/checkAudioList')
 
 
 /*         Resolución de rutas
 ****************************************/
-
+app.get('/checkPlayList', checkAudioList);
 
 /*         Rutas estáticas
 ****************************************/
